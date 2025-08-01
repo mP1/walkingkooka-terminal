@@ -1,0 +1,35 @@
+#
+# Ignore because junit is not translatable yet.
+#
+**/*Testing.*
+**/*Testing2.*
+
+#
+# server.*
+#
+# Not all HttpResponse implementations are supported in javascript.
+#
+**/AutoContentLengthHttpResponse*
+**/AutoGzipEncodingHttpResponse*
+**/BufferingHttpResponse*
+**/DefaultHeadersHttpResponse*
+**/HeadHttpResponse*
+**/HeaderScopeHttpResponse*
+**/HttpStatusCodeRequiredHeadersHttpResponse*
+**/IfNoneMatchAwareHttpResponse*
+**/LastModifiedAwareHttpResponse*
+**/MultiPartAwareHttpResponse*
+**/NonMultiPartAwareHttpResponse*
+**/NonMultiPartAwareBufferingHttpResponse*
+**/RangeAwareHttpResponse*
+**/RequiredHeadersHttpResponse*
+
+#
+# HttpServlet is not translatable.
+#
+**/HttpServlet*
+
+#
+# WebFile
+#
+**/FileSystemWebFile*
