@@ -29,11 +29,6 @@ public interface TerminalContextTesting<C extends TerminalContext> extends Conte
         );
     }
 
-    @Override
-    default C createContext() {
-        return null;
-    }
-
     @Override//
     default String typeNamePrefix() {
         return "";
