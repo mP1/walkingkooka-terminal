@@ -17,21 +17,11 @@
 
 package walkingkooka.terminal.expression.function;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.terminal.TerminalContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
-public final class TerminalExpressionEvaluationContexts implements PublicStaticHelper {
-
-    /**
-     * {@see FakeTerminalExpressionEvaluationContext}
-     */
-    public static TerminalExpressionEvaluationContext fake() {
-        return new FakeTerminalExpressionEvaluationContext();
-    }
-
-    /**
-     * Stop creation
-     */
-    private TerminalExpressionEvaluationContexts() {
-        throw new UnsupportedOperationException();
-    }
+/**
+ * A {@link ExpressionEvaluationContext} with added {@link TerminalContext} support.
+ */
+public interface TerminalExpressionEvaluationContext extends ExpressionEvaluationContext, TerminalContext {
 }

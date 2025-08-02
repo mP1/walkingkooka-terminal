@@ -17,21 +17,19 @@
 
 package walkingkooka.terminal.expression.function;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.terminal.TerminalContextTesting;
+import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
 
-public final class TerminalExpressionEvaluationContexts implements PublicStaticHelper {
+public interface TerminalExpressionEvaluationContextTesting<C extends TerminalExpressionEvaluationContext> extends ExpressionEvaluationContextTesting<C>,
+    TerminalContextTesting<C> {
 
-    /**
-     * {@see FakeTerminalExpressionEvaluationContext}
-     */
-    public static TerminalExpressionEvaluationContext fake() {
-        return new FakeTerminalExpressionEvaluationContext();
+    @Override//
+    default String typeNamePrefix() {
+        return "";
     }
 
-    /**
-     * Stop creation
-     */
-    private TerminalExpressionEvaluationContexts() {
-        throw new UnsupportedOperationException();
+    @Override//
+    default String typeNameSuffix() {
+        return TerminalExpressionEvaluationContext.class.getSimpleName();
     }
 }
