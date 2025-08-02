@@ -40,6 +40,13 @@ public final class TerminalExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see TerminalExpressionFunctionReadLine}
+     */
+    public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<String, C> readLine() {
+        return TerminalExpressionFunctionReadLine.instance();
+    }
+
+    /**
      * Stop creation
      */
     private TerminalExpressionFunctions() {
