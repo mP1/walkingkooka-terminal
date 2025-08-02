@@ -22,6 +22,11 @@ import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
 
 public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
 
+    @Override
+    public void testReadLineWithNegativeTimeoutFails() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testIsTerminalInteractive() {
         this.createContext()

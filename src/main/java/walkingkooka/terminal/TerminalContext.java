@@ -20,6 +20,8 @@ package walkingkooka.terminal;
 import walkingkooka.Context;
 import walkingkooka.text.printer.Printer;
 
+import java.util.Optional;
+
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
  */
@@ -33,5 +35,5 @@ public interface TerminalContext extends Context, Printer {
     /**
      * Read a line of text from the current terminal.
      */
-    String readLine();
+    Optional<String> readLine(long timeout);
 }

@@ -20,6 +20,8 @@ package walkingkooka.terminal;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
 import walkingkooka.terminal.expression.TerminalContextDelegator;
 
+import java.util.Optional;
+
 public final class TerminalContextDelegatorTest implements TerminalContextTesting<TestTerminalContextDelegator> {
 
     @Override
@@ -42,6 +44,14 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
         @Override
         public TerminalContext terminalContext() {
             return new FakeTerminalContext() {
+
+                @Override
+                public Optional<String> readLine(final long timeout) {
+                    if (timeout < 0) {
+                        throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
+                    }
+                    throw new UnsupportedOperationException();
+                }
 
                 @Override
                 public boolean isTerminalInteractive() {
