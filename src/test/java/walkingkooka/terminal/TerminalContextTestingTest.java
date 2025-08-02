@@ -24,11 +24,12 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
 
     @Test
     public void testIsTerminalInteractive() {
-        this.createTerminalContext()
+        this.createContext()
             .isTerminalInteractive();
     }
 
-    public TestTerminalContext createTerminalContext() {
+    @Override
+    public TestTerminalContext createContext() {
         return new TestTerminalContext();
     }
 
