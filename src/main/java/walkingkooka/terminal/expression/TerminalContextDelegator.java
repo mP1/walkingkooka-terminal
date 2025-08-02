@@ -21,6 +21,8 @@ import walkingkooka.terminal.TerminalContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.PrinterDelegator;
 
+import java.util.Optional;
+
 public interface TerminalContextDelegator extends TerminalContext, PrinterDelegator {
 
     @Override
@@ -30,9 +32,9 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
     }
 
     @Override
-    default String readLine() {
+    default Optional<String> readLine(final long timeout) {
         return this.terminalContext()
-            .readLine();
+            .readLine(timeout);
     }
 
     TerminalContext terminalContext();

@@ -19,6 +19,8 @@ package walkingkooka.terminal;
 
 import walkingkooka.text.printer.FakePrinter;
 
+import java.util.Optional;
+
 public class FakeTerminalContext extends FakePrinter implements TerminalContext {
 
     public FakeTerminalContext() {
@@ -31,7 +33,7 @@ public class FakeTerminalContext extends FakePrinter implements TerminalContext 
     }
 
     @Override
-    public String readLine() {
+    public Optional<String> readLine(final long timeout) {
         throw new UnsupportedOperationException();
     }
 }

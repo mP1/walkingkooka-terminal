@@ -20,6 +20,8 @@ package walkingkooka.terminal.expression.function;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
+import java.util.Optional;
+
 public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvaluationContext implements TerminalExpressionEvaluationContext {
 
     public FakeTerminalExpressionEvaluationContext() {
@@ -32,7 +34,7 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
-    public String readLine() {
+    public Optional<String> readLine(final long timeout) {
         throw new UnsupportedOperationException();
     }
 

@@ -18,12 +18,12 @@
 package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Optional;
 
 /**
  * A {@link TerminalContext} that reads and write to the System IN and OUT streams.
@@ -53,17 +53,20 @@ final class SystemTerminalContext implements TerminalContext {
     }
 
     @Override
-    public String readLine() {
+    public Optional<String> readLine(final long timeout) {
+        if (timeout < 0) {
+            throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
+        }
+
         String line;
 
         try {
             line = this.lineReader.readLine();
         } catch (final IOException ignore) {
-            line = "";
+            line = null;
         }
 
-        return CharSequences.nullToEmpty(line)
-            .toString();
+        return Optional.ofNullable(line);
     }
 
     private final BufferedReader lineReader;

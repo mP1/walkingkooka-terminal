@@ -17,9 +17,21 @@
 
 package walkingkooka.terminal;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C> {
+
+    @Test
+    default void testReadLineWithNegativeTimeoutFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createContext()
+                .readLine(-1)
+        );
+    }
 
     default void isTerminalInteractiveAndCheck(final C context,
                                                final boolean expected) {
