@@ -17,21 +17,21 @@
 
 package walkingkooka.terminal;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.Context;
+import walkingkooka.text.printer.Printer;
 
-public final class TerminalContexts implements PublicStaticHelper {
-
-    /**
-     * {@see FakeTerminalContext}
-     */
-    public static TerminalContext fake() {
-        return new FakeTerminalContext();
-    }
+/**
+ * A {@link Context} that provides some line-based interactivity, to read lines and print text.
+ */
+public interface TerminalContext extends Context, Printer {
 
     /**
-     * Stop creation
+     * May be used to test if a terminal is interactive accepting input from a user.
      */
-    private TerminalContexts() {
-        throw new UnsupportedOperationException();
-    }
+    boolean isTerminalInteractive();
+
+    /**
+     * Read a line of text from the current terminal.
+     */
+    String readLine();
 }

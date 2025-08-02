@@ -17,21 +17,21 @@
 
 package walkingkooka.terminal;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.text.printer.FakePrinter;
 
-public final class TerminalContexts implements PublicStaticHelper {
+public class FakeTerminalContext extends FakePrinter implements TerminalContext {
 
-    /**
-     * {@see FakeTerminalContext}
-     */
-    public static TerminalContext fake() {
-        return new FakeTerminalContext();
+    public FakeTerminalContext() {
+        super();
     }
 
-    /**
-     * Stop creation
-     */
-    private TerminalContexts() {
+    @Override
+    public boolean isTerminalInteractive() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String readLine() {
         throw new UnsupportedOperationException();
     }
 }
