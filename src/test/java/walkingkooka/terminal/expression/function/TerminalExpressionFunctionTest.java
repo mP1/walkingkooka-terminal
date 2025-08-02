@@ -17,25 +17,18 @@
 
 package walkingkooka.terminal.expression.function;
 
-import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
 
-/**
- * A collection of functions that require a {@link TerminalExpressionEvaluationContext}.
- */
-public final class TerminalExpressionFunctions implements PublicStaticHelper {
+public final class TerminalExpressionFunctionTest implements ClassTesting<TerminalExpressionFunction> {
 
-    /**
-     * {@see TerminalExpressionFunctionPrint}
-     */
-    public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Void, C> print() {
-        return TerminalExpressionFunctionPrint.instance();
+    @Override
+    public Class<TerminalExpressionFunction> type() {
+        return TerminalExpressionFunction.class;
     }
 
-    /**
-     * Stop creation
-     */
-    private TerminalExpressionFunctions() {
-        throw new UnsupportedOperationException();
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
