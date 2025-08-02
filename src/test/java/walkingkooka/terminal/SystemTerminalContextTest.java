@@ -17,30 +17,17 @@
 
 package walkingkooka.terminal;
 
-import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.reflect.PublicStaticHelper;
+public final class SystemTerminalContextTest implements TerminalContextTesting<SystemTerminalContext> {
 
-public final class TerminalContexts implements PublicStaticHelper {
-
-    /**
-     * {@see FakeTerminalContext}
-     */
-    public static TerminalContext fake() {
-        return new FakeTerminalContext();
-    }
-
-    /**
-     * {@see SystemTerminalContext}
-     */
-    @GwtIncompatible
-    public static TerminalContext system() {
+    @Override
+    public SystemTerminalContext createContext() {
         return SystemTerminalContext.INSTANCE;
     }
 
-    /**
-     * Stop creation
-     */
-    private TerminalContexts() {
-        throw new UnsupportedOperationException();
+    // class............................................................................................................
+
+    @Override
+    public Class<SystemTerminalContext> type() {
+        return SystemTerminalContext.class;
     }
 }
