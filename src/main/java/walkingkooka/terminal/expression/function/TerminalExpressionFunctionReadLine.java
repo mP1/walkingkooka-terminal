@@ -25,7 +25,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Reads a line from the {@link TerminalContext#readLine(long)}.
@@ -69,8 +68,7 @@ final class TerminalExpressionFunctionReadLine<C extends TerminalExpressionEvalu
 
         return context.readLine(
             TIMEOUT.get(parameters, 0)
-                .orElse(Optional.empty())
-                .orElse(DEFAULT_TIMEOUT)
+                .orElse(DEFAULT_TIMEOUT) // https://github.com/mP1/walkingkooka-tree/issues/947
         ).orElse(null);
     }
 
