@@ -21,10 +21,14 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.expression.TerminalContextDelegator;
@@ -39,6 +43,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -147,7 +152,8 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
 
     static class TestTerminalExpressionEvaluationContext implements TerminalExpressionEvaluationContext,
         ExpressionEvaluationContextDelegator,
-        TerminalContextDelegator {
+        TerminalContextDelegator,
+        EnvironmentContextDelegator {
 
         @Override
         public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
@@ -166,6 +172,32 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         @Override
         public TerminalContext terminalContext() {
             return TerminalContexts.system();
+        }
+
+        // EnvironmentContext...........................................................................................
+
+        @Override
+        public <T> TestTerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                               final T value) {
+            Objects.requireNonNull(name, "name");
+            Objects.requireNonNull(value, "value");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public LocalDateTime now() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public EnvironmentContext environmentContext() {
+            return EnvironmentContexts.empty(
+                LocalDateTime::now,
+                Optional.of(
+                    EmailAddress.parse("user@example.com")
+                )
+            );
         }
 
         // ExpressionEvaluationContextDelegator.........................................................................
