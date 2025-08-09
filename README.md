@@ -1,5 +1,12 @@
 # walkingkooka-terminal
-Defines some minimal types relating to a text-based terminal session
+
+Defines some minimal types relating to a text-based terminal session. This is intended to define the basic I/O
+operations,
+and not the semantics of how input text is interpreted, processed or ignored. However following the basic ideas of a
+unix shell, environment variables, will hold various important variables which are updated as necessary to remember some
+state.
+
+- A separate project supports SSH connections [TODO].
 
 ### [Functions](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 
