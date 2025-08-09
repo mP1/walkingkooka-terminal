@@ -17,11 +17,18 @@
 
 package walkingkooka.terminal.expression.function;
 
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 /**
  * A {@link ExpressionEvaluationContext} with added {@link TerminalContext} support.
  */
-public interface TerminalExpressionEvaluationContext extends ExpressionEvaluationContext, TerminalContext {
+public interface TerminalExpressionEvaluationContext extends ExpressionEvaluationContext, TerminalContext,
+    EnvironmentContext {
+
+    @Override
+    <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                final T value);
 }

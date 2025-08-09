@@ -17,11 +17,13 @@
 
 package walkingkooka.terminal.expression.function;
 
+import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.terminal.TerminalContextTesting;
 import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
 
 public interface TerminalExpressionEvaluationContextTesting<C extends TerminalExpressionEvaluationContext> extends ExpressionEvaluationContextTesting<C>,
-    TerminalContextTesting<C> {
+    TerminalContextTesting<C>,
+    EnvironmentContextTesting2<C> {
 
     @Override//
     default String typeNamePrefix() {
