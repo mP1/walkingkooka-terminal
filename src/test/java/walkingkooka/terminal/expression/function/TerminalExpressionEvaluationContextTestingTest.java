@@ -186,6 +186,13 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         }
 
         @Override
+        public TestTerminalExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+            Objects.requireNonNull(name, "name");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public LocalDateTime now() {
             throw new UnsupportedOperationException();
         }
