@@ -31,4 +31,7 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
     @Override
     <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                 final T value);
+
+    @Override
+    TerminalExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name);
 }

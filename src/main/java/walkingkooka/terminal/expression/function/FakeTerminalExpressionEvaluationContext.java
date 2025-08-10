@@ -80,6 +80,11 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
+    public TerminalExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
