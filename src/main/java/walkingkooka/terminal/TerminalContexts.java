@@ -19,6 +19,7 @@ package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.text.printer.Printer;
 
 public final class TerminalContexts implements PublicStaticHelper {
 
@@ -27,6 +28,13 @@ public final class TerminalContexts implements PublicStaticHelper {
      */
     public static TerminalContext fake() {
         return new FakeTerminalContext();
+    }
+
+    /**
+     * {@see PrinterTerminalContext}
+     */
+    public static TerminalContext printer(final Printer printer) {
+        return PrinterTerminalContext.with(printer);
     }
 
     /**
