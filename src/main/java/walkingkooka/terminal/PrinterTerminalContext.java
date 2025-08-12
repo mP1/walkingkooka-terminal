@@ -46,7 +46,10 @@ final class PrinterTerminalContext implements TerminalContext,
     }
 
     @Override
-    public Optional<String> readLine(long timeout) {
+    public Optional<String> readLine(final long timeout) {
+        if (timeout < 0) {
+            throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
+        }
         return Optional.empty();
     }
 
