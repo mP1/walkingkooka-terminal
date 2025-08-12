@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link TerminalContext} that prints to the the given {@link Printer} but attempts to read a line will always
+ * A {@link TerminalContext} that prints to the given {@link Printer} but attempts to read a line will always
  * immediately fail.
  */
 final class PrinterTerminalContext implements TerminalContext,
