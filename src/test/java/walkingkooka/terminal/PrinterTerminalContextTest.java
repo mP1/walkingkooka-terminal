@@ -35,11 +35,6 @@ public final class PrinterTerminalContextTest implements TerminalContextTesting<
     }
 
     @Override
-    public void testReadLineWithNegativeTimeoutFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public PrinterTerminalContext createContext() {
         return PrinterTerminalContext.with(
             Printers.sysOut()
