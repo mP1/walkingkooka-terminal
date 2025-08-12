@@ -15,9 +15,8 @@
  *
  */
 
-package walkingkooka.terminal.expression;
+package walkingkooka.terminal;
 
-import walkingkooka.terminal.TerminalContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.PrinterDelegator;
 

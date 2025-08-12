@@ -18,7 +18,6 @@
 package walkingkooka.terminal;
 
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
-import walkingkooka.terminal.expression.TerminalContextDelegator;
 
 import java.util.Optional;
 

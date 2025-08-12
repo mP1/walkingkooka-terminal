@@ -30,6 +30,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
+import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTestingTest.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
