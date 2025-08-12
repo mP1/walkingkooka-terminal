@@ -21,7 +21,21 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.printer.Printer;
 
+import java.util.Optional;
+import java.util.function.Function;
+
 public final class TerminalContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicTerminalContext}
+     */
+    public static TerminalContext basic(final Function<Long, Optional<String>> input,
+                                        final Printer printer) {
+        return BasicTerminalContext.with(
+            input,
+            printer
+        );
+    }
 
     /**
      * {@see FakeTerminalContext}
