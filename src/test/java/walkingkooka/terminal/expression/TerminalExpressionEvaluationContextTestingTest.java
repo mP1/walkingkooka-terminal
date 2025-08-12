@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.terminal.expression.function;
+package walkingkooka.terminal.expression;
 
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -31,8 +31,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContexts;
-import walkingkooka.terminal.expression.TerminalContextDelegator;
-import walkingkooka.terminal.expression.function.TerminalExpressionEvaluationContextTestingTest.TestTerminalExpressionEvaluationContext;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTestingTest.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
