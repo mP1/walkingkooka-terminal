@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.terminal.expression.function;
+package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;

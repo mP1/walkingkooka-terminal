@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.terminal.expression.function;
+package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
