@@ -77,7 +77,7 @@ final class TerminalExpressionFunctionReadLine<C extends TerminalExpressionEvalu
     final static Long DEFAULT_TIMEOUT = 0L;
 
     @Override
-    public boolean isPure(ExpressionPurityContext expressionPurityContext) {
+    public boolean isPure(final ExpressionPurityContext expressionPurityContext) {
         return false;
     }
 }
