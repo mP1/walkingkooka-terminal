@@ -163,6 +163,12 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
+        public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
+            Objects.requireNonNull(locale, "locale");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public String toString() {
             return this.getClass().getSimpleName();
         }
@@ -247,6 +253,13 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 ),
                 LocaleContexts.jre(Locale.ENGLISH)
             );
+        }
+
+        // LocaleContext....................................................................................................
+
+        @Override
+        public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
+            throw new UnsupportedOperationException();
         }
     }
 

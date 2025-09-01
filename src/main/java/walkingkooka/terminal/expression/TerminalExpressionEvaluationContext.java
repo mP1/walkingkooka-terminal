@@ -22,6 +22,8 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
+import java.util.Locale;
+
 /**
  * A {@link ExpressionEvaluationContext} with added {@link TerminalContext} support.
  */
@@ -34,4 +36,7 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
 
     @Override
     TerminalExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name);
+
+    @Override
+    TerminalExpressionEvaluationContext setLocale(final Locale locale);
 }

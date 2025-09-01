@@ -22,6 +22,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -86,6 +87,13 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
 
     @Override
     public Optional<EmailAddress> user() {
+        throw new UnsupportedOperationException();
+    }
+
+    // LocaleContext....................................................................................................
+
+    @Override
+    public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 }
