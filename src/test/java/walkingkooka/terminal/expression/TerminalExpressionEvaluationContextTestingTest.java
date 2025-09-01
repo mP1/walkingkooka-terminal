@@ -210,6 +210,12 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         // ExpressionEvaluationContextDelegator.........................................................................
 
         @Override
+        public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
+            Objects.requireNonNull(locale, "locale");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
             final Locale locale = Locale.ENGLISH;
 
