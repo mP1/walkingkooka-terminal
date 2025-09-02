@@ -177,6 +177,11 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         // EnvironmentContext...........................................................................................
 
         @Override
+        public Locale locale() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public <T> TestTerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                                final T value) {
             Objects.requireNonNull(name, "name");
@@ -200,6 +205,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                Locale.FRANCE,
                 LocalDateTime::now,
                 Optional.of(
                     EmailAddress.parse("user@example.com")

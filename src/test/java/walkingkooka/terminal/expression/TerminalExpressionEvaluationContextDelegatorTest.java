@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal.expression;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
@@ -48,6 +49,16 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
+
+    private final static Locale LOCALE = Locale.ENGLISH;
+
+    @Test
+    public void testLocale() {
+        this.localeAndCheck(
+            this.createContext(),
+            LOCALE
+        );
+    }
 
     @Override
     public void testEvaluateExpressionUnknownFunctionNameFails() {
@@ -187,6 +198,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
+        public Locale locale() {
+            return LOCALE;
+        }
+
+        @Override
         public <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                            final T value) {
             this.environmentContext().setEnvironmentValue(name, value);
@@ -202,6 +218,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                LOCALE,
                 LocalDateTime::now,
                 Optional.empty()
             );
