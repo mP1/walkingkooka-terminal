@@ -26,6 +26,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 public interface TerminalExpressionEvaluationContextDelegator extends TerminalExpressionEvaluationContext,
     ExpressionEvaluationContextDelegator,
@@ -35,6 +36,12 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     TerminalExpressionEvaluationContext terminalExpressionEvaluationContext();
 
     // EnvironmentContextDelegator......................................................................................
+
+    @Override
+    default Locale locale() {
+        return this.terminalExpressionEvaluationContext()
+            .locale();
+    }
 
     @Override
     default <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
