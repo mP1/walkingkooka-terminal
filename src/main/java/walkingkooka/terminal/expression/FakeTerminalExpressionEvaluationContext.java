@@ -65,6 +65,11 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     // EnvironmentContext...............................................................................................
 
     @Override
+    public TerminalExpressionEvaluationContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
         throw new UnsupportedOperationException();
     }

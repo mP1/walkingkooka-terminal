@@ -174,6 +174,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
+        public TerminalExpressionEvaluationContext cloneEnvironment() {
+            return this;
+        }
+
+        @Override
         public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
             throw new UnsupportedOperationException();
@@ -191,6 +196,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         EnvironmentContextDelegator {
 
         // EnvironmentContextDelegator..................................................................................
+
+        @Override
+        public TerminalExpressionEvaluationContext cloneEnvironment() {
+            return this;
+        }
 
         @Override
         public LocalDateTime now() {
