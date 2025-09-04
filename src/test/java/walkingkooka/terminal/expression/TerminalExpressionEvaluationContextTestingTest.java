@@ -177,6 +177,11 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         // EnvironmentContext...........................................................................................
 
         @Override
+        public TerminalExpressionEvaluationContext cloneEnvironment() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public Locale locale() {
             throw new UnsupportedOperationException();
         }
