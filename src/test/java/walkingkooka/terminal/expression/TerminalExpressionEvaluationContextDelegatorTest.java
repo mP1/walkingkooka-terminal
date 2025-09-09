@@ -275,6 +275,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     Converters.EXCEL_1904_DATE_SYSTEM_OFFSET,
+                    ',', // valueSeparator
                     Converters.simple(),
                     DateTimeContexts.fake(),
                     DECIMAL_NUMBER_CONTEXT

@@ -251,6 +251,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
+                        ',', // valueSeparator
                         Converters.simple(),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(
