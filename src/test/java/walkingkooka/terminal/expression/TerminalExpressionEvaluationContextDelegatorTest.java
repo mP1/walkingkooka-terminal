@@ -273,6 +273,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.INSENSITIVE,
                 ConverterContexts.basic(
+                    false, // canNumbersHaveGroupSeparator
                     Converters.EXCEL_1904_DATE_SYSTEM_OFFSET,
                     Converters.simple(),
                     DateTimeContexts.fake(),

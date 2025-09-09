@@ -249,6 +249,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                 ExpressionNumberConverterContexts.basic(
                     Converters.simple(),
                     ConverterContexts.basic(
+                        false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
                         Converters.simple(),
                         DateTimeContexts.basic(
