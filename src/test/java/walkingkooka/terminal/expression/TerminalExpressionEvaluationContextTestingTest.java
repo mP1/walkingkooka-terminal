@@ -177,6 +177,12 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         // EnvironmentContext...........................................................................................
 
         @Override
+        public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+            Objects.requireNonNull(user);
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public TerminalExpressionEvaluationContext cloneEnvironment() {
             throw new UnsupportedOperationException();
         }

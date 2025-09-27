@@ -95,6 +95,11 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+        throw new UnsupportedOperationException();
+    }
+
     // LocaleContext....................................................................................................
 
     @Override

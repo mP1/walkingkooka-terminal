@@ -19,10 +19,12 @@ package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * A {@link ExpressionEvaluationContext} with added {@link TerminalContext} support.
@@ -42,4 +44,7 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
 
     @Override
     TerminalExpressionEvaluationContext setLocale(final Locale locale);
+
+    @Override
+    TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user);
 }

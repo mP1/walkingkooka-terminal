@@ -28,6 +28,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.terminal.TerminalContexts;
@@ -185,6 +186,12 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
+        public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+            Objects.requireNonNull(user);
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public String toString() {
             return this.getClass().getSimpleName();
         }
@@ -196,6 +203,12 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         EnvironmentContextDelegator {
 
         // EnvironmentContextDelegator..................................................................................
+
+        @Override
+        public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+            Objects.requireNonNull(user);
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public TerminalExpressionEvaluationContext cloneEnvironment() {
