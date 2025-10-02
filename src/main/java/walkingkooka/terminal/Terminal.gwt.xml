@@ -20,6 +20,7 @@
     <inherits name="walkingkooka.j2cl.java.util.locale.Locale"/>
 
     <inherits name="walkingkooka.environment.Environment"/>
+    <inherits name="walkingkooka.net.Net"/>
     <inherits name="walkingkooka.text.printer.Printer"/>
     <source path=""/>
 </module>
