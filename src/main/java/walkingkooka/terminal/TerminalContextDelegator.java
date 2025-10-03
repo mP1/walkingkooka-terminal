@@ -40,6 +40,7 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
 
     // PrinterDelegator.................................................................................................
 
+    @Override
     default Printer printer() {
         return this.terminalContext();
     }
