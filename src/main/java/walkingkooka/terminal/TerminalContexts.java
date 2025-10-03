@@ -29,9 +29,11 @@ public final class TerminalContexts implements PublicStaticHelper {
     /**
      * {@see BasicTerminalContext}
      */
-    public static TerminalContext basic(final Function<Long, Optional<String>> input,
+    public static TerminalContext basic(final TerminalId terminalId,
+                                        final Function<Long, Optional<String>> input,
                                         final Printer printer) {
         return BasicTerminalContext.with(
+            terminalId,
             input,
             printer
         );
@@ -47,16 +49,20 @@ public final class TerminalContexts implements PublicStaticHelper {
     /**
      * {@see PrinterTerminalContext}
      */
-    public static TerminalContext printer(final Printer printer) {
-        return PrinterTerminalContext.with(printer);
+    public static TerminalContext printer(final TerminalId terminalId,
+                                          final Printer printer) {
+        return PrinterTerminalContext.with(
+            terminalId,
+            printer
+        );
     }
 
     /**
      * {@see SystemTerminalContext}
      */
     @GwtIncompatible
-    public static TerminalContext system() {
-        return SystemTerminalContext.INSTANCE;
+    public static TerminalContext system(final TerminalId terminalId) {
+        return SystemTerminalContext.with(terminalId);
     }
 
     /**

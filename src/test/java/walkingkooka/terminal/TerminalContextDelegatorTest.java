@@ -17,11 +17,22 @@
 
 package walkingkooka.terminal;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
 
 import java.util.Optional;
 
 public final class TerminalContextDelegatorTest implements TerminalContextTesting<TestTerminalContextDelegator> {
+
+    private final static TerminalId TERMINAL_ID = TerminalId.parse("1");
+
+    @Test
+    public void testTerminalId() {
+        this.terminalIdAndCheck(
+            new TestTerminalContextDelegator(),
+            TERMINAL_ID
+        );
+    }
 
     @Override
     public TestTerminalContextDelegator createContext() {
@@ -43,6 +54,11 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
         @Override
         public TerminalContext terminalContext() {
             return new FakeTerminalContext() {
+
+                @Override
+                public TerminalId terminalId() {
+                    return TERMINAL_ID;
+                }
 
                 @Override
                 public Optional<String> readLine(final long timeout) {

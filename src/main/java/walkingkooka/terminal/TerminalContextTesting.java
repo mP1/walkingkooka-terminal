@@ -24,6 +24,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C> {
 
+    default void terminalIdAndCheck(final C context,
+                                    final TerminalId expected) {
+        this.checkEquals(
+            expected,
+            context.terminalId(),
+            context::toString
+        );
+    }
+
     @Test
     default void testReadLineWithNegativeTimeoutFails() {
         assertThrows(

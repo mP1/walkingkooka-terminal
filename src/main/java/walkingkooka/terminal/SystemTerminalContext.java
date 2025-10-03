@@ -23,6 +23,7 @@ import walkingkooka.text.LineEnding;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -32,11 +33,16 @@ import java.util.Optional;
 final class SystemTerminalContext implements TerminalContext {
 
     /**
-     * Singleton
+     * Factory that creates a new {@link SystemTerminalContext}.
      */
-    final static SystemTerminalContext INSTANCE = new SystemTerminalContext();
+    static SystemTerminalContext with(final TerminalId terminalId) {
+        return new SystemTerminalContext(
+            Objects.requireNonNull(terminalId, "terminalId")
+        );
+    }
 
-    private SystemTerminalContext() {
+    private SystemTerminalContext(final TerminalId terminalId) {
+        this.terminalId = terminalId;
         this.lineReader = new BufferedReader(
             new InputStreamReader(
                 System.in
@@ -46,6 +52,13 @@ final class SystemTerminalContext implements TerminalContext {
             System.lineSeparator()
         );
     }
+
+    @Override
+    public TerminalId terminalId() {
+        return this.terminalId;
+    }
+
+    private final TerminalId terminalId;
 
     @Override
     public boolean isTerminalInteractive() {
@@ -97,6 +110,6 @@ final class SystemTerminalContext implements TerminalContext {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName();
+        return this.terminalId().toString();
     }
 }

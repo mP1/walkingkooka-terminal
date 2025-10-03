@@ -28,6 +28,11 @@ import java.util.Optional;
 public interface TerminalContext extends Context, Printer {
 
     /**
+     * Returns the {@link TerminalId} identifying this session.
+     */
+    TerminalId terminalId();
+
+    /**
      * May be used to test if a terminal is interactive accepting input from a user.
      */
     boolean isTerminalInteractive();
