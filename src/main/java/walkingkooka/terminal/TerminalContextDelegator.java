@@ -25,6 +25,12 @@ import java.util.Optional;
 public interface TerminalContextDelegator extends TerminalContext, PrinterDelegator {
 
     @Override
+    default TerminalId terminalId() {
+        return this.terminalContext()
+            .terminalId();
+    }
+
+    @Override
     default boolean isTerminalInteractive() {
         return this.terminalContext()
             .isTerminalInteractive();

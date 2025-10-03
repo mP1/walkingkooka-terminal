@@ -32,6 +32,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.terminal.TerminalContexts;
+import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTestingTest.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -171,7 +172,9 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
 
         @Override
         public TerminalContext terminalContext() {
-            return TerminalContexts.system();
+            return TerminalContexts.system(
+                TerminalId.with(1)
+            );
         }
 
         // EnvironmentContext...........................................................................................

@@ -19,6 +19,7 @@ package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.terminal.TerminalId;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
@@ -30,6 +31,11 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
 
     public FakeTerminalExpressionEvaluationContext() {
         super();
+    }
+
+    @Override
+    public TerminalId terminalId() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

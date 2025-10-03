@@ -32,6 +32,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.terminal.TerminalContexts;
+import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextDelegatorTest.TestTerminalExpressionEvaluationContextDelegator;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
@@ -252,6 +253,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public TerminalContext terminalContext() {
             return TerminalContexts.printer(
+                TerminalId.with(1),
                 Printers.sink(LineEnding.NONE)
             );
         }

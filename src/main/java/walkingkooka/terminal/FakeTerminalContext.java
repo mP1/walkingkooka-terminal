@@ -28,6 +28,11 @@ public class FakeTerminalContext extends FakePrinter implements TerminalContext 
     }
 
     @Override
+    public TerminalId terminalId() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean isTerminalInteractive() {
         throw new UnsupportedOperationException();
     }

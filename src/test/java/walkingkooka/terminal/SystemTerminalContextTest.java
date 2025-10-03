@@ -17,11 +17,27 @@
 
 package walkingkooka.terminal;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class SystemTerminalContextTest implements TerminalContextTesting<SystemTerminalContext> {
+
+    private final TerminalId TERMINAL_ID = TerminalId.parse("1");
+
+    @Test
+    public void testWithNullTerminalIdFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SystemTerminalContext.with(
+                null
+            )
+        );
+    }
 
     @Override
     public SystemTerminalContext createContext() {
-        return SystemTerminalContext.INSTANCE;
+        return SystemTerminalContext.with(TERMINAL_ID);
     }
 
     // class............................................................................................................

@@ -30,19 +30,30 @@ import java.util.function.Function;
 final class BasicTerminalContext implements TerminalContext,
     PrinterDelegator {
 
-    static BasicTerminalContext with(final Function<Long, Optional<String>> lineReader,
+    static BasicTerminalContext with(final TerminalId terminalId,
+                                     final Function<Long, Optional<String>> lineReader,
                                      final Printer printer) {
         return new BasicTerminalContext(
+            Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(lineReader, "lineReader"),
             Objects.requireNonNull(printer, "printer")
         );
     }
 
-    private BasicTerminalContext(final Function<Long, Optional<String>> lineReader,
+    private BasicTerminalContext(final TerminalId terminalId,
+                                 Function<Long, Optional<String>> lineReader,
                                  final Printer printer) {
+        this.terminalId = terminalId;
         this.lineReader = lineReader;
         this.printer = printer;
     }
+
+    @Override
+    public TerminalId terminalId() {
+        return this.terminalId;
+    }
+
+    private final TerminalId terminalId;
 
     @Override
     public boolean isTerminalInteractive() {
@@ -69,6 +80,6 @@ final class BasicTerminalContext implements TerminalContext,
 
     @Override
     public String toString() {
-        return "lineReader: " + this.lineReader + " printer: " + this.printer;
+        return this.terminalId + " lineReader: " + this.lineReader + " printer: " + this.printer;
     }
 }

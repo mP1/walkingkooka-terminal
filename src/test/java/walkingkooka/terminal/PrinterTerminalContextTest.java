@@ -26,17 +26,34 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class PrinterTerminalContextTest implements TerminalContextTesting<PrinterTerminalContext>,
     ToStringTesting<PrinterTerminalContext> {
 
+    private final TerminalId TERMINAL_ID = TerminalId.parse("1");
+
+    @Test
+    public void testWithNullTerminalIdFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> PrinterTerminalContext.with(
+                null,
+                Printers.fake()
+            )
+        );
+    }
+
     @Test
     public void testWithNullPrinterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> PrinterTerminalContext.with(null)
+            () -> PrinterTerminalContext.with(
+                TERMINAL_ID,
+                null
+            )
         );
     }
 
     @Override
     public PrinterTerminalContext createContext() {
         return PrinterTerminalContext.with(
+            TERMINAL_ID,
             Printers.sysOut()
         );
     }
@@ -47,7 +64,7 @@ public final class PrinterTerminalContextTest implements TerminalContextTesting<
     public void testToString() {
         this.toStringAndCheck(
             this.createContext(),
-            "PrinterTerminalContext printer: " + Printers.sysOut()
+            TERMINAL_ID + " " + Printers.sysOut()
         );
     }
 

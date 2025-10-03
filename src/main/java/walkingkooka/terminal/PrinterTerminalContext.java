@@ -30,15 +30,26 @@ import java.util.Optional;
 final class PrinterTerminalContext implements TerminalContext,
     PrinterDelegator {
 
-    static PrinterTerminalContext with(final Printer printer) {
+    static PrinterTerminalContext with(final TerminalId terminalId,
+                                       final Printer printer) {
         return new PrinterTerminalContext(
+            Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(printer, "printer")
         );
     }
 
-    private PrinterTerminalContext(final Printer printer) {
+    private PrinterTerminalContext(final TerminalId terminalId,
+                                   final Printer printer) {
+        this.terminalId = terminalId;
         this.printer = printer;
     }
+
+    @Override
+    public TerminalId terminalId() {
+        return this.terminalId;
+    }
+
+    private final TerminalId terminalId;
 
     @Override
     public boolean isTerminalInteractive() {
@@ -66,6 +77,6 @@ final class PrinterTerminalContext implements TerminalContext,
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + " printer: " + this.printer;
+        return this.terminalId + " " + this.printer;
     }
 }

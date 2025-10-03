@@ -29,6 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicTerminalContextTest implements TerminalContextTesting<BasicTerminalContext>,
     ToStringTesting<BasicTerminalContext> {
 
+    private final static TerminalId TERMINAL_ID = TerminalId.parse("123");
+
     private final static Function<Long, Optional<String>> LINE_READER = (timeout) -> {
         if (timeout < 0) {
             throw new IllegalArgumentException("timeout");
@@ -37,10 +39,23 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     };
 
     @Test
+    public void testWithNullTerminalIdFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicTerminalContext.with(
+                null,
+                LINE_READER,
+                Printers.fake()
+            )
+        );
+    }
+
+    @Test
     public void testWithNullLineReaderFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicTerminalContext.with(
+                TERMINAL_ID,
                 null,
                 Printers.fake()
             )
@@ -52,6 +67,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
         assertThrows(
             NullPointerException.class,
             () -> BasicTerminalContext.with(
+                TERMINAL_ID,
                 LINE_READER,
                 null
             )
@@ -61,6 +77,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     @Override
     public BasicTerminalContext createContext() {
         return BasicTerminalContext.with(
+            TERMINAL_ID,
             LINE_READER,
             Printers.sysOut()
         );
@@ -72,7 +89,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     public void testToString() {
         this.toStringAndCheck(
             this.createContext(),
-            "lineReader: " + LINE_READER + " printer: " + Printers.sysOut()
+            TERMINAL_ID + " lineReader: " + LINE_READER + " printer: " + Printers.sysOut()
         );
     }
 
