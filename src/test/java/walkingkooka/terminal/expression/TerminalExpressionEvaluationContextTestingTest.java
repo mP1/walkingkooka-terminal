@@ -171,6 +171,11 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         // TerminalContextDelegator.....................................................................................
 
         @Override
+        public TerminalExpressionEvaluationContext quitTerminal() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public TerminalContext terminalContext() {
             return TerminalContexts.system(
                 TerminalId.with(1)

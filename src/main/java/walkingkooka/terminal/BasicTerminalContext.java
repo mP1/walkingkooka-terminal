@@ -19,6 +19,7 @@ package walkingkooka.terminal;
 
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.PrinterDelegator;
+import walkingkooka.util.OpenChecker;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -46,6 +47,11 @@ final class BasicTerminalContext implements TerminalContext,
         this.terminalId = terminalId;
         this.lineReader = lineReader;
         this.printer = printer;
+
+        this.openChecker = OpenChecker.with(
+            "Terminal closed",
+            (String message) -> new IllegalStateException(message)
+        );
     }
 
     @Override
@@ -62,15 +68,26 @@ final class BasicTerminalContext implements TerminalContext,
 
     @Override
     public Optional<String> readLine(final long timeout) {
+        this.openChecker.check();
+
         return this.lineReader.apply(timeout);
     }
 
     private final Function<Long, Optional<String>> lineReader;
 
+    @Override
+    public TerminalContext quitTerminal() {
+        this.openChecker.close();
+        return this;
+    }
+
+    private final OpenChecker<IllegalStateException> openChecker;
+
     // PrinterDelegator.................................................................................................
 
     @Override
     public Printer printer() {
+        this.openChecker.check();
         return this.printer;
     }
 

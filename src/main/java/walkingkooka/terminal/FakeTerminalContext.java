@@ -41,4 +41,9 @@ public class FakeTerminalContext extends FakePrinter implements TerminalContext 
     public Optional<String> readLine(final long timeout) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public TerminalContext quitTerminal() {
+        throw new UnsupportedOperationException();
+    }
 }

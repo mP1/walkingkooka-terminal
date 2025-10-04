@@ -19,6 +19,7 @@ package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.text.LineEnding;
+import walkingkooka.util.OpenChecker;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,6 +52,11 @@ final class SystemTerminalContext implements TerminalContext {
         this.lineEnding = LineEnding.from(
             System.lineSeparator()
         );
+
+        this.openChecker = OpenChecker.with(
+            "Terminal closed",
+            (String message) -> new IllegalStateException(message)
+        );
     }
 
     @Override
@@ -71,6 +77,8 @@ final class SystemTerminalContext implements TerminalContext {
             throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
         }
 
+        this.openChecker.check();
+
         String line;
 
         try {
@@ -86,6 +94,8 @@ final class SystemTerminalContext implements TerminalContext {
 
     @Override
     public void print(final CharSequence charSequence) {
+        this.openChecker.check();
+
         System.out.print(charSequence);
     }
 
@@ -98,6 +108,8 @@ final class SystemTerminalContext implements TerminalContext {
 
     @Override
     public void flush() {
+        this.openChecker.check();
+
         System.out.flush();
     }
 
@@ -105,6 +117,14 @@ final class SystemTerminalContext implements TerminalContext {
     public void close() {
         // NOP
     }
+
+    @Override
+    public TerminalContext quitTerminal() {
+        this.openChecker.close();
+        return this;
+    }
+
+    private final OpenChecker<IllegalStateException> openChecker;
 
     // Object...........................................................................................................
 
