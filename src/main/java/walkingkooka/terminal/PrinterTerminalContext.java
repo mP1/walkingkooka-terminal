@@ -64,6 +64,11 @@ final class PrinterTerminalContext implements TerminalContext,
         return Optional.empty();
     }
 
+    @Override
+    public TerminalContext quitTerminal() {
+        return this;
+    }
+
     // PrinterDelegator.................................................................................................
 
     @Override

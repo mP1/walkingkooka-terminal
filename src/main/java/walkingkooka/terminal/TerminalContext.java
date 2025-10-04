@@ -41,4 +41,9 @@ public interface TerminalContext extends Context, Printer {
      * Read a line of text from the current terminal.
      */
     Optional<String> readLine(long timeout);
+
+    /**
+     * Used to programmatically quite or close this terminal session.
+     */
+    TerminalContext quitTerminal();
 }

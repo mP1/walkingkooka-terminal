@@ -42,6 +42,12 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
             .readLine(timeout);
     }
 
+    @Override
+    default TerminalContext quitTerminal() {
+        return this.terminalContext()
+            .quitTerminal();
+    }
+
     TerminalContext terminalContext();
 
     // PrinterDelegator.................................................................................................
