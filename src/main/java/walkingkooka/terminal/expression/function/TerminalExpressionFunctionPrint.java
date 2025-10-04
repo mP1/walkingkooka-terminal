@@ -18,6 +18,7 @@
 package walkingkooka.terminal.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -47,7 +48,7 @@ final class TerminalExpressionFunctionPrint<C extends TerminalExpressionEvaluati
         return PARAMETERS;
     }
 
-    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = List.of(TEXT);
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(TEXT);
 
     @Override
     public Class<Void> returnType() {
