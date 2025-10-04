@@ -41,6 +41,13 @@ public final class TerminalExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see TerminalExpressionFunctionQuit}
+     */
+    public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Void, C> quit() {
+        return TerminalExpressionFunctionQuit.instance();
+    }
+
+    /**
      * {@see TerminalExpressionFunctionReadLine}
      */
     public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<String, C> readLine() {
