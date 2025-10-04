@@ -14,4 +14,5 @@ Functions that will be useful within a terminal session
 
 - [print](https://github.com/mP1/walkingkooka-terminal/tree/master/src/main/java/walkingkooka/terminal/expression/function/TerminalExpressionFunctionPrint.java)
 - [println](https://github.com/mP1/walkingkooka-terminal/tree/master/src/main/java/walkingkooka/terminal/expression/function/TerminalExpressionFunctionPrintln.java)
+- [quit](https://github.com/mP1/walkingkooka-terminal/tree/master/src/main/java/walkingkooka/terminal/expression/function/TerminalExpressionFunctionQuit.java)
 - [readLine](https://github.com/mP1/walkingkooka-terminal/tree/master/src/main/java/walkingkooka/terminal/expression/function/TerminalExpressionFunctionReadLine.java)
