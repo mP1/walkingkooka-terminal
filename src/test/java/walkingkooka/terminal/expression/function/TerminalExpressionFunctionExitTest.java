@@ -34,7 +34,7 @@ public final class TerminalExpressionFunctionExitTest implements ExpressionFunct
         final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
 
             @Override
-            public TerminalExpressionEvaluationContext quitTerminal() {
+            public TerminalExpressionEvaluationContext exitTerminal() {
                 TerminalExpressionFunctionExitTest.this.quit = true;
                 return this;
             }

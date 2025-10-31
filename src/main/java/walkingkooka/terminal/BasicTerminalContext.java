@@ -76,7 +76,7 @@ final class BasicTerminalContext implements TerminalContext,
     private final Function<Long, Optional<String>> lineReader;
 
     @Override
-    public TerminalContext quitTerminal() {
+    public TerminalContext exitTerminal() {
         this.openChecker.close();
         return this;
     }

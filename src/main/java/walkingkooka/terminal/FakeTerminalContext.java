@@ -43,7 +43,7 @@ public class FakeTerminalContext extends FakePrinter implements TerminalContext 
     }
 
     @Override
-    public TerminalContext quitTerminal() {
+    public TerminalContext exitTerminal() {
         throw new UnsupportedOperationException();
     }
 }

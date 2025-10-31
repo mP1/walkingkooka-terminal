@@ -49,5 +49,5 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
     TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user);
 
     @Override
-    TerminalExpressionEvaluationContext quitTerminal();
+    TerminalExpressionEvaluationContext exitTerminal();
 }
