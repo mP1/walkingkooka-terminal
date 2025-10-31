@@ -25,7 +25,7 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContexts;
 import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
 
-public final class TerminalExpressionFunctionQuitTest implements ExpressionFunctionTesting<TerminalExpressionFunctionQuit<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
+public final class TerminalExpressionFunctionExitTest implements ExpressionFunctionTesting<TerminalExpressionFunctionExit<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
 
     @Test
     public void testApply() {
@@ -35,13 +35,13 @@ public final class TerminalExpressionFunctionQuitTest implements ExpressionFunct
 
             @Override
             public TerminalExpressionEvaluationContext quitTerminal() {
-                TerminalExpressionFunctionQuitTest.this.quit = true;
+                TerminalExpressionFunctionExitTest.this.quit = true;
                 return this;
             }
         };
 
         this.applyAndCheck(
-            TerminalExpressionFunctionQuit.instance(),
+            TerminalExpressionFunctionExit.instance(),
             Lists.empty(),
             context,
             null
@@ -58,15 +58,15 @@ public final class TerminalExpressionFunctionQuitTest implements ExpressionFunct
     @Test
     public void testIsPure() {
         this.isPureAndCheck(
-            TerminalExpressionFunctionQuit.instance(),
+            TerminalExpressionFunctionExit.instance(),
             this.createContext(),
             false
         );
     }
 
     @Override
-    public TerminalExpressionFunctionQuit<TerminalExpressionEvaluationContext> createBiFunction() {
-        return TerminalExpressionFunctionQuit.instance();
+    public TerminalExpressionFunctionExit<TerminalExpressionEvaluationContext> createBiFunction() {
+        return TerminalExpressionFunctionExit.instance();
     }
 
     @Override
@@ -80,8 +80,8 @@ public final class TerminalExpressionFunctionQuitTest implements ExpressionFunct
     }
 
     @Override
-    public Class<TerminalExpressionFunctionQuit<TerminalExpressionEvaluationContext>> type() {
-        return Cast.to(TerminalExpressionFunctionQuit.class);
+    public Class<TerminalExpressionFunctionExit<TerminalExpressionEvaluationContext>> type() {
+        return Cast.to(TerminalExpressionFunctionExit.class);
     }
 
     @Override

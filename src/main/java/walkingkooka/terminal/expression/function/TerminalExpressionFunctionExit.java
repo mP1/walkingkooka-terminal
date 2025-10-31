@@ -29,19 +29,19 @@ import java.util.List;
 /**
  * Quits the terminal session by invoking {@link TerminalContext#quitTerminal()}
  */
-final class TerminalExpressionFunctionQuit<C extends TerminalExpressionEvaluationContext> extends TerminalExpressionFunction<Void, C> {
+final class TerminalExpressionFunctionExit<C extends TerminalExpressionEvaluationContext> extends TerminalExpressionFunction<Void, C> {
 
     /**
      * Type safe instance getter.
      */
-    static <C extends TerminalExpressionEvaluationContext> TerminalExpressionFunctionQuit<C> instance() {
+    static <C extends TerminalExpressionEvaluationContext> TerminalExpressionFunctionExit<C> instance() {
         return Cast.to(INSTANCE);
     }
 
-    private final static TerminalExpressionFunctionQuit INSTANCE = new TerminalExpressionFunctionQuit<>();
+    private final static TerminalExpressionFunctionExit INSTANCE = new TerminalExpressionFunctionExit<>();
 
-    private TerminalExpressionFunctionQuit() {
-        super("quit");
+    private TerminalExpressionFunctionExit() {
+        super("exit");
     }
 
     @Override
