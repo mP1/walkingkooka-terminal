@@ -119,7 +119,7 @@ final class SystemTerminalContext implements TerminalContext {
     }
 
     @Override
-    public TerminalContext quitTerminal() {
+    public TerminalContext exitTerminal() {
         this.openChecker.close();
         return this;
     }

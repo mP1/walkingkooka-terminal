@@ -43,9 +43,9 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
     }
 
     @Override
-    default TerminalContext quitTerminal() {
+    default TerminalContext exitTerminal() {
         return this.terminalContext()
-            .quitTerminal();
+            .exitTerminal();
     }
 
     TerminalContext terminalContext();

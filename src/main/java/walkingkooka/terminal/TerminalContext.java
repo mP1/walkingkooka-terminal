@@ -45,5 +45,5 @@ public interface TerminalContext extends Context, Printer {
     /**
      * Used to programmatically quite or close this terminal session.
      */
-    TerminalContext quitTerminal();
+    TerminalContext exitTerminal();
 }

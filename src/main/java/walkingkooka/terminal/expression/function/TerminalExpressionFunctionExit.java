@@ -27,7 +27,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import java.util.List;
 
 /**
- * Quits the terminal session by invoking {@link TerminalContext#quitTerminal()}
+ * Quits the terminal session by invoking {@link TerminalContext#exitTerminal()}
  */
 final class TerminalExpressionFunctionExit<C extends TerminalExpressionEvaluationContext> extends TerminalExpressionFunction<Void, C> {
 
@@ -61,7 +61,7 @@ final class TerminalExpressionFunctionExit<C extends TerminalExpressionEvaluatio
                       final C context) {
         this.checkParameterCount(parameters);
 
-        context.quitTerminal();
+        context.exitTerminal();
         return null;
     }
 

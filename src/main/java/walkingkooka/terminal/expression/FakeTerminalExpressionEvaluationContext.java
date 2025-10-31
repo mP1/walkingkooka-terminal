@@ -69,7 +69,7 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
-    public TerminalExpressionEvaluationContext quitTerminal() {
+    public TerminalExpressionEvaluationContext exitTerminal() {
         throw new UnsupportedOperationException();
     }
 

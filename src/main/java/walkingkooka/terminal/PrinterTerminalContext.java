@@ -65,7 +65,7 @@ final class PrinterTerminalContext implements TerminalContext,
     }
 
     @Override
-    public TerminalContext quitTerminal() {
+    public TerminalContext exitTerminal() {
         return this;
     }
 
