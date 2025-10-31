@@ -27,6 +27,13 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 public final class TerminalExpressionFunctions implements PublicStaticHelper {
 
     /**
+     * {@see TerminalExpressionFunctionExit}
+     */
+    public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Void, C> exit() {
+        return TerminalExpressionFunctionExit.instance();
+    }
+
+    /**
      * {@see TerminalExpressionFunctionPrint}
      */
     public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Void, C> print() {
@@ -38,13 +45,6 @@ public final class TerminalExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Void, C> println() {
         return TerminalExpressionFunctionPrintln.instance();
-    }
-
-    /**
-     * {@see TerminalExpressionFunctionQuit}
-     */
-    public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Void, C> quit() {
-        return TerminalExpressionFunctionQuit.instance();
     }
 
     /**
