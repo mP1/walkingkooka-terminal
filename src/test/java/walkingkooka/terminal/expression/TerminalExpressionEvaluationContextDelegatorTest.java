@@ -223,7 +223,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
         @Override
         public Locale locale() {
-            return LOCALE;
+            return TerminalExpressionEvaluationContextDelegatorTest.LOCALE;
         }
 
         @Override
@@ -242,7 +242,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
-                LOCALE,
+                TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
                 LocalDateTime::now,
                 Optional.empty()
             );
