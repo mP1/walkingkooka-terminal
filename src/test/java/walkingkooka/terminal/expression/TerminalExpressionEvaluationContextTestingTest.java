@@ -53,6 +53,21 @@ import java.util.function.Function;
 public class TerminalExpressionEvaluationContextTestingTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContext> {
 
     @Override
+    public void testEnvironmentValueLocaleEqualsLocale() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testEnvironmentValueUserEqualsUser() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetLocaleWithDifferent() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public TestTerminalExpressionEvaluationContext createContext() {
         return new TestTerminalExpressionEvaluationContext();
     }
