@@ -68,6 +68,16 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
     }
 
     @Override
+    public void testEnvironmentValueLocaleEqualsLocale() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testEnvironmentValueUserEqualsUser() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testEnterScopeWithNullFails() {
         throw new UnsupportedOperationException();
     }
@@ -79,6 +89,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
     @Override
     public void testReferenceWithNullReferenceFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetLocaleWithDifferent() {
         throw new UnsupportedOperationException();
     }
 
