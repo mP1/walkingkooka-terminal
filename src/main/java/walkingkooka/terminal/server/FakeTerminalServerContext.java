@@ -17,21 +17,30 @@
 
 package walkingkooka.terminal.server;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.terminal.TerminalContext;
+import walkingkooka.terminal.TerminalId;
 
-public final class TerminalServerContexts implements PublicStaticHelper {
+import java.util.Optional;
 
-    /**
-     * {@see FakeTerminalServerContext}
-     */
-    public static FakeTerminalServerContext fake() {
-        return new FakeTerminalServerContext();
+public class FakeTerminalServerContext implements TerminalServerContext {
+
+    public FakeTerminalServerContext() {
+        super();
     }
 
-    /**
-     * Stop creation
-     */
-    private TerminalServerContexts() {
+    @Override
+    public TerminalContext createTerminal(final EnvironmentContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<TerminalContext> terminalContext(final TerminalId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminalServerContext removeTerminal(final TerminalId id) {
         throw new UnsupportedOperationException();
     }
 }
