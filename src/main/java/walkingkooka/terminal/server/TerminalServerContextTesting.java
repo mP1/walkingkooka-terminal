@@ -28,11 +28,11 @@ public interface TerminalServerContextTesting<C extends TerminalServerContext<T>
     // createTerminal...................................................................................................
 
     @Test
-    default void testCreateTerminalWithNullEnvironmentContextFails() {
+    default void testCreateTerminalContextWithNullEnvironmentContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
-                .createTerminal(null)
+                .createTerminalContext(null)
         );
     }
 

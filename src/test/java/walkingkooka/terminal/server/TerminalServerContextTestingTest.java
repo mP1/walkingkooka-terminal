@@ -41,7 +41,7 @@ public final class TerminalServerContextTestingTest implements TerminalServerCon
     final static class TestTerminalServerContext implements TerminalServerContext<FakeTerminalContext> {
 
         @Override
-        public FakeTerminalContext createTerminal(final EnvironmentContext context) {
+        public FakeTerminalContext createTerminalContext(final EnvironmentContext context) {
             Objects.requireNonNull(context, "context");
 
             throw new UnsupportedOperationException();

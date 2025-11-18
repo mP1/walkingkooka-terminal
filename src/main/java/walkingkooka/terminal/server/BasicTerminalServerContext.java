@@ -44,7 +44,7 @@ final class BasicTerminalServerContext<T extends TerminalContext> implements Ter
     }
 
     @Override
-    public T createTerminal(final EnvironmentContext context) {
+    public T createTerminalContext(final EnvironmentContext context) {
         Objects.requireNonNull(context, "context");
 
         final T terminalContext = this.environmentContextToTerminalContext.apply(
