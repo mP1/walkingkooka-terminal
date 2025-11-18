@@ -23,24 +23,24 @@ import walkingkooka.terminal.TerminalId;
 
 import java.util.Optional;
 
-public class FakeTerminalServerContext<T extends TerminalContext> implements TerminalServerContext<T> {
+public class FakeTerminalServerContext implements TerminalServerContext {
 
     public FakeTerminalServerContext() {
         super();
     }
 
     @Override
-    public T createTerminalContext(final EnvironmentContext context) {
+    public TerminalContext createTerminalContext(final EnvironmentContext context) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<T> terminalContext(final TerminalId id) {
+    public Optional<TerminalContext> terminalContext(final TerminalId id) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public TerminalServerContext<T> removeTerminalContext(final TerminalId id) {
+    public TerminalServerContext removeTerminalContext(final TerminalId id) {
         throw new UnsupportedOperationException();
     }
 }

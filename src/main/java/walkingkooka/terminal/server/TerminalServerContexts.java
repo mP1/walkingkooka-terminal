@@ -28,15 +28,15 @@ public final class TerminalServerContexts implements PublicStaticHelper {
     /**
      * {@see BasicTerminalServerContext}
      */
-    public static <T extends TerminalContext> TerminalServerContext<T> basic(final Function<EnvironmentContext, T> environmentContextToTerminalContext) {
+    public static TerminalServerContext basic(final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
         return BasicTerminalServerContext.with(environmentContextToTerminalContext);
     }
 
     /**
      * {@see FakeTerminalServerContext}
      */
-    public static <T extends TerminalContext> FakeTerminalServerContext<T> fake() {
-        return new FakeTerminalServerContext<>();
+    public static FakeTerminalServerContext fake() {
+        return new FakeTerminalServerContext();
     }
 
     /**
