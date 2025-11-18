@@ -19,10 +19,12 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
+import walkingkooka.environment.HasUserTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C> {
+public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C>,
+    HasUserTesting {
 
     default void terminalIdAndCheck(final C context,
                                     final TerminalId expected) {

@@ -20,6 +20,7 @@ package walkingkooka.terminal.expression;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -27,6 +28,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Optional;
 
 public interface TerminalExpressionEvaluationContextDelegator extends TerminalExpressionEvaluationContext,
     ExpressionEvaluationContextDelegator,
@@ -85,6 +87,12 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     default TerminalExpressionEvaluationContext exitTerminal() {
         return this.terminalExpressionEvaluationContext()
             .exitTerminal();
+    }
+
+    @Override
+    default Optional<EmailAddress> user() {
+        return this.terminalContext()
+            .user();
     }
 
     @Override

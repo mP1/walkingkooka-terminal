@@ -18,6 +18,8 @@
 package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
+import walkingkooka.environment.HasUser;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.LineEnding;
 import walkingkooka.util.OpenChecker;
 
@@ -36,14 +38,20 @@ final class SystemTerminalContext implements TerminalContext {
     /**
      * Factory that creates a new {@link SystemTerminalContext}.
      */
-    static SystemTerminalContext with(final TerminalId terminalId) {
+    static SystemTerminalContext with(final TerminalId terminalId,
+                                      final HasUser hasUser) {
         return new SystemTerminalContext(
-            Objects.requireNonNull(terminalId, "terminalId")
+            Objects.requireNonNull(terminalId, "terminalId"),
+            Objects.requireNonNull(hasUser, "hasUser")
         );
     }
 
-    private SystemTerminalContext(final TerminalId terminalId) {
+    private SystemTerminalContext(final TerminalId terminalId,
+                                  final HasUser hasUser) {
         this.terminalId = terminalId;
+
+        this.hasUser = hasUser;
+
         this.lineReader = new BufferedReader(
             new InputStreamReader(
                 System.in
@@ -65,6 +73,13 @@ final class SystemTerminalContext implements TerminalContext {
     }
 
     private final TerminalId terminalId;
+
+    @Override
+    public Optional<EmailAddress> user() {
+        return this.hasUser.user();
+    }
+
+    private final HasUser hasUser;
 
     @Override
     public boolean isTerminalInteractive() {

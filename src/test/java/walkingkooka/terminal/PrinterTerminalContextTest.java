@@ -19,7 +19,11 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.environment.HasUser;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printers;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -28,11 +32,28 @@ public final class PrinterTerminalContextTest implements TerminalContextTesting<
 
     private final TerminalId TERMINAL_ID = TerminalId.parse("1");
 
+    private final HasUser HAS_USER = () -> Optional.of(
+        EmailAddress.parse("user@example.com")
+    );
+
     @Test
     public void testWithNullTerminalIdFails() {
         assertThrows(
             NullPointerException.class,
             () -> PrinterTerminalContext.with(
+                null,
+                HAS_USER,
+                Printers.fake()
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullHasUserFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> PrinterTerminalContext.with(
+                TERMINAL_ID,
                 null,
                 Printers.fake()
             )
@@ -45,6 +66,7 @@ public final class PrinterTerminalContextTest implements TerminalContextTesting<
             NullPointerException.class,
             () -> PrinterTerminalContext.with(
                 TERMINAL_ID,
+                HAS_USER,
                 null
             )
         );
@@ -54,6 +76,7 @@ public final class PrinterTerminalContextTest implements TerminalContextTesting<
     public PrinterTerminalContext createContext() {
         return PrinterTerminalContext.with(
             TERMINAL_ID,
+            HAS_USER,
             Printers.sysOut()
         );
     }

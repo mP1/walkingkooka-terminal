@@ -221,6 +221,12 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         // EnvironmentContextDelegator..................................................................................
 
         @Override
+        public Optional<EmailAddress> user() {
+            return this.environmentContext()
+                .user();
+        }
+
+        @Override
         public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
             Objects.requireNonNull(user);
             throw new UnsupportedOperationException();
@@ -274,6 +280,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         public TerminalContext terminalContext() {
             return TerminalContexts.printer(
                 TerminalId.with(1),
+                this,
                 Printers.sink(LineEnding.NONE)
             );
         }

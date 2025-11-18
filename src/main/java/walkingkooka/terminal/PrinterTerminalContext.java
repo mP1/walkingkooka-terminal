@@ -17,6 +17,8 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.environment.HasUser;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.PrinterDelegator;
 
@@ -31,16 +33,20 @@ final class PrinterTerminalContext implements TerminalContext,
     PrinterDelegator {
 
     static PrinterTerminalContext with(final TerminalId terminalId,
+                                       final HasUser hasUser,
                                        final Printer printer) {
         return new PrinterTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
+            Objects.requireNonNull(hasUser, "hasUser"),
             Objects.requireNonNull(printer, "printer")
         );
     }
 
     private PrinterTerminalContext(final TerminalId terminalId,
+                                   final HasUser hasUser,
                                    final Printer printer) {
         this.terminalId = terminalId;
+        this.hasUser = hasUser;
         this.printer = printer;
     }
 
@@ -68,6 +74,15 @@ final class PrinterTerminalContext implements TerminalContext,
     public TerminalContext exitTerminal() {
         return this;
     }
+
+    // HasUser..........................................................................................................
+
+    @Override
+    public Optional<EmailAddress> user() {
+        return this.hasUser.user();
+    }
+
+    private final HasUser hasUser;
 
     // PrinterDelegator.................................................................................................
 

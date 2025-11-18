@@ -193,11 +193,18 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         @Override
         public TerminalContext terminalContext() {
             return TerminalContexts.system(
-                TerminalId.with(1)
+                TerminalId.with(1),
+                () -> ANONYMOUS
             );
         }
 
         // EnvironmentContext...........................................................................................
+
+        @Override
+        public Optional<EmailAddress> user() {
+            return this.environmentContext()
+                .user();
+        }
 
         @Override
         public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {

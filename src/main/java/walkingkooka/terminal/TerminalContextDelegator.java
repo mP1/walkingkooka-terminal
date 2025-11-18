@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.PrinterDelegator;
 
@@ -49,6 +50,14 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
     }
 
     TerminalContext terminalContext();
+
+    // HasUser..........................................................................................................
+
+    @Override
+    default Optional<EmailAddress> user() {
+        return this.terminalContext()
+            .user();
+    }
 
     // PrinterDelegator.................................................................................................
 
