@@ -56,4 +56,9 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
     default Printer printer() {
         return this.terminalContext();
     }
+
+    @Override
+    default void close() {
+        TerminalContext.super.close();
+    }
 }

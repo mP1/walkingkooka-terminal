@@ -46,4 +46,14 @@ public interface TerminalContext extends Context, Printer {
      * Used to programmatically quite or close this terminal session.
      */
     TerminalContext exitTerminal();
+
+    // Printer..........................................................................................................
+
+    /**
+     * {@link Printer#close()} is a NOP
+     */
+    @Override
+    default void close() {
+        // NOP
+    }
 }

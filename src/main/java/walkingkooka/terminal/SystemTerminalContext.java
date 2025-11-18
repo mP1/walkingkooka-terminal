@@ -114,11 +114,6 @@ final class SystemTerminalContext implements TerminalContext {
     }
 
     @Override
-    public void close() {
-        // NOP
-    }
-
-    @Override
     public TerminalContext exitTerminal() {
         this.openChecker.close();
         return this;
