@@ -30,7 +30,7 @@ public class FakeTerminalServerContext<T extends TerminalContext> implements Ter
     }
 
     @Override
-    public T createTerminal(final EnvironmentContext context) {
+    public T createTerminalContext(final EnvironmentContext context) {
         throw new UnsupportedOperationException();
     }
 

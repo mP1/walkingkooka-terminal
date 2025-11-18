@@ -33,7 +33,7 @@ public interface TerminalServerContext<T extends TerminalContext> extends Contex
      * Creates a new {@link TerminalContext} using the given {@link EnvironmentContext} which provides the user and
      * environment variables.
      */
-    T createTerminal(final EnvironmentContext context);
+    T createTerminalContext(final EnvironmentContext context);
 
     /**
      * Gets a {@link TerminalContext} given its {@link TerminalId}.
