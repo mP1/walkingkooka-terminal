@@ -55,7 +55,7 @@ public final class TerminalServerContextTestingTest implements TerminalServerCon
         }
 
         @Override
-        public FakeTerminalServerContext removeTerminal(final TerminalId id) {
+        public FakeTerminalServerContext removeTerminalContext(final TerminalId id) {
             Objects.requireNonNull(id, "id");
 
             throw new UnsupportedOperationException();

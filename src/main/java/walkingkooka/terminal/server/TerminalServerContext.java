@@ -51,5 +51,5 @@ public interface TerminalServerContext<T extends TerminalContext> extends Contex
     /**
      * Removes an existing {@link TerminalContext}.
      */
-    TerminalServerContext removeTerminal(final TerminalId id);
+    TerminalServerContext removeTerminalContext(final TerminalId id);
 }
