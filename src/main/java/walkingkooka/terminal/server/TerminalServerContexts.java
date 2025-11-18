@@ -17,9 +17,20 @@
 
 package walkingkooka.terminal.server;
 
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.terminal.TerminalContext;
+
+import java.util.function.Function;
 
 public final class TerminalServerContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicTerminalServerContext}
+     */
+    public static TerminalServerContext basic(final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
+        return BasicTerminalServerContext.with(environmentContextToTerminalContext);
+    }
 
     /**
      * {@see FakeTerminalServerContext}
