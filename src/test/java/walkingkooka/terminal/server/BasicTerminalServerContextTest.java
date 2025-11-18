@@ -18,6 +18,7 @@
 package walkingkooka.terminal.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.terminal.FakeTerminalContext;
 import walkingkooka.terminal.TerminalId;
 
@@ -25,7 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicTerminalServerContextTest implements TerminalServerContextTesting<BasicTerminalServerContext> {
+public final class BasicTerminalServerContextTest implements TerminalServerContextTesting<BasicTerminalServerContext<FakeTerminalContext>, FakeTerminalContext> {
 
     @Test
     public void testWithNullEnvironmentContextToTerminalContextFails() {
@@ -36,27 +37,28 @@ public final class BasicTerminalServerContextTest implements TerminalServerConte
     }
 
     @Override
-    public BasicTerminalServerContext createContext() {
+    public BasicTerminalServerContext<FakeTerminalContext> createContext() {
         final AtomicLong next = new AtomicLong();
 
         return BasicTerminalServerContext.with(
-            (environmentContext) -> new FakeTerminalContext() {
-                @Override
-                public TerminalId terminalId() {
-                    return this.terminalId;
-                }
+            (environmentContext) ->
+                new FakeTerminalContext() {
+                    @Override
+                    public TerminalId terminalId() {
+                        return this.terminalId;
+                    }
 
-                private final TerminalId terminalId = TerminalId.with(
-                    next.incrementAndGet()
-                );
-            }
+                    private final TerminalId terminalId = TerminalId.with(
+                        next.incrementAndGet()
+                    );
+                }
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<BasicTerminalServerContext> type() {
-        return BasicTerminalServerContext.class;
+    public Class<BasicTerminalServerContext<FakeTerminalContext>> type() {
+        return Cast.to(BasicTerminalServerContext.class);
     }
 }

@@ -17,15 +17,16 @@
 
 package walkingkooka.terminal.server;
 
+import walkingkooka.Cast;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.terminal.TerminalContext;
+import walkingkooka.terminal.FakeTerminalContext;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.server.TerminalServerContextTestingTest.TestTerminalServerContext;
 
 import java.util.Objects;
 import java.util.Optional;
 
-public final class TerminalServerContextTestingTest implements TerminalServerContextTesting<TestTerminalServerContext> {
+public final class TerminalServerContextTestingTest implements TerminalServerContextTesting<TestTerminalServerContext, FakeTerminalContext> {
 
     @Override
     public TestTerminalServerContext createContext() {
@@ -34,26 +35,27 @@ public final class TerminalServerContextTestingTest implements TerminalServerCon
 
     @Override
     public Class<TestTerminalServerContext> type() {
-        return TestTerminalServerContext.class;
+        return Cast.to(TestTerminalServerContext.class);
     }
 
-    final static class TestTerminalServerContext implements TerminalServerContext {
+    final static class TestTerminalServerContext implements TerminalServerContext<FakeTerminalContext> {
+
         @Override
-        public TerminalContext createTerminal(final EnvironmentContext context) {
+        public FakeTerminalContext createTerminal(final EnvironmentContext context) {
             Objects.requireNonNull(context, "context");
 
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public Optional<TerminalContext> terminalContext(final TerminalId id) {
+        public Optional<FakeTerminalContext> terminalContext(final TerminalId id) {
             Objects.requireNonNull(id, "id");
 
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public TerminalServerContext removeTerminal(final TerminalId id) {
+        public FakeTerminalServerContext removeTerminal(final TerminalId id) {
             Objects.requireNonNull(id, "id");
 
             throw new UnsupportedOperationException();

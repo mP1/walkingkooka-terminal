@@ -19,10 +19,11 @@ package walkingkooka.terminal.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
+import walkingkooka.terminal.TerminalContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface TerminalServerContextTesting<C extends TerminalServerContext> extends ContextTesting<C> {
+public interface TerminalServerContextTesting<C extends TerminalServerContext<T>, T extends TerminalContext> extends ContextTesting<C> {
 
     // createTerminal...................................................................................................
 
