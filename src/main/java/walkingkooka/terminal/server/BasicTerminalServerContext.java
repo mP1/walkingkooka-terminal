@@ -71,7 +71,7 @@ final class BasicTerminalServerContext<T extends TerminalContext> implements Ter
     }
 
     @Override
-    public TerminalServerContext<T> removeTerminal(final TerminalId id) {
+    public TerminalServerContext<T> removeTerminalContext(final TerminalId id) {
         Objects.requireNonNull(id, "id");
 
         this.terminalIdToTerminalContext.remove(id);

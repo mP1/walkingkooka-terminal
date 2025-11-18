@@ -50,7 +50,7 @@ public interface TerminalServerContextTesting<C extends TerminalServerContext<T>
     // removeTerminal...................................................................................................
 
     @Test
-    default void testRemoveTerminalWithNullTerminalIdFails() {
+    default void testRemoveTerminalContextWithNullTerminalIdFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()

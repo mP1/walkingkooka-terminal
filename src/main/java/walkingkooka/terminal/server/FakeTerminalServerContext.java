@@ -40,7 +40,7 @@ public class FakeTerminalServerContext<T extends TerminalContext> implements Ter
     }
 
     @Override
-    public TerminalServerContext<T> removeTerminal(final TerminalId id) {
+    public TerminalServerContext<T> removeTerminalContext(final TerminalId id) {
         throw new UnsupportedOperationException();
     }
 }
