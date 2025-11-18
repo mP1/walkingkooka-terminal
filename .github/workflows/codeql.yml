@@ -29,14 +29,13 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
+          languages: java
           queries: +security-and-quality
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
-        if: ${{ matrix.language == 'javascript' || matrix.language == 'java' }}
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:${{ matrix.language }}"
+          category: "/language:java"
