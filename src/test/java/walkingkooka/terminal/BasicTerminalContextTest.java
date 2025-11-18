@@ -19,6 +19,8 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.environment.HasUser;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printers;
 
 import java.util.Optional;
@@ -30,6 +32,10 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     ToStringTesting<BasicTerminalContext> {
 
     private final static TerminalId TERMINAL_ID = TerminalId.parse("123");
+
+    private final static HasUser HAS_USER = () -> Optional.of(
+        EmailAddress.parse("user@example.com")
+    );
 
     private final static Function<Long, Optional<String>> LINE_READER = (timeout) -> {
         if (timeout < 0) {
@@ -44,6 +50,20 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 null,
+                HAS_USER,
+                LINE_READER,
+                Printers.fake()
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullHasUserFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicTerminalContext.with(
+                TERMINAL_ID,
+                null,
                 LINE_READER,
                 Printers.fake()
             )
@@ -56,6 +76,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
+                HAS_USER,
                 null,
                 Printers.fake()
             )
@@ -68,6 +89,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
+                HAS_USER,
                 LINE_READER,
                 null
             )
@@ -78,6 +100,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     public BasicTerminalContext createContext() {
         return BasicTerminalContext.with(
             TERMINAL_ID,
+            HAS_USER,
             LINE_READER,
             Printers.sysOut()
         );

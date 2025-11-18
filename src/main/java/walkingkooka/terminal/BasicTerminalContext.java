@@ -17,6 +17,8 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.environment.HasUser;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.PrinterDelegator;
 import walkingkooka.util.OpenChecker;
@@ -32,19 +34,23 @@ final class BasicTerminalContext implements TerminalContext,
     PrinterDelegator {
 
     static BasicTerminalContext with(final TerminalId terminalId,
+                                     final HasUser hasUser,
                                      final Function<Long, Optional<String>> lineReader,
                                      final Printer printer) {
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
+            Objects.requireNonNull(hasUser, "hasUser"),
             Objects.requireNonNull(lineReader, "lineReader"),
             Objects.requireNonNull(printer, "printer")
         );
     }
 
     private BasicTerminalContext(final TerminalId terminalId,
-                                 Function<Long, Optional<String>> lineReader,
+                                 final HasUser hasUser,
+                                 final Function<Long, Optional<String>> lineReader,
                                  final Printer printer) {
         this.terminalId = terminalId;
+        this.hasUser = hasUser;
         this.lineReader = lineReader;
         this.printer = printer;
 
@@ -60,6 +66,13 @@ final class BasicTerminalContext implements TerminalContext,
     }
 
     private final TerminalId terminalId;
+
+    @Override
+    public Optional<EmailAddress> user() {
+        return this.hasUser.user();
+    }
+
+    private final HasUser hasUser;
 
     @Override
     public boolean isTerminalInteractive() {

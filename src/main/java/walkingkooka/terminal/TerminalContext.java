@@ -18,6 +18,7 @@
 package walkingkooka.terminal;
 
 import walkingkooka.Context;
+import walkingkooka.environment.HasUser;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Optional;
@@ -25,7 +26,9 @@ import java.util.Optional;
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
  */
-public interface TerminalContext extends Context, Printer {
+public interface TerminalContext extends Context,
+    HasUser,
+    Printer {
 
     /**
      * Returns the {@link TerminalId} identifying this session.

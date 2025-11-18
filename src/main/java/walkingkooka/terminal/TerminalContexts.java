@@ -18,6 +18,7 @@
 package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
+import walkingkooka.environment.HasUser;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.printer.Printer;
 
@@ -30,10 +31,12 @@ public final class TerminalContexts implements PublicStaticHelper {
      * {@see BasicTerminalContext}
      */
     public static TerminalContext basic(final TerminalId terminalId,
+                                        final HasUser hasUser,
                                         final Function<Long, Optional<String>> input,
                                         final Printer printer) {
         return BasicTerminalContext.with(
             terminalId,
+            hasUser,
             input,
             printer
         );
@@ -50,9 +53,11 @@ public final class TerminalContexts implements PublicStaticHelper {
      * {@see PrinterTerminalContext}
      */
     public static TerminalContext printer(final TerminalId terminalId,
+                                          final HasUser hasUser,
                                           final Printer printer) {
         return PrinterTerminalContext.with(
             terminalId,
+            hasUser,
             printer
         );
     }
@@ -61,8 +66,12 @@ public final class TerminalContexts implements PublicStaticHelper {
      * {@see SystemTerminalContext}
      */
     @GwtIncompatible
-    public static TerminalContext system(final TerminalId terminalId) {
-        return SystemTerminalContext.with(terminalId);
+    public static TerminalContext system(final TerminalId terminalId,
+                                         final HasUser hasUser) {
+        return SystemTerminalContext.with(
+            terminalId,
+            hasUser
+        );
     }
 
     /**

@@ -18,6 +18,10 @@
 package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.environment.HasUser;
+import walkingkooka.net.email.EmailAddress;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -25,11 +29,27 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
 
     private final TerminalId TERMINAL_ID = TerminalId.parse("1");
 
+    private final HasUser HAS_USER = () -> Optional.of(
+        EmailAddress.parse("user@example.com")
+    );
+
     @Test
     public void testWithNullTerminalIdFails() {
         assertThrows(
             NullPointerException.class,
             () -> SystemTerminalContext.with(
+                null,
+                HAS_USER
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullHasUserFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SystemTerminalContext.with(
+                TERMINAL_ID,
                 null
             )
         );
@@ -37,7 +57,10 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
 
     @Override
     public SystemTerminalContext createContext() {
-        return SystemTerminalContext.with(TERMINAL_ID);
+        return SystemTerminalContext.with(
+            TERMINAL_ID,
+            HAS_USER
+        );
     }
 
     // class............................................................................................................

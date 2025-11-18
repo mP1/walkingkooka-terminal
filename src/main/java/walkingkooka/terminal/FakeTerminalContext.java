@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.FakePrinter;
 
 import java.util.Optional;
@@ -44,6 +45,11 @@ public class FakeTerminalContext extends FakePrinter implements TerminalContext 
 
     @Override
     public TerminalContext exitTerminal() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
 }
