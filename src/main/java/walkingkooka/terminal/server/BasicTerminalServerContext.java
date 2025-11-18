@@ -30,24 +30,24 @@ import java.util.function.Function;
 /**
  * A server that contains all {@link TerminalContext}.
  */
-final class BasicTerminalServerContext<T extends TerminalContext> implements TerminalServerContext<T> {
+final class BasicTerminalServerContext implements TerminalServerContext {
 
-    static <T extends TerminalContext> BasicTerminalServerContext<T> with(final Function<EnvironmentContext, T> environmentContextToTerminalContext) {
-        return new BasicTerminalServerContext<>(
+    static BasicTerminalServerContext with(final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
+        return new BasicTerminalServerContext(
             Objects.requireNonNull(environmentContextToTerminalContext, "environmentContextToTerminalContext")
         );
     }
 
-    private BasicTerminalServerContext(final Function<EnvironmentContext, T> environmentContextToTerminalContext) {
+    private BasicTerminalServerContext(final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
         super();
         this.environmentContextToTerminalContext = Objects.requireNonNull(environmentContextToTerminalContext, "environmentContextToTerminalContext");
     }
 
     @Override
-    public T createTerminalContext(final EnvironmentContext context) {
+    public TerminalContext createTerminalContext(final EnvironmentContext context) {
         Objects.requireNonNull(context, "context");
 
-        final T terminalContext = this.environmentContextToTerminalContext.apply(
+        final TerminalContext terminalContext = this.environmentContextToTerminalContext.apply(
             context
         );
 
@@ -59,10 +59,10 @@ final class BasicTerminalServerContext<T extends TerminalContext> implements Ter
         return terminalContext;
     }
 
-    private final Function<EnvironmentContext, T> environmentContextToTerminalContext;
+    private final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext;
 
     @Override
-    public Optional<T> terminalContext(final TerminalId id) {
+    public Optional<TerminalContext> terminalContext(final TerminalId id) {
         Objects.requireNonNull(id, "id");
 
         return Optional.ofNullable(
@@ -71,14 +71,14 @@ final class BasicTerminalServerContext<T extends TerminalContext> implements Ter
     }
 
     @Override
-    public TerminalServerContext<T> removeTerminalContext(final TerminalId id) {
+    public TerminalServerContext removeTerminalContext(final TerminalId id) {
         Objects.requireNonNull(id, "id");
 
         this.terminalIdToTerminalContext.remove(id);
         return this;
     }
 
-    private final Map<TerminalId, T> terminalIdToTerminalContext = Maps.concurrent();
+    private final Map<TerminalId, TerminalContext> terminalIdToTerminalContext = Maps.concurrent();
 
     // Object...........................................................................................................
 

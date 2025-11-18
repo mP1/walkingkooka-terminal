@@ -20,13 +20,14 @@ package walkingkooka.terminal.server;
 import walkingkooka.Cast;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.terminal.FakeTerminalContext;
+import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.server.TerminalServerContextTestingTest.TestTerminalServerContext;
 
 import java.util.Objects;
 import java.util.Optional;
 
-public final class TerminalServerContextTestingTest implements TerminalServerContextTesting<TestTerminalServerContext, FakeTerminalContext> {
+public final class TerminalServerContextTestingTest implements TerminalServerContextTesting<TestTerminalServerContext> {
 
     @Override
     public TestTerminalServerContext createContext() {
@@ -38,7 +39,7 @@ public final class TerminalServerContextTestingTest implements TerminalServerCon
         return Cast.to(TestTerminalServerContext.class);
     }
 
-    final static class TestTerminalServerContext implements TerminalServerContext<FakeTerminalContext> {
+    final static class TestTerminalServerContext implements TerminalServerContext {
 
         @Override
         public FakeTerminalContext createTerminalContext(final EnvironmentContext context) {
@@ -48,14 +49,14 @@ public final class TerminalServerContextTestingTest implements TerminalServerCon
         }
 
         @Override
-        public Optional<FakeTerminalContext> terminalContext(final TerminalId id) {
+        public Optional<TerminalContext> terminalContext(final TerminalId id) {
             Objects.requireNonNull(id, "id");
 
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public FakeTerminalServerContext removeTerminalContext(final TerminalId id) {
+        public TerminalServerContext removeTerminalContext(final TerminalId id) {
             Objects.requireNonNull(id, "id");
 
             throw new UnsupportedOperationException();

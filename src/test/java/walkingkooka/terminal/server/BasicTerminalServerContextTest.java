@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicTerminalServerContextTest implements TerminalServerContextTesting<BasicTerminalServerContext<FakeTerminalContext>, FakeTerminalContext> {
+public final class BasicTerminalServerContextTest implements TerminalServerContextTesting<BasicTerminalServerContext> {
 
     @Test
     public void testWithNullEnvironmentContextToTerminalContextFails() {
@@ -37,7 +37,7 @@ public final class BasicTerminalServerContextTest implements TerminalServerConte
     }
 
     @Override
-    public BasicTerminalServerContext<FakeTerminalContext> createContext() {
+    public BasicTerminalServerContext createContext() {
         final AtomicLong next = new AtomicLong();
 
         return BasicTerminalServerContext.with(
@@ -58,7 +58,7 @@ public final class BasicTerminalServerContextTest implements TerminalServerConte
     // class............................................................................................................
 
     @Override
-    public Class<BasicTerminalServerContext<FakeTerminalContext>> type() {
+    public Class<BasicTerminalServerContext> type() {
         return Cast.to(BasicTerminalServerContext.class);
     }
 }
