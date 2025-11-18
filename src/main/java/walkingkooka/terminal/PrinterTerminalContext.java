@@ -78,6 +78,11 @@ final class PrinterTerminalContext implements TerminalContext,
 
     private final Printer printer;
 
+    @Override
+    public void close() {
+        TerminalContext.super.close();
+    }
+
     // Object...........................................................................................................
 
     @Override
