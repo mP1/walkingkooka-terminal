@@ -42,7 +42,7 @@ public final class TerminalContexts implements PublicStaticHelper {
     /**
      * {@see FakeTerminalContext}
      */
-    public static TerminalContext fake() {
+    public static FakeTerminalContext fake() {
         return new FakeTerminalContext();
     }
 
