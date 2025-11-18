@@ -27,23 +27,23 @@ import java.util.Optional;
 /**
  * A {@link Context} that provides operations to create and manage {@link walkingkooka.terminal.TerminalContext}.
  */
-public interface TerminalServerContext extends Context {
+public interface TerminalServerContext<T extends TerminalContext> extends Context {
 
     /**
      * Creates a new {@link TerminalContext} using the given {@link EnvironmentContext} which provides the user and
      * environment variables.
      */
-    TerminalContext createTerminal(final EnvironmentContext context);
+    T createTerminal(final EnvironmentContext context);
 
     /**
      * Gets a {@link TerminalContext} given its {@link TerminalId}.
      */
-    Optional<TerminalContext> terminalContext(final TerminalId id);
+    Optional<T> terminalContext(final TerminalId id);
 
     /**
      * Fetches the requested {@link TerminalContext} or throws a {@link IllegalArgumentException}.
      */
-    default TerminalContext terminalContextOrFail(final TerminalId id) {
+    default T terminalContextOrFail(final TerminalId id) {
         return this.terminalContext(id)
             .orElseThrow(() -> new IllegalArgumentException("Missing Terminal: " + id));
     }
