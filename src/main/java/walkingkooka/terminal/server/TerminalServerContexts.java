@@ -18,10 +18,13 @@
 package walkingkooka.terminal.server;
 
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.terminal.TerminalContext;
 
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public final class TerminalServerContexts implements PublicStaticHelper {
 
@@ -37,6 +40,17 @@ public final class TerminalServerContexts implements PublicStaticHelper {
      */
     public static FakeTerminalServerContext fake() {
         return new FakeTerminalServerContext();
+    }
+
+    /**
+     * {@see UserFilteredTerminalServerContext}
+     */
+    public static TerminalServerContext userFiltered(final Predicate<Optional<EmailAddress>> filter,
+                                                     final TerminalServerContext context) {
+        return UserFilteredTerminalServerContext.with(
+            filter,
+            context
+        );
     }
 
     /**
