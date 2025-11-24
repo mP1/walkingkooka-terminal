@@ -24,7 +24,7 @@ import walkingkooka.terminal.TerminalTesting;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TerminalCommandProcessorContextTesting<C extends TerminalCommandProcessorContext> extends ContextTesting<C>,
-    TerminalTesting<C> {
+    TerminalTesting {
 
     @Test
     default void testExecuteTerminalCommandWithNullFails() {
