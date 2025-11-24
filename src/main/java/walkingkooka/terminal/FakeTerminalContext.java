@@ -49,6 +49,11 @@ public class FakeTerminalContext extends FakePrinter implements TerminalContext 
     }
 
     @Override
+    public boolean isTerminalOpen() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }

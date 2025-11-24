@@ -134,6 +134,11 @@ final class SystemTerminalContext implements TerminalContext {
         return this;
     }
 
+    @Override
+    public boolean isTerminalOpen() {
+        return false == this.openChecker.isClosed();
+    }
+
     private final OpenChecker<IllegalStateException> openChecker;
 
     // Object...........................................................................................................

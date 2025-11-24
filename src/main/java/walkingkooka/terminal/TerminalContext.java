@@ -50,6 +50,11 @@ public interface TerminalContext extends Context,
      */
     TerminalContext exitTerminal();
 
+    /**
+     * Tests if the terminal has been closed.
+     */
+    boolean isTerminalOpen();
+
     // Printer..........................................................................................................
 
     /**
