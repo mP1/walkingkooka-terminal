@@ -19,9 +19,9 @@ package walkingkooka.terminal;
 
 import walkingkooka.text.printer.TreePrintableTesting;
 
-public interface TerminalTesting<T extends Terminal> extends TreePrintableTesting {
+public interface TerminalTesting extends TreePrintableTesting {
 
-    default void terminalIdAndCheck(final T terminal,
+    default void terminalIdAndCheck(final Terminal terminal,
                                     final TerminalId expected) {
         this.checkEquals(
             expected,
@@ -30,7 +30,7 @@ public interface TerminalTesting<T extends Terminal> extends TreePrintableTestin
         );
     }
 
-    default void isTerminalInteractiveAndCheck(final T terminal,
+    default void isTerminalInteractiveAndCheck(final Terminal terminal,
                                                final boolean expected) {
         this.checkEquals(
             expected,

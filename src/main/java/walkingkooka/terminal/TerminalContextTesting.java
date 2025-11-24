@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C>,
     HasUserTesting,
-    TerminalTesting<C> {
+    TerminalTesting {
 
     @Test
     default void testReadLineWithNegativeTimeoutFails() {
