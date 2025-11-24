@@ -17,30 +17,21 @@
 
 package walkingkooka.terminal;
 
-import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
+import org.junit.jupiter.api.Test;
 
-public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
+public final class TerminalTestingTest implements TerminalTesting {
 
-    @Override
-    public void testReadLineWithNegativeTimeoutFails() {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testIsTerminalInteractive() {
+        new TestTerminal()
+            .isTerminalInteractive();
     }
 
-    @Override
-    public TestTerminalContext createContext() {
-        return new TestTerminalContext();
-    }
-
-    @Override
-    public Class<TestTerminalContext> type() {
-        return TestTerminalContext.class;
-    }
-
-    static class TestTerminalContext extends FakeTerminalContext {
+    final static class TestTerminal extends FakeTerminal {
 
         @Override
-        public void close() {
-            // nop
+        public boolean isTerminalInteractive() {
+            return false;
         }
     }
 }
