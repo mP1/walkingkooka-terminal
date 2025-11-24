@@ -17,32 +17,27 @@
 
 package walkingkooka.terminal;
 
-import walkingkooka.Context;
-import walkingkooka.environment.HasUser;
-import walkingkooka.text.printer.Printer;
-
-import java.util.Optional;
-
 /**
- * A {@link Context} that provides some line-based interactivity, to read lines and print text.
+ * Interface to query and control a single Terminal
  */
-public interface TerminalContext extends Context,
-    Terminal,
-    HasUser,
-    Printer {
+public interface Terminal {
+    /**
+     * Returns the {@link TerminalId} identifying this session.
+     */
+    TerminalId terminalId();
 
     /**
-     * Read a line of text from the current terminal.
+     * May be used to test if a terminal is interactive accepting input from a user.
      */
-    Optional<String> readLine(long timeout);
-
-    // Printer..........................................................................................................
+    boolean isTerminalInteractive();
 
     /**
-     * {@link Printer#close()} is a NOP
+     * Used to programmatically quite or close this terminal session.
      */
-    @Override
-    default void close() {
-        // NOP
-    }
+    TerminalContext exitTerminal();
+
+    /**
+     * Tests if the terminal has been closed.
+     */
+    boolean isTerminalOpen();
 }

@@ -17,30 +17,29 @@
 
 package walkingkooka.terminal;
 
-import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
+public class FakeTerminal implements Terminal {
 
-public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
+    public FakeTerminal() {
+        super();
+    }
 
     @Override
-    public void testReadLineWithNegativeTimeoutFails() {
+    public TerminalId terminalId() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public TestTerminalContext createContext() {
-        return new TestTerminalContext();
+    public boolean isTerminalInteractive() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public Class<TestTerminalContext> type() {
-        return TestTerminalContext.class;
+    public TerminalContext exitTerminal() {
+        throw new UnsupportedOperationException();
     }
 
-    static class TestTerminalContext extends FakeTerminalContext {
-
-        @Override
-        public void close() {
-            // nop
-        }
+    @Override
+    public boolean isTerminalOpen() {
+        throw new UnsupportedOperationException();
     }
 }
