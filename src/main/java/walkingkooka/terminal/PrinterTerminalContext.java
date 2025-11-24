@@ -71,6 +71,11 @@ final class PrinterTerminalContext implements TerminalContext,
     }
 
     @Override
+    public boolean isTerminalOpen() {
+        return true;
+    }
+
+    @Override
     public TerminalContext exitTerminal() {
         return this;
     }

@@ -49,6 +49,12 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
             .exitTerminal();
     }
 
+    @Override
+    default boolean isTerminalOpen() {
+        return this.terminalContext()
+            .isTerminalOpen();
+    }
+
     TerminalContext terminalContext();
 
     // HasUser..........................................................................................................

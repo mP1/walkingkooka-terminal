@@ -64,6 +64,11 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
+    public boolean isTerminalOpen() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public TerminalExpressionEvaluationContext exitTerminal() {
         throw new UnsupportedOperationException();
     }
