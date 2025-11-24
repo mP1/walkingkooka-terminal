@@ -17,21 +17,17 @@
 
 package walkingkooka.terminal.processor;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.terminal.FakeTerminal;
 
-public final class TerminalCommandProcessorContexts implements PublicStaticHelper {
+public class FakeTerminalCommandProcessorContext extends FakeTerminal
+    implements TerminalCommandProcessorContext {
 
-    /**
-     * {@see FakeTerminalCommandProcessorContext}
-     */
-    public static FakeTerminalCommandProcessorContext fake() {
-        return new FakeTerminalCommandProcessorContext();
+    public FakeTerminalCommandProcessorContext() {
+        super();
     }
 
-    /**
-     * Stop creation
-     */
-    private TerminalCommandProcessorContexts() {
-        throw new UnsupportedOperationException();
+    @Override
+    public void executeTerminalCommand(final String command) {
+
     }
 }

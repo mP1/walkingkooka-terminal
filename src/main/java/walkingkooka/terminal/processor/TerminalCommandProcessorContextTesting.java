@@ -17,21 +17,21 @@
 
 package walkingkooka.terminal.processor;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import org.junit.jupiter.api.Test;
+import walkingkooka.ContextTesting;
+import walkingkooka.terminal.TerminalTesting;
 
-public final class TerminalCommandProcessorContexts implements PublicStaticHelper {
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-    /**
-     * {@see FakeTerminalCommandProcessorContext}
-     */
-    public static FakeTerminalCommandProcessorContext fake() {
-        return new FakeTerminalCommandProcessorContext();
-    }
+public interface TerminalCommandProcessorContextTesting<C extends TerminalCommandProcessorContext> extends ContextTesting<C>,
+    TerminalTesting<C> {
 
-    /**
-     * Stop creation
-     */
-    private TerminalCommandProcessorContexts() {
-        throw new UnsupportedOperationException();
+    @Test
+    default void testExecuteTerminalCommandWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .executeTerminalCommand(null)
+        );
     }
 }
