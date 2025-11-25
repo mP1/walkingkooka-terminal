@@ -32,4 +32,11 @@ public interface TerminalShellContextTesting<C extends TerminalShellContext> ext
                 .evaluate(null)
         );
     }
+
+    // class............................................................................................................
+
+    @Override
+    default String typeNameSuffix() {
+        return TerminalShellContext.class.getSimpleName();
+    }
 }
