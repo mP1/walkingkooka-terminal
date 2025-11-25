@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface TerminalShellContextTesting<C extends TerminalShellContext> extends TerminalContextTesting<C> {
 
     @Test
-    default void testEvaluateWithNullContextFails() {
+    default void testEvaluateWithNullTextFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
