@@ -15,20 +15,20 @@
  *
  */
 
-package walkingkooka.terminal.processor;
+package walkingkooka.terminal.shell;
 
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class TerminalCommandProcessorContextsTest implements PublicStaticHelperTesting<TerminalCommandProcessorContexts> {
+public final class TerminalShellContextsTest implements PublicStaticHelperTesting<TerminalShellContexts> {
 
     // class............................................................................................................
 
     @Override
-    public Class<TerminalCommandProcessorContexts> type() {
-        return TerminalCommandProcessorContexts.class;
+    public Class<TerminalShellContexts> type() {
+        return TerminalShellContexts.class;
     }
 
     @Override

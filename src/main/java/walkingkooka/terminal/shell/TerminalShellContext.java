@@ -15,19 +15,19 @@
  *
  */
 
-package walkingkooka.terminal.processor;
+package walkingkooka.terminal.shell;
 
-import walkingkooka.terminal.FakeTerminal;
+import walkingkooka.Context;
+import walkingkooka.terminal.Terminal;
 
-public class FakeTerminalCommandProcessorContext extends FakeTerminal
-    implements TerminalCommandProcessorContext {
+/**
+ * A {@link Context} that accompanies a {@link TerminalShell}
+ */
+public interface TerminalShellContext extends Context,
+    Terminal {
 
-    public FakeTerminalCommandProcessorContext() {
-        super();
-    }
-
-    @Override
-    public void executeTerminalCommand(final String command) {
-
-    }
+    /**
+     * Executes the command.
+     */
+    void executeTerminalCommand(final String command);
 }
