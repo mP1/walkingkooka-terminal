@@ -18,13 +18,12 @@
 package walkingkooka.terminal.shell;
 
 import walkingkooka.Context;
-import walkingkooka.terminal.Terminal;
+import walkingkooka.terminal.TerminalContext;
 
 /**
  * A {@link Context} that accompanies a {@link TerminalShell}
  */
-public interface TerminalShellContext extends Context,
-    Terminal {
+public interface TerminalShellContext extends TerminalContext {
 
     /**
      * Executes the command.

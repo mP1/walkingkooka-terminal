@@ -18,13 +18,11 @@
 package walkingkooka.terminal.shell;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTesting;
-import walkingkooka.terminal.TerminalTesting;
+import walkingkooka.terminal.TerminalContextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface TerminalShellContextTesting<C extends TerminalShellContext> extends ContextTesting<C>,
-    TerminalTesting {
+public interface TerminalShellContextTesting<C extends TerminalShellContext> extends TerminalContextTesting<C> {
 
     @Test
     default void testExecuteTerminalCommandWithNullFails() {

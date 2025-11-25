@@ -17,9 +17,9 @@
 
 package walkingkooka.terminal.shell;
 
-import walkingkooka.terminal.FakeTerminal;
+import walkingkooka.terminal.FakeTerminalContext;
 
-public class FakeTerminalShellContext extends FakeTerminal
+public class FakeTerminalShellContext extends FakeTerminalContext
     implements TerminalShellContext {
 
     public FakeTerminalShellContext() {
