@@ -17,24 +17,10 @@
 
 package walkingkooka.terminal.shell;
 
-import walkingkooka.reflect.PublicStaticHelper;
+public class FakeTerminalShell implements TerminalShell {
 
-/**
- * A collection of factory methods for {@link TerminalShell} implementations.
- */
-public final class TerminalShells implements PublicStaticHelper {
-
-    /**
-     * {@see FakeTerminalShell}
-     */
-    public static FakeTerminalShell fake() {
-        return new FakeTerminalShell();
-    }
-
-    /**
-     * Stop creation
-     */
-    private TerminalShells() {
+    @Override
+    public void start(final TerminalShellContext context) {
         throw new UnsupportedOperationException();
     }
 }
