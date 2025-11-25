@@ -117,7 +117,7 @@ public final class BasicTerminalShellTest implements TerminalShellTesting<BasicT
                     }
 
                     @Override
-                    public void executeTerminalCommand(final String command) {
+                    public void evaluate(final String command) {
                         printed.add(command);
                     }
                 }

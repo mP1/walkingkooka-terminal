@@ -26,8 +26,10 @@ public class FakeTerminalShellContext extends FakeTerminalContext
         super();
     }
 
-    @Override
-    public void executeTerminalCommand(final String command) {
+    // TerminalShellContext.............................................................................................
 
+    @Override
+    public void evaluate(final String command) {
+        throw new UnsupportedOperationException();
     }
 }

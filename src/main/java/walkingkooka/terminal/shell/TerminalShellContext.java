@@ -26,7 +26,7 @@ import walkingkooka.terminal.TerminalContext;
 public interface TerminalShellContext extends TerminalContext {
 
     /**
-     * Executes the command.
+     * Evaluates the given command or expression into a value and probably print.
      */
-    void executeTerminalCommand(final String command);
+    void evaluate(final String command);
 }
