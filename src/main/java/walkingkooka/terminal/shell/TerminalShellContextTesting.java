@@ -15,19 +15,23 @@
  *
  */
 
-package walkingkooka.terminal.processor;
+package walkingkooka.terminal.shell;
 
-import walkingkooka.Context;
-import walkingkooka.terminal.Terminal;
+import org.junit.jupiter.api.Test;
+import walkingkooka.ContextTesting;
+import walkingkooka.terminal.TerminalTesting;
 
-/**
- * A {@link Context} that accompanies a {@link TerminalCommandProcessor}
- */
-public interface TerminalCommandProcessorContext extends Context,
-    Terminal {
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-    /**
-     * Executes the command.
-     */
-    void executeTerminalCommand(final String command);
+public interface TerminalShellContextTesting<C extends TerminalShellContext> extends ContextTesting<C>,
+    TerminalTesting {
+
+    @Test
+    default void testExecuteTerminalCommandWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .executeTerminalCommand(null)
+        );
+    }
 }
