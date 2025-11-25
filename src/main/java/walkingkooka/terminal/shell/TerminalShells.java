@@ -25,6 +25,13 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class TerminalShells implements PublicStaticHelper {
 
     /**
+     * {@see BasicTerminalShell}
+     */
+    public static TerminalShell basic(final long timeout) {
+        return BasicTerminalShell.with(timeout);
+    }
+
+    /**
      * {@see FakeTerminalShell}
      */
     public static FakeTerminalShell fake() {
