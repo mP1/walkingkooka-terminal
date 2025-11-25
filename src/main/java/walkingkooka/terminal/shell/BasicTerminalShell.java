@@ -74,7 +74,7 @@ final class BasicTerminalShell implements TerminalShell {
                 );
 
                 if (false == line.endsWith(LINE_CONTINUATION)) {
-                    context.executeTerminalCommand(
+                    context.evaluate(
                         CharSequences.unescape(
                             buffer.toString()
                         ).toString()

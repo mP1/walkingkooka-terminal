@@ -25,11 +25,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface TerminalShellContextTesting<C extends TerminalShellContext> extends TerminalContextTesting<C> {
 
     @Test
-    default void testExecuteTerminalCommandWithNullFails() {
+    default void testEvaluateWithNullContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
-                .executeTerminalCommand(null)
+                .evaluate(null)
         );
     }
 }
