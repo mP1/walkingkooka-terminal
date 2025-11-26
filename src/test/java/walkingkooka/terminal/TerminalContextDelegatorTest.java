@@ -19,6 +19,8 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
+import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.Printers;
 
 import java.util.Optional;
 
@@ -61,6 +63,11 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
                 }
 
                 @Override
+                public boolean isTerminalInteractive() {
+                    return false;
+                }
+
+                @Override
                 public Optional<String> readLine(final long timeout) {
                     if (timeout < 0) {
                         throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
@@ -69,13 +76,13 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
                 }
 
                 @Override
-                public boolean isTerminalInteractive() {
-                    return false;
+                public Printer output() {
+                    return Printers.fake();
                 }
 
                 @Override
-                public void close() {
-                    // nop
+                public Printer error() {
+                    return Printers.fake();
                 }
             };
         }

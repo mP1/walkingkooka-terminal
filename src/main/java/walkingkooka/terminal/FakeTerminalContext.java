@@ -18,11 +18,11 @@
 package walkingkooka.terminal;
 
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.text.printer.FakePrinter;
+import walkingkooka.text.printer.Printer;
 
 import java.util.Optional;
 
-public class FakeTerminalContext extends FakePrinter implements TerminalContext {
+public class FakeTerminalContext implements TerminalContext {
 
     public FakeTerminalContext() {
         super();
@@ -50,6 +50,16 @@ public class FakeTerminalContext extends FakePrinter implements TerminalContext 
 
     @Override
     public boolean isTerminalOpen() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Printer output() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Printer error() {
         throw new UnsupportedOperationException();
     }
 

@@ -35,7 +35,6 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextDelegatorTest.TestTerminalExpressionEvaluationContextDelegator;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
@@ -278,10 +277,17 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
         @Override
         public TerminalContext terminalContext() {
-            return TerminalContexts.printer(
+            return TerminalContexts.basic(
                 TerminalId.with(1),
                 this,
-                Printers.sink(LineEnding.NONE)
+                (timeout) -> {
+                    if (timeout < 0) {
+                        throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
+                    }
+                    return Optional.empty();
+                }, // input line reader
+                Printers.fake(), // output
+                Printers.fake() // error
             );
         }
 

@@ -54,6 +54,26 @@ public interface TerminalContextTesting<C extends TerminalContext> extends Conte
         );
     }
 
+    @Test
+    default void testOutputNotNull() {
+        this.checkNotEquals(
+            null,
+            this.createContext()
+                .output()
+        );
+    }
+
+    @Test
+    default void testErrorNotNull() {
+        this.checkNotEquals(
+            null,
+            this.createContext()
+                .error()
+        );
+    }
+
+    // class............................................................................................................
+
     @Override//
     default String typeNamePrefix() {
         return "";

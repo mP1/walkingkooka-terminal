@@ -19,6 +19,8 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
+import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.Printers;
 
 public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
 
@@ -55,8 +57,18 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
         }
 
         @Override
-        public void close() {
-            // nop
+        public Printer output() {
+            return Printers.fake();
+        }
+
+        @Override
+        public Printer error() {
+            return Printers.fake();
+        }
+
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
         }
     }
 }

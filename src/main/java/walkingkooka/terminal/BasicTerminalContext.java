@@ -20,7 +20,6 @@ package walkingkooka.terminal;
 import walkingkooka.environment.HasUser;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
-import walkingkooka.text.printer.PrinterDelegator;
 import walkingkooka.util.OpenChecker;
 
 import java.util.Objects;
@@ -30,29 +29,32 @@ import java.util.function.Function;
 /**
  * A {@link TerminalContext} that reads line from a {@link Function}, with the timeout, and prints to a {@link Printer}.
  */
-final class BasicTerminalContext implements TerminalContext,
-    PrinterDelegator {
+final class BasicTerminalContext implements TerminalContext {
 
     static BasicTerminalContext with(final TerminalId terminalId,
                                      final HasUser hasUser,
                                      final Function<Long, Optional<String>> lineReader,
-                                     final Printer printer) {
+                                     final Printer output,
+                                     final Printer error) {
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(hasUser, "hasUser"),
             Objects.requireNonNull(lineReader, "lineReader"),
-            Objects.requireNonNull(printer, "printer")
+            Objects.requireNonNull(output, "output"),
+            Objects.requireNonNull(error, "error")
         );
     }
 
     private BasicTerminalContext(final TerminalId terminalId,
                                  final HasUser hasUser,
                                  final Function<Long, Optional<String>> lineReader,
-                                 final Printer printer) {
+                                 final Printer output,
+                                 final Printer error) {
         this.terminalId = terminalId;
         this.hasUser = hasUser;
         this.lineReader = lineReader;
-        this.printer = printer;
+        this.output = output;
+        this.error = error;
 
         this.openChecker = OpenChecker.with(
             "Terminal closed",
@@ -99,27 +101,26 @@ final class BasicTerminalContext implements TerminalContext,
         return false == this.openChecker.isClosed();
     }
 
+    @Override
+    public Printer output() {
+        return this.output;
+    }
+
+    private final Printer output;
+
+    @Override
+    public Printer error() {
+        return this.error;
+    }
+
+    private final Printer error;
+
     private final OpenChecker<IllegalStateException> openChecker;
-
-    // PrinterDelegator.................................................................................................
-
-    @Override
-    public Printer printer() {
-        this.openChecker.check();
-        return this.printer;
-    }
-
-    private final Printer printer;
-
-    @Override
-    public void close() {
-        TerminalContext.super.close();
-    }
 
     // Object...........................................................................................................
 
     @Override
     public String toString() {
-        return this.terminalId + " lineReader: " + this.lineReader + " printer: " + this.printer;
+        return this.terminalId + ", lineReader: " + this.lineReader + ", output: " + this.output + ", error: " + this.error;
     }
 }

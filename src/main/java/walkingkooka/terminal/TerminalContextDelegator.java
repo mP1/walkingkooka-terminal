@@ -19,16 +19,21 @@ package walkingkooka.terminal;
 
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
-import walkingkooka.text.printer.PrinterDelegator;
 
 import java.util.Optional;
 
-public interface TerminalContextDelegator extends TerminalContext, PrinterDelegator {
+public interface TerminalContextDelegator extends TerminalContext {
 
     @Override
     default TerminalId terminalId() {
         return this.terminalContext()
             .terminalId();
+    }
+
+    @Override
+    default boolean isTerminalOpen() {
+        return this.terminalContext()
+            .isTerminalOpen();
     }
 
     @Override
@@ -38,21 +43,27 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
     }
 
     @Override
-    default Optional<String> readLine(final long timeout) {
-        return this.terminalContext()
-            .readLine(timeout);
-    }
-
-    @Override
     default TerminalContext exitTerminal() {
         return this.terminalContext()
             .exitTerminal();
     }
 
     @Override
-    default boolean isTerminalOpen() {
+    default Optional<String> readLine(final long timeout) {
         return this.terminalContext()
-            .isTerminalOpen();
+            .readLine(timeout);
+    }
+
+    @Override
+    default Printer output() {
+        return this.terminalContext()
+            .output();
+    }
+
+    @Override
+    default Printer error() {
+        return this.terminalContext()
+            .error();
     }
 
     TerminalContext terminalContext();
@@ -63,17 +74,5 @@ public interface TerminalContextDelegator extends TerminalContext, PrinterDelega
     default Optional<EmailAddress> user() {
         return this.terminalContext()
             .user();
-    }
-
-    // PrinterDelegator.................................................................................................
-
-    @Override
-    default Printer printer() {
-        return this.terminalContext();
-    }
-
-    @Override
-    default void close() {
-        TerminalContext.super.close();
     }
 }

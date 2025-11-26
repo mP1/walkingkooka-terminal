@@ -33,12 +33,14 @@ public final class TerminalContexts implements PublicStaticHelper {
     public static TerminalContext basic(final TerminalId terminalId,
                                         final HasUser hasUser,
                                         final Function<Long, Optional<String>> input,
-                                        final Printer printer) {
+                                        final Printer output,
+                                        final Printer error) {
         return BasicTerminalContext.with(
             terminalId,
             hasUser,
             input,
-            printer
+            output,
+            error
         );
     }
 
@@ -47,19 +49,6 @@ public final class TerminalContexts implements PublicStaticHelper {
      */
     public static FakeTerminalContext fake() {
         return new FakeTerminalContext();
-    }
-
-    /**
-     * {@see PrinterTerminalContext}
-     */
-    public static TerminalContext printer(final TerminalId terminalId,
-                                          final HasUser hasUser,
-                                          final Printer printer) {
-        return PrinterTerminalContext.with(
-            terminalId,
-            hasUser,
-            printer
-        );
     }
 
     /**

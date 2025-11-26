@@ -20,7 +20,8 @@ package walkingkooka.terminal;
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.environment.HasUser;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.util.OpenChecker;
 
 import java.io.BufferedReader;
@@ -57,9 +58,8 @@ final class SystemTerminalContext implements TerminalContext {
                 System.in
             )
         );
-        this.lineEnding = LineEnding.from(
-            System.lineSeparator()
-        );
+        this.output = Printers.sysOut();
+        this.error = Printers.sysErr();
 
         this.openChecker = OpenChecker.with(
             "Terminal closed",
@@ -87,6 +87,17 @@ final class SystemTerminalContext implements TerminalContext {
     }
 
     @Override
+    public boolean isTerminalOpen() {
+        return false == this.openChecker.isClosed();
+    }
+
+    @Override
+    public TerminalContext exitTerminal() {
+        this.openChecker.close();
+        return this;
+    }
+
+    @Override
     public Optional<String> readLine(final long timeout) {
         if (timeout < 0) {
             throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
@@ -108,36 +119,18 @@ final class SystemTerminalContext implements TerminalContext {
     private final BufferedReader lineReader;
 
     @Override
-    public void print(final CharSequence charSequence) {
-        this.openChecker.check();
-
-        System.out.print(charSequence);
+    public Printer output() {
+        return this.output;
     }
+
+    private final Printer output;
 
     @Override
-    public LineEnding lineEnding() {
-        return this.lineEnding;
+    public Printer error() {
+        return this.error;
     }
 
-    private final LineEnding lineEnding;
-
-    @Override
-    public void flush() {
-        this.openChecker.check();
-
-        System.out.flush();
-    }
-
-    @Override
-    public TerminalContext exitTerminal() {
-        this.openChecker.close();
-        return this;
-    }
-
-    @Override
-    public boolean isTerminalOpen() {
-        return false == this.openChecker.isClosed();
-    }
+    private final Printer error;
 
     private final OpenChecker<IllegalStateException> openChecker;
 
