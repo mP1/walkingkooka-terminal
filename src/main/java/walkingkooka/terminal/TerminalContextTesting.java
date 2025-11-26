@@ -20,12 +20,30 @@ package walkingkooka.terminal;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
 import walkingkooka.environment.HasUserTesting;
+import walkingkooka.text.printer.TreePrintableTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C>,
     HasUserTesting,
-    TerminalTesting {
+    TreePrintableTesting {
+
+    default void terminalIdAndCheck(final TerminalContext context,
+                                    final TerminalId expected) {
+        this.checkEquals(
+            expected,
+            context.terminalId(),
+            context::toString
+        );
+    }
+
+    default void isTerminalInteractiveAndCheck(final TerminalContext context,
+                                               final boolean expected) {
+        this.checkEquals(
+            expected,
+            context.isTerminalInteractive()
+        );
+    }
 
     @Test
     default void testReadLineWithNegativeTimeoutFails() {

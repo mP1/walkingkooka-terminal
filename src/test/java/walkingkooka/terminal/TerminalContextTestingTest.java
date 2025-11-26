@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
 
 public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
@@ -26,10 +27,20 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
         throw new UnsupportedOperationException();
     }
 
+    @Test
+    public void testIsTerminalInteractive() {
+        this.isTerminalInteractiveAndCheck(
+            new TestTerminalContext(),
+            true
+        );
+    }
+
     @Override
     public TestTerminalContext createContext() {
         return new TestTerminalContext();
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<TestTerminalContext> type() {
@@ -37,6 +48,11 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
     }
 
     static class TestTerminalContext extends FakeTerminalContext {
+
+        @Override
+        public boolean isTerminalInteractive() {
+            return true;
+        }
 
         @Override
         public void close() {
