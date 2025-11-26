@@ -19,6 +19,8 @@ package walkingkooka.terminal.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.terminal.FakeTerminalContext;
 import walkingkooka.terminal.TerminalId;
 
@@ -33,6 +35,33 @@ public final class BasicTerminalServerContextTest implements TerminalServerConte
         assertThrows(
             NullPointerException.class,
             () -> BasicTerminalServerContext.with(null)
+        );
+    }
+
+    @Test
+    public void testCreateTerminalWithDuplicateFails() {
+        final TerminalId terminalId = TerminalId.with(999);
+        final EnvironmentContext environmentContext = EnvironmentContexts.fake();
+
+        final BasicTerminalServerContext context = BasicTerminalServerContext.with(
+            (e) -> new FakeTerminalContext() {
+                @Override
+                public TerminalId terminalId() {
+                    return terminalId;
+                }
+            }
+        );
+
+        context.createTerminalContext(environmentContext);
+
+        final IllegalStateException thrown = assertThrows(
+            IllegalStateException.class,
+            () -> context.createTerminalContext(environmentContext)
+        );
+
+        this.checkEquals(
+            "TerminalContext created with duplicate TerminalId: " + terminalId,
+            thrown.getMessage()
         );
     }
 

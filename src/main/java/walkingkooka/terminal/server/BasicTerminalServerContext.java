@@ -51,10 +51,15 @@ final class BasicTerminalServerContext implements TerminalServerContext {
             context
         );
 
-        this.terminalIdToTerminalContext.put(
-            terminalContext.terminalId(),
+        final TerminalId terminalId = terminalContext.terminalId();
+
+        final Object previous = this.terminalIdToTerminalContext.putIfAbsent(
+            terminalId,
             terminalContext
         );
+        if (null != previous) {
+            throw new IllegalStateException("TerminalContext created with duplicate TerminalId: " + terminalId);
+        }
 
         return terminalContext;
     }
