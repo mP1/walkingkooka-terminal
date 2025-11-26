@@ -26,6 +26,7 @@ import walkingkooka.terminal.server.TerminalServerContextTestingTest.TestTermina
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 public final class TerminalServerContextTestingTest implements TerminalServerContextTesting<TestTerminalServerContext> {
 
@@ -40,6 +41,14 @@ public final class TerminalServerContextTestingTest implements TerminalServerCon
     }
 
     final static class TestTerminalServerContext implements TerminalServerContext {
+
+        @Override
+        public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
+            Objects.requireNonNull(terminalContextFactory, "terminalContextFactory");
+
+            throw new UnsupportedOperationException();
+        }
+
 
         @Override
         public FakeTerminalContext createTerminalContext(final EnvironmentContext context) {

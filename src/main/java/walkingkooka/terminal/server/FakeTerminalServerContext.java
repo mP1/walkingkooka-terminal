@@ -22,11 +22,17 @@ import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 public class FakeTerminalServerContext implements TerminalServerContext {
 
     public FakeTerminalServerContext() {
         super();
+    }
+
+    @Override
+    public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
