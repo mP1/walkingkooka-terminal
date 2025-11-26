@@ -20,7 +20,7 @@ package walkingkooka.terminal.expression;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalId;
-import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.util.Locale;
@@ -44,32 +44,27 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
-    public Optional<String> readLine(final long timeout) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void print(final CharSequence charSequence) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public LineEnding lineEnding() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void flush() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public boolean isTerminalOpen() {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public TerminalExpressionEvaluationContext exitTerminal() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<String> readLine(final long timeout) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Printer output() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Printer error() {
         throw new UnsupportedOperationException();
     }
 

@@ -60,7 +60,8 @@ final class TerminalExpressionFunctionPrintln<C extends TerminalExpressionEvalua
                       final C context) {
         this.checkParameterCount(parameters);
 
-        context.println(
+        context.output()
+            .println(
             TEXT.getOrFail(parameters, 0)
         );
 

@@ -24,6 +24,8 @@ import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContexts;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
 
 public final class TerminalExpressionFunctionPrintlnTest implements ExpressionFunctionTesting<TerminalExpressionFunctionPrintln<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
@@ -39,13 +41,11 @@ public final class TerminalExpressionFunctionPrintlnTest implements ExpressionFu
         final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
 
             @Override
-            public void print(final CharSequence text) {
-                b.append(text);
-            }
-
-            @Override
-            public LineEnding lineEnding() {
-                return lineEnding;
+            public Printer output() {
+                return Printers.stringBuilder(
+                    b,
+                    lineEnding
+                );
             }
         };
 

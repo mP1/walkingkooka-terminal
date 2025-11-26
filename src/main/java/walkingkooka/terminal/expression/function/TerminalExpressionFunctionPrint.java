@@ -60,9 +60,10 @@ final class TerminalExpressionFunctionPrint<C extends TerminalExpressionEvaluati
                       final C context) {
         this.checkParameterCount(parameters);
 
-        context.print(
-            TEXT.getOrFail(parameters, 0)
-        );
+        context.output()
+            .print(
+                TEXT.getOrFail(parameters, 0)
+            );
 
         return null;
     }

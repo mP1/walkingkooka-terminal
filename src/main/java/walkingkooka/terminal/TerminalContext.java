@@ -27,8 +27,7 @@ import java.util.Optional;
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
  */
 public interface TerminalContext extends Context,
-    HasUser,
-    Printer {
+    HasUser {
 
     /**
      * Returns the {@link TerminalId} identifying this session.
@@ -55,13 +54,13 @@ public interface TerminalContext extends Context,
      */
     Optional<String> readLine(long timeout);
 
-    // Printer..........................................................................................................
+    /**
+     * A {@link Printer} for output.
+     */
+    Printer output();
 
     /**
-     * {@link Printer#close()} is a NOP
+     * A {@link Printer} for errors.
      */
-    @Override
-    default void close() {
-        // NOP
-    }
+    Printer error();
 }
