@@ -27,9 +27,28 @@ import java.util.Optional;
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
  */
 public interface TerminalContext extends Context,
-    Terminal,
     HasUser,
     Printer {
+
+    /**
+     * Returns the {@link TerminalId} identifying this session.
+     */
+    TerminalId terminalId();
+
+    /**
+     * May be used to test if a terminal is interactive accepting input from a user.
+     */
+    boolean isTerminalInteractive();
+
+    /**
+     * Used to programmatically quite or close this terminal session.
+     */
+    TerminalContext exitTerminal();
+
+    /**
+     * Tests if the terminal has been closed.
+     */
+    boolean isTerminalOpen();
 
     /**
      * Read a line of text from the current terminal.
