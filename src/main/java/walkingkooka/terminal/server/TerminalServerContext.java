@@ -23,11 +23,18 @@ import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A {@link Context} that provides operations to create and manage {@link walkingkooka.terminal.TerminalContext}.
  */
 public interface TerminalServerContext extends Context {
+
+    /**
+     * Adds the {@link TerminalContext} created by the factory. Note the created {@link TerminalContext} must use the
+     * given {@link TerminalId}.
+     */
+    TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory);
 
     /**
      * Creates a new {@link TerminalContext} using the given {@link EnvironmentContext} which provides the user and

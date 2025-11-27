@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.terminal.FakeTerminalContext;
+import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -31,12 +32,105 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicTerminalServerContextTest implements TerminalServerContextTesting<BasicTerminalServerContext> {
 
     @Test
+    public void testWithNullNextTerminalIdFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicTerminalServerContext.with(
+                null,
+                (e) -> {
+                    throw new UnsupportedOperationException();
+                }
+            )
+        );
+    }
+
+    @Test
     public void testWithNullEnvironmentContextToTerminalContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalServerContext.with(null)
+            () -> BasicTerminalServerContext.with(
+                () -> TerminalId.with(1),
+                null
+            )
         );
     }
+
+    // addTerminalContext...............................................................................................
+
+    @Test
+    public void testAddTerminalContextWithDifferentTerminalIdFails() {
+        final BasicTerminalServerContext context = BasicTerminalServerContext.with(
+            () -> TerminalId.with(1),
+            (e) -> {
+                throw new UnsupportedOperationException();
+            }
+        );
+
+        final IllegalStateException thrown = assertThrows(
+            IllegalStateException.class,
+            () -> context.addTerminalContext(
+                (i) -> new TestTerminalContext(
+                    TerminalId.with(999)
+                )
+            )
+        );
+
+        this.checkEquals(
+            "TerminalContext:TerminalId different 3e7 from given 1",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testAddTerminalContextWithDuplicateTerminalIdFails() {
+        final TerminalId terminalId = TerminalId.with(999);
+
+        final BasicTerminalServerContext context = BasicTerminalServerContext.with(
+            () -> terminalId,
+            (e) -> {
+                throw new UnsupportedOperationException();
+            }
+        );
+
+        context.addTerminalContext(
+            (i) -> new TestTerminalContext(i)
+        );
+
+        final IllegalStateException thrown = assertThrows(
+            IllegalStateException.class,
+            () -> context.addTerminalContext(
+                (i) -> new TestTerminalContext(i)
+            )
+        );
+
+        this.checkEquals(
+            "TerminalContext created with duplicate TerminalId: " + terminalId,
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testAddTerminalContext() {
+        final TerminalId terminalId = TerminalId.with(999);
+
+        final BasicTerminalServerContext context = BasicTerminalServerContext.with(
+            () -> terminalId,
+            (e) -> {
+                throw new UnsupportedOperationException();
+            }
+        );
+
+        final TerminalContext terminalContext = context.addTerminalContext(
+            (i) -> new TestTerminalContext(i)
+        );
+        this.checkEquals(
+            terminalId,
+            terminalContext.terminalId(),
+            "terminalId"
+        );
+    }
+
+    // createTerminalContext............................................................................................
 
     @Test
     public void testCreateTerminalWithDuplicateFails() {
@@ -44,6 +138,9 @@ public final class BasicTerminalServerContextTest implements TerminalServerConte
         final EnvironmentContext environmentContext = EnvironmentContexts.fake();
 
         final BasicTerminalServerContext context = BasicTerminalServerContext.with(
+            () -> {
+                throw new UnsupportedOperationException();
+            },
             (e) -> new FakeTerminalContext() {
                 @Override
                 public TerminalId terminalId() {
@@ -70,6 +167,9 @@ public final class BasicTerminalServerContextTest implements TerminalServerConte
         final AtomicLong next = new AtomicLong();
 
         return BasicTerminalServerContext.with(
+            () -> {
+                throw new UnsupportedOperationException();
+            },
             (environmentContext) ->
                 new FakeTerminalContext() {
                     @Override
@@ -82,6 +182,20 @@ public final class BasicTerminalServerContextTest implements TerminalServerConte
                     );
                 }
         );
+    }
+
+    final static class TestTerminalContext extends FakeTerminalContext {
+
+        TestTerminalContext(final TerminalId terminalId) {
+            this.terminalId = terminalId;
+        }
+
+        @Override
+        public TerminalId terminalId() {
+            return this.terminalId;
+        }
+
+        private TerminalId terminalId;
     }
 
     // class............................................................................................................

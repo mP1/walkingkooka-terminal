@@ -24,6 +24,7 @@ import walkingkooka.terminal.TerminalId;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -48,18 +49,35 @@ final class UserFilteredTerminalServerContext implements TerminalServerContext {
     // TerminalServerContext............................................................................................
 
     @Override
+    public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
+        Objects.requireNonNull(terminalContextFactory, "terminalContextFactory");
+
+        return this.verifyTerminalContextUser(
+            this.context.addTerminalContext(terminalContextFactory),
+            "Added"
+        );
+    }
+
+    @Override
     public TerminalContext createTerminalContext(final EnvironmentContext context) {
         Objects.requireNonNull(context, "context");
 
         // TODO maybe should verify EnvironmentContext#user is current user
 
-        final TerminalContext terminalContext = this.context.createTerminalContext(context);
+        return this.verifyTerminalContextUser(
+            this.context.createTerminalContext(context),
+            "Created"
+        );
+    }
+
+    private TerminalContext verifyTerminalContextUser(final TerminalContext terminalContext,
+                                                      final String action) {
         final Optional<EmailAddress> user = terminalContext.user();
         if (this.filter.test(user)) {
             return terminalContext;
         }
 
-        throw new IllegalArgumentException("Created TerminalContext belongs to different user");
+        throw new IllegalArgumentException(action + " TerminalContext belongs to different user");
     }
 
     @Override

@@ -24,6 +24,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TerminalServerContextTesting<C extends TerminalServerContext> extends ContextTesting<C> {
 
+    // addTerminalContext...............................................................................................
+
+    @Test
+    default void testAddTerminalContextWithNullFunctionFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .addTerminalContext(null)
+        );
+    }
+
     // createTerminal...................................................................................................
 
     @Test

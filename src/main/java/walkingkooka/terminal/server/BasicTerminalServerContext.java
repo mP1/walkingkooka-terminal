@@ -26,22 +26,46 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A server that contains all {@link TerminalContext}.
  */
 final class BasicTerminalServerContext implements TerminalServerContext {
 
-    static BasicTerminalServerContext with(final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
+    static BasicTerminalServerContext with(final Supplier<TerminalId> nextTerminalId,
+                                           final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
         return new BasicTerminalServerContext(
+            Objects.requireNonNull(nextTerminalId, "nextTerminalId"),
             Objects.requireNonNull(environmentContextToTerminalContext, "environmentContextToTerminalContext")
         );
     }
 
-    private BasicTerminalServerContext(final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
+    private BasicTerminalServerContext(final Supplier<TerminalId> nextTerminalId,
+                                       final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
         super();
+
+        this.nextTerminalId = nextTerminalId;
         this.environmentContextToTerminalContext = Objects.requireNonNull(environmentContextToTerminalContext, "environmentContextToTerminalContext");
     }
+
+    @Override
+    public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
+        Objects.requireNonNull(terminalContextFactory, "terminalContextFactory");
+
+        final TerminalId terminalId = this.nextTerminalId.get();
+        final TerminalContext terminalContext = terminalContextFactory.apply(terminalId);
+        final TerminalId terminalContextId = terminalContext.terminalId();
+
+        if (false == terminalId.equals(terminalContextId)) {
+            throw new IllegalStateException("TerminalContext:TerminalId different " + terminalContextId + " from given " + terminalId);
+        }
+
+        this.saveTerminalContext(terminalContext);
+        return terminalContext;
+    }
+
+    private final Supplier<TerminalId> nextTerminalId;
 
     @Override
     public TerminalContext createTerminalContext(final EnvironmentContext context) {
@@ -51,17 +75,20 @@ final class BasicTerminalServerContext implements TerminalServerContext {
             context
         );
 
-        final TerminalId terminalId = terminalContext.terminalId();
+        this.saveTerminalContext(terminalContext);
+        return terminalContext;
+    }
+
+    private void saveTerminalContext(final TerminalContext context) {
+        final TerminalId terminalId = context.terminalId();
 
         final Object previous = this.terminalIdToTerminalContext.putIfAbsent(
             terminalId,
-            terminalContext
+            context
         );
         if (null != previous) {
             throw new IllegalStateException("TerminalContext created with duplicate TerminalId: " + terminalId);
         }
-
-        return terminalContext;
     }
 
     private final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext;
