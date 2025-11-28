@@ -18,6 +18,7 @@
 package walkingkooka.terminal;
 
 import walkingkooka.environment.HasUser;
+import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.util.OpenChecker;
@@ -33,13 +34,13 @@ final class BasicTerminalContext implements TerminalContext {
 
     static BasicTerminalContext with(final TerminalId terminalId,
                                      final HasUser hasUser,
-                                     final Function<Long, Optional<String>> lineReader,
+                                     final TextReader input,
                                      final Printer output,
                                      final Printer error) {
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(hasUser, "hasUser"),
-            Objects.requireNonNull(lineReader, "lineReader"),
+            Objects.requireNonNull(input, "input"),
             Objects.requireNonNull(output, "output"),
             Objects.requireNonNull(error, "error")
         );
@@ -47,12 +48,12 @@ final class BasicTerminalContext implements TerminalContext {
 
     private BasicTerminalContext(final TerminalId terminalId,
                                  final HasUser hasUser,
-                                 final Function<Long, Optional<String>> lineReader,
+                                 final TextReader input,
                                  final Printer output,
                                  final Printer error) {
         this.terminalId = terminalId;
         this.hasUser = hasUser;
-        this.lineReader = lineReader;
+        this.input = input;
         this.output = output;
         this.error = error;
 
@@ -82,13 +83,13 @@ final class BasicTerminalContext implements TerminalContext {
     }
 
     @Override
-    public Optional<String> readLine(final long timeout) {
+    public TextReader input() {
         this.openChecker.check();
 
-        return this.lineReader.apply(timeout);
+        return this.input;
     }
 
-    private final Function<Long, Optional<String>> lineReader;
+    private final TextReader input;
 
     @Override
     public TerminalContext exitTerminal() {
@@ -121,6 +122,6 @@ final class BasicTerminalContext implements TerminalContext {
 
     @Override
     public String toString() {
-        return this.terminalId + ", lineReader: " + this.lineReader + ", output: " + this.output + ", error: " + this.error;
+        return this.terminalId + ", input: " + this.input + ", output: " + this.output + ", error: " + this.error;
     }
 }

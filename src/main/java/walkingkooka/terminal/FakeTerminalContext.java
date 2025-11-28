@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
 
@@ -39,17 +40,17 @@ public class FakeTerminalContext implements TerminalContext {
     }
 
     @Override
-    public Optional<String> readLine(final long timeout) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public TerminalContext exitTerminal() {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean isTerminalOpen() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TextReader input() {
         throw new UnsupportedOperationException();
     }
 

@@ -22,8 +22,6 @@ import walkingkooka.ContextTesting;
 import walkingkooka.environment.HasUserTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C>,
     HasUserTesting,
     TreePrintableTesting {
@@ -46,11 +44,11 @@ public interface TerminalContextTesting<C extends TerminalContext> extends Conte
     }
 
     @Test
-    default void testReadLineWithNegativeTimeoutFails() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> this.createContext()
-                .readLine(-1)
+    default void testInputNotNull() {
+        this.checkNotEquals(
+            null,
+            this.createContext()
+                .input()
         );
     }
 

@@ -20,6 +20,8 @@ package walkingkooka.terminal.shell;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.io.FakeTextReader;
+import walkingkooka.io.TextReader;
 
 import java.util.Iterator;
 import java.util.List;
@@ -108,12 +110,18 @@ public final class BasicTerminalShellTest implements TerminalShellTesting<BasicT
                     }
 
                     @Override
-                    public Optional<String> readLine(final long timeout) {
-                        return Optional.ofNullable(
-                            read.hasNext() ?
-                                read.next() :
-                                null
-                        );
+                    public TextReader input() {
+                        return new FakeTextReader() {
+
+                            @Override
+                            public Optional<String> readLine(final long timeout) {
+                                return Optional.ofNullable(
+                                    read.hasNext() ?
+                                        read.next() :
+                                        null
+                                );
+                            }
+                        };
                     }
 
                     @Override

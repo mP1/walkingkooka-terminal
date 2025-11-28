@@ -18,16 +18,13 @@
 package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.io.TextReader;
+import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
 public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
-
-    @Override
-    public void testReadLineWithNegativeTimeoutFails() {
-        throw new UnsupportedOperationException();
-    }
 
     @Test
     public void testIsTerminalInteractive() {
@@ -54,6 +51,11 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
         @Override
         public boolean isTerminalInteractive() {
             return true;
+        }
+
+        @Override
+        public TextReader input() {
+            return TextReaders.fake();
         }
 
         @Override

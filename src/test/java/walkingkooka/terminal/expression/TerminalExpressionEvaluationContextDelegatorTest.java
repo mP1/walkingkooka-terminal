@@ -25,6 +25,7 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.io.TextReaders;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
@@ -280,12 +281,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
             return TerminalContexts.basic(
                 TerminalId.with(1),
                 this,
-                (timeout) -> {
-                    if (timeout < 0) {
-                        throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
-                    }
-                    return Optional.empty();
-                }, // input line reader
+                TextReaders.fake(), // input
                 Printers.fake(), // output
                 Printers.fake() // error
             );

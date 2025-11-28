@@ -18,11 +18,11 @@
 package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.io.TextReader;
+import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
-
-import java.util.Optional;
 
 public final class TerminalContextDelegatorTest implements TerminalContextTesting<TestTerminalContextDelegator> {
 
@@ -68,11 +68,8 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
                 }
 
                 @Override
-                public Optional<String> readLine(final long timeout) {
-                    if (timeout < 0) {
-                        throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
-                    }
-                    throw new UnsupportedOperationException();
+                public TextReader input() {
+                    return TextReaders.fake();
                 }
 
                 @Override

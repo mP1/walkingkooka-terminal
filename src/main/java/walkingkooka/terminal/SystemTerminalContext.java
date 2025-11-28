@@ -19,13 +19,13 @@ package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.environment.HasUser;
+import walkingkooka.io.TextReader;
+import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.util.OpenChecker;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Optional;
@@ -53,10 +53,8 @@ final class SystemTerminalContext implements TerminalContext {
 
         this.hasUser = hasUser;
 
-        this.lineReader = new BufferedReader(
-            new InputStreamReader(
-                System.in
-            )
+        this.input = TextReaders.reader(
+            new InputStreamReader(System.in)
         );
         this.output = Printers.sysOut();
         this.error = Printers.sysErr();
@@ -98,25 +96,11 @@ final class SystemTerminalContext implements TerminalContext {
     }
 
     @Override
-    public Optional<String> readLine(final long timeout) {
-        if (timeout < 0) {
-            throw new IllegalArgumentException("Invalid timeout " + timeout + " < 0");
-        }
-
-        this.openChecker.check();
-
-        String line;
-
-        try {
-            line = this.lineReader.readLine();
-        } catch (final IOException ignore) {
-            line = null;
-        }
-
-        return Optional.ofNullable(line);
+    public TextReader input() {
+        return this.input;
     }
 
-    private final BufferedReader lineReader;
+    private final TextReader input;
 
     @Override
     public Printer output() {
