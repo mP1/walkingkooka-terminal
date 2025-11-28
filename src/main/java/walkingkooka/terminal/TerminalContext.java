@@ -19,9 +19,8 @@ package walkingkooka.terminal;
 
 import walkingkooka.Context;
 import walkingkooka.environment.HasUser;
+import walkingkooka.io.TextReader;
 import walkingkooka.text.printer.Printer;
-
-import java.util.Optional;
 
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
@@ -50,9 +49,9 @@ public interface TerminalContext extends Context,
     boolean isTerminalOpen();
 
     /**
-     * Read a line of text from the current terminal.
+     * Returns a {@link TextReader} that may be used to read any text input
      */
-    Optional<String> readLine(long timeout);
+    TextReader input();
 
     /**
      * A {@link Printer} for output.

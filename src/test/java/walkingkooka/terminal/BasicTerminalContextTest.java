@@ -20,12 +20,13 @@ package walkingkooka.terminal;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.HasUser;
+import walkingkooka.io.TextReader;
+import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
 import java.util.Optional;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -38,12 +39,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
         EmailAddress.parse("user@example.com")
     );
 
-    private final static Function<Long, Optional<String>> LINE_READER = (timeout) -> {
-        if (timeout < 0) {
-            throw new IllegalArgumentException("timeout");
-        }
-        throw new UnsupportedOperationException();
-    };
+    private final static TextReader INPUT = TextReaders.fake();
 
     private final static Printer OUTPUT = Printers.fake();
 
@@ -56,7 +52,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             () -> BasicTerminalContext.with(
                 null,
                 HAS_USER,
-                LINE_READER,
+                INPUT,
                 OUTPUT,
                 ERROR
             )
@@ -70,7 +66,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
                 null,
-                LINE_READER,
+                INPUT,
                 OUTPUT,
                 ERROR
             )
@@ -78,7 +74,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     }
 
     @Test
-    public void testWithNullLineReaderFails() {
+    public void testWithNullInputFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicTerminalContext.with(
@@ -98,7 +94,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
                 HAS_USER,
-                LINE_READER,
+                INPUT,
                 null,
                 ERROR
             )
@@ -112,7 +108,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
                 HAS_USER,
-                LINE_READER,
+                INPUT,
                 OUTPUT,
                 null
             )
@@ -124,7 +120,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
         return BasicTerminalContext.with(
             TERMINAL_ID,
             HAS_USER,
-            LINE_READER,
+            INPUT,
             OUTPUT,
             ERROR
         );
@@ -136,7 +132,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     public void testToString() {
         this.toStringAndCheck(
             this.createContext(),
-            TERMINAL_ID + ", lineReader: " + LINE_READER + ", output: " + OUTPUT + ", error: " + ERROR
+            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR
         );
     }
 

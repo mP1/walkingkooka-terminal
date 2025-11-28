@@ -17,6 +17,8 @@
 
 package walkingkooka.terminal.shell;
 
+import walkingkooka.io.TextReader;
+import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.shell.TerminalShellContextTestingTest.TestTerminalShellContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -24,11 +26,6 @@ import walkingkooka.text.printer.Printers;
 import java.util.Objects;
 
 public final class TerminalShellContextTestingTest implements TerminalShellContextTesting<TestTerminalShellContext> {
-
-    @Override
-    public void testReadLineWithNegativeTimeoutFails() {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public TestTerminalShellContext createContext() {
@@ -46,6 +43,11 @@ public final class TerminalShellContextTestingTest implements TerminalShellConte
         public void evaluate(final String command) {
             Objects.requireNonNull(command, "command");
             throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public TextReader input() {
+            return TextReaders.fake();
         }
 
         @Override

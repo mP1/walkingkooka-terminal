@@ -18,6 +18,7 @@
 package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.text.printer.Printer;
@@ -54,7 +55,7 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
-    public Optional<String> readLine(final long timeout) {
+    public TextReader input() {
         throw new UnsupportedOperationException();
     }
 

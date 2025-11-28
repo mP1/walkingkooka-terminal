@@ -48,7 +48,8 @@ final class BasicTerminalShell implements TerminalShell {
         StringBuilder buffer = new StringBuilder();
 
         while (context.isTerminalOpen()) {
-            final String line = context.readLine(this.timeout)
+            final String line = context.input()
+                .readLine(this.timeout)
                 .orElse(null);
 
             if (null != line) {

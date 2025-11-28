@@ -19,11 +19,9 @@ package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.environment.HasUser;
+import walkingkooka.io.TextReader;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.printer.Printer;
-
-import java.util.Optional;
-import java.util.function.Function;
 
 public final class TerminalContexts implements PublicStaticHelper {
 
@@ -32,7 +30,7 @@ public final class TerminalContexts implements PublicStaticHelper {
      */
     public static TerminalContext basic(final TerminalId terminalId,
                                         final HasUser hasUser,
-                                        final Function<Long, Optional<String>> input,
+                                        final TextReader input,
                                         final Printer output,
                                         final Printer error) {
         return BasicTerminalContext.with(

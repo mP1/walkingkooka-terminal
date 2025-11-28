@@ -68,10 +68,11 @@ final class TerminalExpressionFunctionReadLine<C extends TerminalExpressionEvalu
                         final C context) {
         this.checkParameterCount(parameters);
 
-        return context.readLine(
-            TIMEOUT.get(parameters, 0)
-                .orElse(DEFAULT_TIMEOUT) // https://github.com/mP1/walkingkooka-tree/issues/947
-        ).orElse(null);
+        return context.input()
+            .readLine(
+                TIMEOUT.get(parameters, 0)
+                    .orElse(DEFAULT_TIMEOUT) // https://github.com/mP1/walkingkooka-tree/issues/947
+            ).orElse(null);
     }
 
     // @VisibleForTesting

@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.printer.Printer;
 
@@ -49,9 +50,9 @@ public interface TerminalContextDelegator extends TerminalContext {
     }
 
     @Override
-    default Optional<String> readLine(final long timeout) {
+    default TextReader input() {
         return this.terminalContext()
-            .readLine(timeout);
+            .input();
     }
 
     @Override

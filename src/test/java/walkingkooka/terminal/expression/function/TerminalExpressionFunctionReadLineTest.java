@@ -20,6 +20,8 @@ package walkingkooka.terminal.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.io.FakeTextReader;
+import walkingkooka.io.TextReader;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContexts;
@@ -37,8 +39,16 @@ public final class TerminalExpressionFunctionReadLineTest implements ExpressionF
         final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
 
             @Override
-            public Optional<String> readLine(final long t) {
-                return Optional.of(line + t);
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.of(
+                            line + timeout
+                        );
+                    }
+                };
             }
         };
 
@@ -57,8 +67,16 @@ public final class TerminalExpressionFunctionReadLineTest implements ExpressionF
         final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
 
             @Override
-            public Optional<String> readLine(final long t) {
-                return Optional.of(line + t);
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.of(
+                            line + timeout
+                        );
+                    }
+                };
             }
         };
 
