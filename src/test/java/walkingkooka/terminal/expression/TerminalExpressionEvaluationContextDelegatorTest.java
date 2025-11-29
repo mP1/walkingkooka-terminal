@@ -36,6 +36,7 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextDelegatorTest.TestTerminalExpressionEvaluationContextDelegator;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
@@ -263,6 +264,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                LineEnding.NL,
                 TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
                 LocalDateTime::now,
                 Optional.empty()
@@ -328,6 +330,14 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
             );
         }
 
+        // LineEndingContext............................................................................................
+
+        @Override
+        public TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+            Objects.requireNonNull(lineEnding, "lineEnding");
+            throw new UnsupportedOperationException();
+        }
+        
         // LocaleContext....................................................................................................
 
         @Override

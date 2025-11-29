@@ -35,6 +35,7 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTestingTest.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -246,6 +247,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                LineEnding.NL,
                 Locale.FRANCE,
                 LocalDateTime::now,
                 Optional.of(
@@ -255,6 +257,12 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         }
 
         // ExpressionEvaluationContextDelegator.........................................................................
+
+        @Override
+        public TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+            Objects.requireNonNull(lineEnding, "lineEnding");
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
