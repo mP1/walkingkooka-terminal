@@ -21,6 +21,7 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.Locale;
@@ -41,6 +42,9 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
 
     @Override
     TerminalExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name);
+
+    @Override
+    TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding);
 
     @Override
     TerminalExpressionEvaluationContext setLocale(final Locale locale);

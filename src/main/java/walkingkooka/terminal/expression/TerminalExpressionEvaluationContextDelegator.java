@@ -23,6 +23,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 
@@ -38,6 +39,13 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     TerminalExpressionEvaluationContext terminalExpressionEvaluationContext();
 
     // EnvironmentContextDelegator......................................................................................
+
+    @Override
+    default TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+        this.terminalExpressionEvaluationContext()
+            .setLineEnding(lineEnding);
+        return this;
+    }
 
     @Override
     default Locale locale() {
