@@ -41,11 +41,6 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
-    public boolean isTerminalInteractive() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public boolean isTerminalOpen() {
         throw new UnsupportedOperationException();
     }

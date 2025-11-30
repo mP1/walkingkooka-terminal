@@ -38,12 +38,6 @@ public interface TerminalContextDelegator extends TerminalContext {
     }
 
     @Override
-    default boolean isTerminalInteractive() {
-        return this.terminalContext()
-            .isTerminalInteractive();
-    }
-
-    @Override
     default TerminalContext exitTerminal() {
         return this.terminalContext()
             .exitTerminal();

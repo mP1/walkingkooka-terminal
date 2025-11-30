@@ -80,11 +80,6 @@ final class SystemTerminalContext implements TerminalContext {
     private final HasUser hasUser;
 
     @Override
-    public boolean isTerminalInteractive() {
-        return true;
-    }
-
-    @Override
     public boolean isTerminalOpen() {
         return false == this.openChecker.isClosed();
     }

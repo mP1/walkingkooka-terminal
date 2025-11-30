@@ -17,7 +17,6 @@
 
 package walkingkooka.terminal;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
@@ -25,14 +24,6 @@ import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
 public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
-
-    @Test
-    public void testIsTerminalInteractive() {
-        this.isTerminalInteractiveAndCheck(
-            new TestTerminalContext(),
-            true
-        );
-    }
 
     @Override
     public TestTerminalContext createContext() {
@@ -47,11 +38,6 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
     }
 
     static class TestTerminalContext extends FakeTerminalContext {
-
-        @Override
-        public boolean isTerminalInteractive() {
-            return true;
-        }
 
         @Override
         public TextReader input() {

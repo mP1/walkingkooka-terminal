@@ -78,11 +78,6 @@ final class BasicTerminalContext implements TerminalContext {
     private final HasUser hasUser;
 
     @Override
-    public boolean isTerminalInteractive() {
-        return true;
-    }
-
-    @Override
     public TextReader input() {
         this.openChecker.check();
 

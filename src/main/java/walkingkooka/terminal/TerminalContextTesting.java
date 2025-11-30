@@ -35,14 +35,6 @@ public interface TerminalContextTesting<C extends TerminalContext> extends Conte
         );
     }
 
-    default void isTerminalInteractiveAndCheck(final TerminalContext context,
-                                               final boolean expected) {
-        this.checkEquals(
-            expected,
-            context.isTerminalInteractive()
-        );
-    }
-
     @Test
     default void testInputNotNull() {
         this.checkNotEquals(
