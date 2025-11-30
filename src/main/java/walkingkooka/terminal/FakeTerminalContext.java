@@ -35,11 +35,6 @@ public class FakeTerminalContext implements TerminalContext {
     }
 
     @Override
-    public boolean isTerminalInteractive() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public TerminalContext exitTerminal() {
         throw new UnsupportedOperationException();
     }

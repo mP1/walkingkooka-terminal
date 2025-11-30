@@ -34,11 +34,6 @@ public interface TerminalContext extends Context,
     TerminalId terminalId();
 
     /**
-     * May be used to test if a terminal is interactive accepting input from a user.
-     */
-    boolean isTerminalInteractive();
-
-    /**
      * Used to programmatically quite or close this terminal session.
      */
     TerminalContext exitTerminal();

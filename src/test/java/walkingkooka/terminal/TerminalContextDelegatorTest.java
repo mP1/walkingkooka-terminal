@@ -63,11 +63,6 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
                 }
 
                 @Override
-                public boolean isTerminalInteractive() {
-                    return false;
-                }
-
-                @Override
                 public TextReader input() {
                     return TextReaders.fake();
                 }
