@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal.expression.function;
 
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -45,6 +46,9 @@ abstract class TerminalExpressionFunction<T, C extends TerminalExpressionEvaluat
         .required(String.class)
         .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE);
 
+    final static ExpressionFunctionParameter<EnvironmentValueName<?>> ENVIRONMENT_VALUE_NAME = ExpressionFunctionParameterName.with("environmentValue")
+        .variable(EnvironmentValueName.CLASS_WILDCARD)
+        .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE);
 
     @Override
     public final String toString() {
