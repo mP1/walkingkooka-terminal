@@ -41,6 +41,13 @@ public final class TerminalExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see TerminalExpressionFunctionPrintEnv}
+     */
+    public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Void, C> printEnv() {
+        return TerminalExpressionFunctionPrintEnv.instance();
+    }
+
+    /**
      * {@see TerminalExpressionFunctionPrintln}
      */
     public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Void, C> println() {
