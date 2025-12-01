@@ -14,7 +14,8 @@ and not the semantics of how input text is interpreted, processed or ignored. Ho
 unix shell, environment variables, will hold various important variables which are updated as necessary to remember some
 state.
 
-- A separate project supports SSH connections [TODO].
+- A separate project supports SSH
+  connections [walkingkooka-terminal-apachesshd](https://github.com/mP1/walkingkooka-terminal-apachesshd).
 
 ### [Functions](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 
