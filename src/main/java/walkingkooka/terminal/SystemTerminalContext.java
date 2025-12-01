@@ -54,7 +54,9 @@ final class SystemTerminalContext implements TerminalContext {
         this.hasUser = hasUser;
 
         this.input = TextReaders.reader(
-            new InputStreamReader(System.in)
+            new InputStreamReader(System.in),
+            (c) -> {
+            } // dont echo!
         );
         this.output = Printers.sysOut();
         this.error = Printers.sysErr();
