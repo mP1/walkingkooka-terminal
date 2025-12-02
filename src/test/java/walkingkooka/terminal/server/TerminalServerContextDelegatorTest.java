@@ -17,8 +17,6 @@
 
 package walkingkooka.terminal.server;
 
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.terminal.FakeTerminalContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.server.TerminalServerContextDelegatorTest.TestTerminalServerContext;
@@ -47,14 +45,6 @@ public final class TerminalServerContextDelegatorTest implements TerminalServerC
                 @Override
                 public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
                     Objects.requireNonNull(terminalContextFactory, "terminalContextFactory");
-
-                    throw new UnsupportedOperationException();
-                }
-
-
-                @Override
-                public FakeTerminalContext createTerminalContext(final EnvironmentContext context) {
-                    Objects.requireNonNull(context, "context");
 
                     throw new UnsupportedOperationException();
                 }

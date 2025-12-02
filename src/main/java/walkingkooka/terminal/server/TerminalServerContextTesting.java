@@ -35,17 +35,6 @@ public interface TerminalServerContextTesting<C extends TerminalServerContext> e
         );
     }
 
-    // createTerminal...................................................................................................
-
-    @Test
-    default void testCreateTerminalContextWithNullEnvironmentContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .createTerminalContext(null)
-        );
-    }
-
     // terminalContext..................................................................................................
 
     @Test

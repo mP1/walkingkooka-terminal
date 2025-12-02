@@ -19,8 +19,6 @@ package walkingkooka.terminal.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.terminal.FakeTerminalContext;
@@ -29,6 +27,7 @@ import walkingkooka.terminal.TerminalId;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -108,44 +107,45 @@ public final class UserFilteredTerminalServerContextTest implements TerminalServ
         );
     }
 
-    // createTerminalContext............................................................................................
+    //addTerminalContext................................................................................................
 
     @Test
-    public void testCreateTerminalContextWithInvalidUserFails() {
+    public void testAddTerminalContextWithInvalidUserFails() {
         final IllegalArgumentException thrown = assertThrows(
             IllegalArgumentException.class,
             () -> this.createContext()
-                .createTerminalContext(
-                    new FakeEnvironmentContext() {
-                        @Override
-                        public Optional<EmailAddress> user() {
-                            return DIFFERENT_USER;
+                .addTerminalContext(
+                    (TerminalId terminalId) ->
+                        new FakeTerminalContext() {
+                            @Override
+                            public TerminalId terminalId() {
+                                return null;
+                            }
+
+                            @Override
+                            public Optional<EmailAddress> user() {
+                                return DIFFERENT_USER;
+                            }
                         }
-                    }
                 )
         );
 
         this.checkEquals(
-            "Created TerminalContext belongs to different user",
+            "Added TerminalContext belongs to different user: different@example.com",
             thrown.getMessage()
         );
     }
 
     @Test
-    public void testCreateTerminalContext() {
-        final TerminalContext created = this.createContext()
-            .createTerminalContext(
-                new FakeEnvironmentContext() {
-                    @Override
-                    public Optional<EmailAddress> user() {
-                        return UserFilteredTerminalServerContextTest.USER;
-                    }
-                }
+    public void testAddTerminalContext() {
+        final TerminalContext added = this.createContext()
+            .addTerminalContext(
+                (TerminalId terminalId) -> TERMINAL_CONTEXT
             );
 
         assertSame(
             TERMINAL_CONTEXT,
-            created
+            added
         );
     }
 
@@ -225,19 +225,12 @@ public final class UserFilteredTerminalServerContextTest implements TerminalServ
         return UserFilteredTerminalServerContext.with(
             (u) -> u.equals(USER),
             new FakeTerminalServerContext() {
+
                 @Override
-                public TerminalContext createTerminalContext(final EnvironmentContext context) {
-                    Objects.requireNonNull(context, "context");
+                public TerminalContext addTerminalContext(Function<TerminalId, TerminalContext> terminalContextFactory) {
+                    Objects.requireNonNull(terminalContextFactory, "terminalContextFactory");
 
-                    final Optional<EmailAddress> user = context.user();
-                    if (USER.equals(user)) {
-                        return TERMINAL_CONTEXT;
-                    }
-                    if (DIFFERENT_USER.equals(user)) {
-                        return DIFFERENT_TERMINAL_CONTEXT;
-                    }
-
-                    throw new IllegalArgumentException("EnvironmentContext: Invalid user: " + user);
+                    return terminalContextFactory.apply(TERMINAL_ID);
                 }
 
                 @Override

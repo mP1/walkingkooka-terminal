@@ -17,7 +17,6 @@
 
 package walkingkooka.terminal.server;
 
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 
@@ -31,12 +30,6 @@ public interface TerminalServerContextDelegator extends TerminalServerContext {
     default TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
         Objects.requireNonNull(terminalContextFactory, "terminalContextFactory");
         throw new UnsupportedOperationException();
-    }
-
-    @Override
-    default TerminalContext createTerminalContext(final EnvironmentContext context) {
-        return this.terminalServerContext()
-            .createTerminalContext(context);
     }
 
     @Override
