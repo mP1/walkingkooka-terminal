@@ -17,14 +17,11 @@
 
 package walkingkooka.terminal.server;
 
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -33,11 +30,9 @@ public final class TerminalServerContexts implements PublicStaticHelper {
     /**
      * {@see BasicTerminalServerContext}
      */
-    public static TerminalServerContext basic(final Supplier<TerminalId> nextTerminalId,
-                                              final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
+    public static TerminalServerContext basic(final Supplier<TerminalId> nextTerminalId) {
         return BasicTerminalServerContext.with(
-            nextTerminalId,
-            environmentContextToTerminalContext
+            nextTerminalId
         );
     }
 

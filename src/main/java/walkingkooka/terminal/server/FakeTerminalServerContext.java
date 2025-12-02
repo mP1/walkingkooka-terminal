@@ -17,7 +17,6 @@
 
 package walkingkooka.terminal.server;
 
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 
@@ -32,11 +31,6 @@ public class FakeTerminalServerContext implements TerminalServerContext {
 
     @Override
     public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public TerminalContext createTerminalContext(final EnvironmentContext context) {
         throw new UnsupportedOperationException();
     }
 

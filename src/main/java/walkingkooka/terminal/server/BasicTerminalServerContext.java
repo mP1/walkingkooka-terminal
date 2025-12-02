@@ -18,7 +18,6 @@
 package walkingkooka.terminal.server;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 
@@ -33,20 +32,16 @@ import java.util.function.Supplier;
  */
 final class BasicTerminalServerContext implements TerminalServerContext {
 
-    static BasicTerminalServerContext with(final Supplier<TerminalId> nextTerminalId,
-                                           final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
+    static BasicTerminalServerContext with(final Supplier<TerminalId> nextTerminalId) {
         return new BasicTerminalServerContext(
-            Objects.requireNonNull(nextTerminalId, "nextTerminalId"),
-            Objects.requireNonNull(environmentContextToTerminalContext, "environmentContextToTerminalContext")
+            Objects.requireNonNull(nextTerminalId, "nextTerminalId")
         );
     }
 
-    private BasicTerminalServerContext(final Supplier<TerminalId> nextTerminalId,
-                                       final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext) {
+    private BasicTerminalServerContext(final Supplier<TerminalId> nextTerminalId) {
         super();
 
         this.nextTerminalId = nextTerminalId;
-        this.environmentContextToTerminalContext = Objects.requireNonNull(environmentContextToTerminalContext, "environmentContextToTerminalContext");
     }
 
     @Override
@@ -67,18 +62,6 @@ final class BasicTerminalServerContext implements TerminalServerContext {
 
     private final Supplier<TerminalId> nextTerminalId;
 
-    @Override
-    public TerminalContext createTerminalContext(final EnvironmentContext context) {
-        Objects.requireNonNull(context, "context");
-
-        final TerminalContext terminalContext = this.environmentContextToTerminalContext.apply(
-            context
-        );
-
-        this.saveTerminalContext(terminalContext);
-        return terminalContext;
-    }
-
     private void saveTerminalContext(final TerminalContext context) {
         final TerminalId terminalId = context.terminalId();
 
@@ -90,8 +73,6 @@ final class BasicTerminalServerContext implements TerminalServerContext {
             throw new IllegalStateException("TerminalContext created with duplicate TerminalId: " + terminalId);
         }
     }
-
-    private final Function<EnvironmentContext, TerminalContext> environmentContextToTerminalContext;
 
     @Override
     public Optional<TerminalContext> terminalContext(final TerminalId id) {

@@ -18,7 +18,6 @@
 package walkingkooka.terminal.server;
 
 import walkingkooka.Context;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 
@@ -35,12 +34,6 @@ public interface TerminalServerContext extends Context {
      * given {@link TerminalId}.
      */
     TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory);
-
-    /**
-     * Creates a new {@link TerminalContext} using the given {@link EnvironmentContext} which provides the user and
-     * environment variables.
-     */
-    TerminalContext createTerminalContext(final EnvironmentContext context);
 
     /**
      * Gets a {@link TerminalContext} given its {@link TerminalId}.

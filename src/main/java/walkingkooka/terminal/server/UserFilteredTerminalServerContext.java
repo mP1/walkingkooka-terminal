@@ -17,7 +17,6 @@
 
 package walkingkooka.terminal.server;
 
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
@@ -52,32 +51,16 @@ final class UserFilteredTerminalServerContext implements TerminalServerContext {
     public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
         Objects.requireNonNull(terminalContextFactory, "terminalContextFactory");
 
-        return this.verifyTerminalContextUser(
-            this.context.addTerminalContext(terminalContextFactory),
-            "Added"
-        );
-    }
+        final TerminalContext terminalContext = this.context.addTerminalContext(terminalContextFactory);
 
-    @Override
-    public TerminalContext createTerminalContext(final EnvironmentContext context) {
-        Objects.requireNonNull(context, "context");
-
-        // TODO maybe should verify EnvironmentContext#user is current user
-
-        return this.verifyTerminalContextUser(
-            this.context.createTerminalContext(context),
-            "Created"
-        );
-    }
-
-    private TerminalContext verifyTerminalContextUser(final TerminalContext terminalContext,
-                                                      final String action) {
         final Optional<EmailAddress> user = terminalContext.user();
         if (this.filter.test(user)) {
             return terminalContext;
         }
 
-        throw new IllegalArgumentException(action + " TerminalContext belongs to different user");
+        throw new IllegalArgumentException(
+            "Added TerminalContext belongs to different user: " + user.map(EmailAddress::toString).orElse("Anonymous")
+        );
     }
 
     @Override
