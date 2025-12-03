@@ -219,6 +219,13 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         }
 
         @Override
+        public TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+            Objects.requireNonNull(environmentContext, "environmentContext");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public Locale locale() {
             throw new UnsupportedOperationException();
         }

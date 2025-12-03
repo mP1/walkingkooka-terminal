@@ -37,6 +37,9 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
     TerminalExpressionEvaluationContext cloneEnvironment();
 
     @Override
+    TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext);
+
+    @Override
     <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                 final T value);
 
