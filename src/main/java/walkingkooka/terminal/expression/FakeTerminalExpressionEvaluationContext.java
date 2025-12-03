@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal.expression;
 
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
@@ -69,6 +70,11 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
 
     @Override
     public TerminalExpressionEvaluationContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
         throw new UnsupportedOperationException();
     }
 
