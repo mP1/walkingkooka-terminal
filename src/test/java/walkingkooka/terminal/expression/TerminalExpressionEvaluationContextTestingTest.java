@@ -64,6 +64,11 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
     }
 
     @Override
+    public void testSetEnvironmentContextWithEqualEnvironmentContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetLocaleWithDifferent() {
         throw new UnsupportedOperationException();
     }

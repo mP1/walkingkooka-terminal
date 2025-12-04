@@ -94,6 +94,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
     }
 
     @Override
+    public void testSetEnvironmentContextWithEqualEnvironmentContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetLocaleWithDifferent() {
         throw new UnsupportedOperationException();
     }
