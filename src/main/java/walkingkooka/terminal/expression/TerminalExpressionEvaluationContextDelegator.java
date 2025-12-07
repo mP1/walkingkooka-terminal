@@ -40,18 +40,6 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
 
     // EnvironmentContextDelegator......................................................................................
 
-    @Override
-    default TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
-        this.terminalExpressionEvaluationContext()
-            .setLineEnding(lineEnding);
-        return this;
-    }
-
-    @Override
-    default Locale locale() {
-        return this.terminalExpressionEvaluationContext()
-            .locale();
-    }
 
     @Override
     default <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
@@ -78,6 +66,39 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     }
 
     @Override
+    default TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+        this.terminalExpressionEvaluationContext()
+            .setLineEnding(lineEnding);
+        return this;
+    }
+
+    @Override
+    default Locale locale() {
+        return this.terminalExpressionEvaluationContext()
+            .locale();
+    }
+
+    @Override
+    default TerminalExpressionEvaluationContext setLocale(final Locale locale) {
+        this.terminalExpressionEvaluationContext()
+            .setLocale(locale);
+        return this;
+    }
+
+    @Override
+    default Optional<EmailAddress> user() {
+        return this.terminalContext()
+            .user();
+    }
+
+    @Override
+    default TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+        this.terminalExpressionEvaluationContext()
+            .setUser(user);
+        return this;
+    }
+
+    @Override
     default EnvironmentContext environmentContext() {
         return this.terminalExpressionEvaluationContext();
     }
@@ -95,12 +116,6 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     default TerminalExpressionEvaluationContext exitTerminal() {
         return this.terminalExpressionEvaluationContext()
             .exitTerminal();
-    }
-
-    @Override
-    default Optional<EmailAddress> user() {
-        return this.terminalContext()
-            .user();
     }
 
     @Override
