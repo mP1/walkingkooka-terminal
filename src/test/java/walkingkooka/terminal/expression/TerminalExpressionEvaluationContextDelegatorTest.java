@@ -141,6 +141,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
     }
 
     @Override
+    public int decimalNumberDigitCount() {
+        return DECIMAL_NUMBER_CONTEXT.decimalNumberDigitCount();
+    }
+
+    @Override
     public char decimalSeparator() {
         return DECIMAL_NUMBER_CONTEXT.decimalSeparator();
     }
