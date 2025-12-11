@@ -106,6 +106,11 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
     }
 
     @Override
+    public int decimalNumberDigitCount() {
+        return DECIMAL_NUMBER_CONTEXT.decimalNumberDigitCount();
+    }
+
+    @Override
     public char decimalSeparator() {
         return DECIMAL_NUMBER_CONTEXT.decimalSeparator();
     }
