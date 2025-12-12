@@ -62,6 +62,13 @@ public final class TerminalExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see TerminalExpressionFunctionShell}
+     */
+    public static <C extends TerminalExpressionEvaluationContext> ExpressionFunction<Integer, C> shell() {
+        return TerminalExpressionFunctionShell.instance();
+    }
+
+    /**
      * Stop creation
      */
     private TerminalExpressionFunctions() {
