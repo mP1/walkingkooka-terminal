@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
@@ -76,7 +77,17 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
                 public Printer error() {
                     return Printers.fake();
                 }
+
+                @Override
+                public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
+                    throw new UnsupportedOperationException();
+                }
             };
+        }
+
+        @Override
+        public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
+            throw new UnsupportedOperationException();
         }
 
         @Override

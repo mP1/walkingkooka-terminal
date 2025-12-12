@@ -19,6 +19,7 @@ package walkingkooka.terminal;
 
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Optional;
@@ -56,6 +57,11 @@ public class FakeTerminalContext implements TerminalContext {
 
     @Override
     public Printer error() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
         throw new UnsupportedOperationException();
     }
 

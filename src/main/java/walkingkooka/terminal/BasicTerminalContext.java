@@ -20,6 +20,7 @@ package walkingkooka.terminal;
 import walkingkooka.environment.HasUser;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.util.OpenChecker;
 
@@ -36,13 +37,15 @@ final class BasicTerminalContext implements TerminalContext {
                                      final HasUser hasUser,
                                      final TextReader input,
                                      final Printer output,
-                                     final Printer error) {
+                                     final Printer error,
+                                     final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(hasUser, "hasUser"),
             Objects.requireNonNull(input, "input"),
             Objects.requireNonNull(output, "output"),
-            Objects.requireNonNull(error, "error")
+            Objects.requireNonNull(error, "error"),
+            Objects.requireNonNull(expressionEvaluationContextFactory, "expressionEvaluationContextFactory")
         );
     }
 
@@ -50,7 +53,8 @@ final class BasicTerminalContext implements TerminalContext {
                                  final HasUser hasUser,
                                  final TextReader input,
                                  final Printer output,
-                                 final Printer error) {
+                                 final Printer error,
+                                 final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         this.terminalId = terminalId;
         this.hasUser = hasUser;
         this.input = input;
@@ -61,6 +65,8 @@ final class BasicTerminalContext implements TerminalContext {
             "Terminal closed",
             (String message) -> new IllegalStateException(message)
         );
+
+        this.expressionEvaluationContextFactory = expressionEvaluationContextFactory;
     }
 
     @Override
@@ -112,6 +118,18 @@ final class BasicTerminalContext implements TerminalContext {
     private final Printer error;
 
     private final OpenChecker<IllegalStateException> openChecker;
+
+    @Override
+    public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
+        if (null == this.terminalExpressionEvaluationContext) {
+            this.terminalExpressionEvaluationContext = this.expressionEvaluationContextFactory.apply(this);
+        }
+        return this.terminalExpressionEvaluationContext;
+    }
+
+    private final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory;
+
+    private TerminalExpressionEvaluationContext terminalExpressionEvaluationContext;
 
     // Object...........................................................................................................
 

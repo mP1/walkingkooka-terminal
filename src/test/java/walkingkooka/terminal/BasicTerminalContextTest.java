@@ -23,10 +23,12 @@ import walkingkooka.environment.HasUser;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -45,6 +47,10 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
 
     private final static Printer ERROR = Printers.fake();
 
+    private final static Function<TerminalContext, TerminalExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT_FACTORY = (c) -> {
+        throw new UnsupportedOperationException();
+    };
+
     @Test
     public void testWithNullTerminalIdFails() {
         assertThrows(
@@ -54,7 +60,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 HAS_USER,
                 INPUT,
                 OUTPUT,
-                ERROR
+                ERROR,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY
             )
         );
     }
@@ -68,7 +75,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 null,
                 INPUT,
                 OUTPUT,
-                ERROR
+                ERROR,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY
             )
         );
     }
@@ -82,7 +90,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 HAS_USER,
                 null,
                 OUTPUT,
-                ERROR
+                ERROR,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY
             )
         );
     }
@@ -96,7 +105,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 HAS_USER,
                 INPUT,
                 null,
-                ERROR
+                ERROR,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY
             )
         );
     }
@@ -110,6 +120,22 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 HAS_USER,
                 INPUT,
                 OUTPUT,
+                null,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullExpressionEvaluationContextFactoryFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicTerminalContext.with(
+                TERMINAL_ID,
+                HAS_USER,
+                INPUT,
+                OUTPUT,
+                ERROR,
                 null
             )
         );
@@ -122,7 +148,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             HAS_USER,
             INPUT,
             OUTPUT,
-            ERROR
+            ERROR,
+            EXPRESSION_EVALUATION_CONTEXT_FACTORY
         );
     }
 
