@@ -121,15 +121,10 @@ final class BasicTerminalContext implements TerminalContext {
 
     @Override
     public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
-        if (null == this.terminalExpressionEvaluationContext) {
-            this.terminalExpressionEvaluationContext = this.expressionEvaluationContextFactory.apply(this);
-        }
-        return this.terminalExpressionEvaluationContext;
+        return this.expressionEvaluationContextFactory.apply(this);
     }
 
     private final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory;
-
-    private TerminalExpressionEvaluationContext terminalExpressionEvaluationContext;
 
     // Object...........................................................................................................
 
