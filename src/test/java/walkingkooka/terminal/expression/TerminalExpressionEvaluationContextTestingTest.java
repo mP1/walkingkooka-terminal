@@ -227,11 +227,6 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
             );
         }
 
-        @Override
-        public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
-            throw new UnsupportedOperationException();
-        }
-
         // EnvironmentContext...........................................................................................
 
         @Override

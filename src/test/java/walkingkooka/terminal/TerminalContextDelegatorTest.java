@@ -77,11 +77,6 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
                 public Printer error() {
                     return Printers.fake();
                 }
-
-                @Override
-                public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
-                    throw new UnsupportedOperationException();
-                }
             };
         }
 

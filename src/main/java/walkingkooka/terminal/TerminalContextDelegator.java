@@ -19,6 +19,7 @@ package walkingkooka.terminal;
 
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Optional;
@@ -59,6 +60,12 @@ public interface TerminalContextDelegator extends TerminalContext {
     default Printer error() {
         return this.terminalContext()
             .error();
+    }
+
+    @Override
+    default TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
+        return this.terminalContext()
+            .terminalExpressionEvaluationContext();
     }
 
     TerminalContext terminalContext();
