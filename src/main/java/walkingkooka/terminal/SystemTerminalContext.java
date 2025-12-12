@@ -22,6 +22,7 @@ import walkingkooka.environment.HasUser;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.util.OpenChecker;
@@ -29,6 +30,7 @@ import walkingkooka.util.OpenChecker;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A {@link TerminalContext} that reads and write to the System IN and OUT streams.
@@ -40,15 +42,18 @@ final class SystemTerminalContext implements TerminalContext {
      * Factory that creates a new {@link SystemTerminalContext}.
      */
     static SystemTerminalContext with(final TerminalId terminalId,
-                                      final HasUser hasUser) {
+                                      final HasUser hasUser,
+                                      final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         return new SystemTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
-            Objects.requireNonNull(hasUser, "hasUser")
+            Objects.requireNonNull(hasUser, "hasUser"),
+            Objects.requireNonNull(expressionEvaluationContextFactory, "expressionEvaluationContextFactory")
         );
     }
 
     private SystemTerminalContext(final TerminalId terminalId,
-                                  final HasUser hasUser) {
+                                  final HasUser hasUser,
+                                  final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         this.terminalId = terminalId;
 
         this.hasUser = hasUser;
@@ -65,6 +70,8 @@ final class SystemTerminalContext implements TerminalContext {
             "Terminal closed",
             (String message) -> new IllegalStateException(message)
         );
+
+        this.expressionEvaluationContextFactory = expressionEvaluationContextFactory;
     }
 
     @Override
@@ -114,6 +121,18 @@ final class SystemTerminalContext implements TerminalContext {
     private final Printer error;
 
     private final OpenChecker<IllegalStateException> openChecker;
+
+    @Override
+    public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
+        if (null == this.terminalExpressionEvaluationContext) {
+            this.terminalExpressionEvaluationContext = this.expressionEvaluationContextFactory.apply(this);
+        }
+        return this.terminalExpressionEvaluationContext;
+    }
+
+    private final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory;
+
+    private TerminalExpressionEvaluationContext terminalExpressionEvaluationContext;
 
     // Object...........................................................................................................
 

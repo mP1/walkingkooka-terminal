@@ -220,8 +220,16 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         public TerminalContext terminalContext() {
             return TerminalContexts.system(
                 TerminalId.with(1),
-                () -> ANONYMOUS
+                () -> ANONYMOUS,
+                (t) -> {
+                    throw new UnsupportedOperationException();
+                }
             );
+        }
+
+        @Override
+        public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
+            throw new UnsupportedOperationException();
         }
 
         // EnvironmentContext...........................................................................................

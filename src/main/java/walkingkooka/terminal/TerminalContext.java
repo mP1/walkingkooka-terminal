@@ -20,6 +20,7 @@ package walkingkooka.terminal;
 import walkingkooka.Context;
 import walkingkooka.environment.HasUser;
 import walkingkooka.io.TextReader;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 
 /**
@@ -57,4 +58,10 @@ public interface TerminalContext extends Context,
      * A {@link Printer} for errors.
      */
     Printer error();
+
+    /**
+     * Returns a {@link TerminalExpressionEvaluationContext}, which may be used to get the environment, evaluate commands
+     * and general input output.
+     */
+    TerminalExpressionEvaluationContext terminalExpressionEvaluationContext();
 }

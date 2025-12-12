@@ -323,8 +323,16 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 this,
                 TextReaders.fake(), // input
                 Printers.fake(), // output
-                Printers.fake() // error
+                Printers.fake(), // error
+                (t) -> {
+                    throw new UnsupportedOperationException();
+                }
             );
+        }
+
+        @Override
+        public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
+            throw new UnsupportedOperationException();
         }
 
         // ExpressionEvaluationContextDelegator.........................................................................

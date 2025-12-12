@@ -21,7 +21,10 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.environment.HasUser;
 import walkingkooka.io.TextReader;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
+
+import java.util.function.Function;
 
 public final class TerminalContexts implements PublicStaticHelper {
 
@@ -32,13 +35,15 @@ public final class TerminalContexts implements PublicStaticHelper {
                                         final HasUser hasUser,
                                         final TextReader input,
                                         final Printer output,
-                                        final Printer error) {
+                                        final Printer error,
+                                        final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         return BasicTerminalContext.with(
             terminalId,
             hasUser,
             input,
             output,
-            error
+            error,
+            expressionEvaluationContextFactory
         );
     }
 
@@ -54,10 +59,12 @@ public final class TerminalContexts implements PublicStaticHelper {
      */
     @GwtIncompatible
     public static TerminalContext system(final TerminalId terminalId,
-                                         final HasUser hasUser) {
+                                         final HasUser hasUser,
+                                         final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         return SystemTerminalContext.with(
             terminalId,
-            hasUser
+            hasUser,
+            expressionEvaluationContextFactory
         );
     }
 

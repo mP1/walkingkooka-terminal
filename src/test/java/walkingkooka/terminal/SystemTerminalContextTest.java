@@ -20,8 +20,10 @@ package walkingkooka.terminal;
 import org.junit.jupiter.api.Test;
 import walkingkooka.environment.HasUser;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -33,13 +35,18 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
         EmailAddress.parse("user@example.com")
     );
 
+    private final static Function<TerminalContext, TerminalExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT_FACTORY = (c) -> {
+        throw new UnsupportedOperationException();
+    };
+
     @Test
     public void testWithNullTerminalIdFails() {
         assertThrows(
             NullPointerException.class,
             () -> SystemTerminalContext.with(
                 null,
-                HAS_USER
+                HAS_USER,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY
             )
         );
     }
@@ -50,6 +57,19 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             NullPointerException.class,
             () -> SystemTerminalContext.with(
                 TERMINAL_ID,
+                null,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullHasExpressionEvaluationContextFactoryFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SystemTerminalContext.with(
+                TERMINAL_ID,
+                HAS_USER,
                 null
             )
         );
@@ -59,7 +79,8 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
     public SystemTerminalContext createContext() {
         return SystemTerminalContext.with(
             TERMINAL_ID,
-            HAS_USER
+            HAS_USER,
+            EXPRESSION_EVALUATION_CONTEXT_FACTORY
         );
     }
 
