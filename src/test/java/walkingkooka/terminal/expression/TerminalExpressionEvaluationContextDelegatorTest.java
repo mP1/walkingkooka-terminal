@@ -201,10 +201,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
     }
 
     final static class TestTerminalExpressionEvaluationContextDelegator implements TerminalExpressionEvaluationContextDelegator {
-        @Override
-        public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
-            return new TestTerminalExpressionEvaluationContext();
-        }
 
         @Override
         public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> function) {
@@ -241,6 +237,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
+        public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
+            return new TestTerminalExpressionEvaluationContext();
+        }
+
+        @Override
         public String toString() {
             return this.getClass().getSimpleName();
         }
@@ -254,18 +255,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         // EnvironmentContextDelegator..................................................................................
 
         @Override
-        public Optional<EmailAddress> user() {
-            return this.environmentContext()
-                .user();
-        }
-
-        @Override
-        public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
-            Objects.requireNonNull(user);
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
         public TerminalExpressionEvaluationContext cloneEnvironment() {
             return this;
         }
@@ -274,16 +263,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         public TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
             Objects.requireNonNull(environmentContext, "environmentContext");
             throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public LocalDateTime now() {
-            return LocalDateTime.now();
-        }
-
-        @Override
-        public Locale locale() {
-            return TerminalExpressionEvaluationContextDelegatorTest.LOCALE;
         }
 
         @Override
@@ -297,6 +276,39 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         public TerminalExpressionEvaluationContext removeEnvironmentValue(EnvironmentValueName<?> name) {
             this.environmentContext().removeEnvironmentValue(name);
             return this;
+        }
+
+        @Override
+        public TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+            Objects.requireNonNull(lineEnding, "lineEnding");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Locale locale() {
+            return TerminalExpressionEvaluationContextDelegatorTest.LOCALE;
+        }
+
+        @Override
+        public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public LocalDateTime now() {
+            return LocalDateTime.now();
+        }
+
+        @Override
+        public Optional<EmailAddress> user() {
+            return this.environmentContext()
+                .user();
+        }
+
+        @Override
+        public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+            Objects.requireNonNull(user);
+            throw new UnsupportedOperationException();
         }
 
         @Override
@@ -375,21 +387,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 EnvironmentContexts.fake(),
                 LocaleContexts.jre(Locale.ENGLISH)
             );
-        }
-
-        // LineEndingContext............................................................................................
-
-        @Override
-        public TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
-            Objects.requireNonNull(lineEnding, "lineEnding");
-            throw new UnsupportedOperationException();
-        }
-        
-        // LocaleContext....................................................................................................
-
-        @Override
-        public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
-            throw new UnsupportedOperationException();
         }
     }
 
