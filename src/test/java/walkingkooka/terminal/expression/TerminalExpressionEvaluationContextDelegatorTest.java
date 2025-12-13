@@ -372,6 +372,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                     DateTimeContexts.fake(),
                     DECIMAL_NUMBER_CONTEXT
                 ),
+                EnvironmentContexts.fake(),
                 LocaleContexts.jre(Locale.ENGLISH)
             );
         }

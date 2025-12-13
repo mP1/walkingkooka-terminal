@@ -29,7 +29,7 @@ public interface TerminalExpressionEvaluationContextTesting<C extends TerminalEx
     @Test
     @Override
     default void testSetLocaleWithNullFails() {
-        EnvironmentContextTesting2.super.testSetLocaleWithNullFails();
+        ExpressionEvaluationContextTesting.super.testSetLocaleWithNullFails();
     }
 
     // class............................................................................................................
