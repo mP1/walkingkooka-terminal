@@ -62,7 +62,7 @@ final class TerminalExpressionFunctionPrint<C extends TerminalExpressionEvaluati
 
         context.output()
             .print(
-                TEXT.getOrFail(parameters, 0, context)
+                TEXT.getOrFail(parameters, 0)
             );
 
         return null;
