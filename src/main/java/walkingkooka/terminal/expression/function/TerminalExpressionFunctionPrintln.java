@@ -62,7 +62,7 @@ final class TerminalExpressionFunctionPrintln<C extends TerminalExpressionEvalua
 
         context.output()
             .println(
-                TEXT.getOrFail(parameters, 0, context)
+            TEXT.getOrFail(parameters, 0)
         );
 
         return null;

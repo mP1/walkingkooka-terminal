@@ -70,7 +70,7 @@ final class TerminalExpressionFunctionReadLine<C extends TerminalExpressionEvalu
 
         return context.input()
             .readLine(
-                TIMEOUT.get(parameters, 0, context)
+                TIMEOUT.get(parameters, 0)
                     .orElse(DEFAULT_TIMEOUT) // https://github.com/mP1/walkingkooka-tree/issues/947
             ).orElse(null);
     }
