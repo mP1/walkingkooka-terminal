@@ -345,6 +345,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                     ),
                     ExpressionNumberKind.DEFAULT
                 ),
+                EnvironmentContexts.fake(),
                 LocaleContexts.jre(locale)
             );
         }
