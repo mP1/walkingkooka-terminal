@@ -311,6 +311,10 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
 
             return ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
+                (e, c) -> {
+                    Objects.requireNonNull(e, "expression");
+                    throw new UnsupportedOperationException();
+                },
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },

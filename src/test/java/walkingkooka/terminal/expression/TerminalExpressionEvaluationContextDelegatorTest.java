@@ -364,6 +364,10 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         public ExpressionEvaluationContext expressionEvaluationContext() {
             return ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
+                (e, c) -> {
+                    Objects.requireNonNull(e, "expression");
+                    throw new UnsupportedOperationException();
+                },
                 name -> {
                     Objects.requireNonNull(name, "name");
                     throw new UnsupportedOperationException();
