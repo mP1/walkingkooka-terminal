@@ -17,8 +17,6 @@
 
 package walkingkooka.terminal.expression;
 
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
@@ -33,13 +31,11 @@ import java.util.Optional;
 
 public interface TerminalExpressionEvaluationContextDelegator extends TerminalExpressionEvaluationContext,
     ExpressionEvaluationContextDelegator,
-    TerminalContextDelegator,
-    EnvironmentContextDelegator {
+    TerminalContextDelegator {
 
     TerminalExpressionEvaluationContext terminalExpressionEvaluationContext();
-
-    // EnvironmentContextDelegator......................................................................................
-
+    
+    // ExpressionEvaluationContextDelegator.............................................................................
 
     @Override
     default <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
@@ -97,13 +93,6 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
             .setUser(user);
         return this;
     }
-
-    @Override
-    default EnvironmentContext environmentContext() {
-        return this.terminalExpressionEvaluationContext();
-    }
-
-    // ExpressionEvaluationContextDelegator.............................................................................
 
     @Override
     default ExpressionEvaluationContext expressionEvaluationContext() {

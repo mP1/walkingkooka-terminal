@@ -30,8 +30,7 @@ import java.util.Optional;
 /**
  * A {@link ExpressionEvaluationContext} with added {@link TerminalContext} support.
  */
-public interface TerminalExpressionEvaluationContext extends ExpressionEvaluationContext, TerminalContext,
-    EnvironmentContext {
+public interface TerminalExpressionEvaluationContext extends ExpressionEvaluationContext, TerminalContext {
 
     @Override
     TerminalExpressionEvaluationContext cloneEnvironment();
