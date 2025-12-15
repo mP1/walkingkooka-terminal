@@ -19,22 +19,25 @@ package walkingkooka.terminal.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.io.FakeTextReader;
 import walkingkooka.io.TextReader;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 public final class TerminalExpressionFunctionShellTest implements ExpressionFunctionTesting<TerminalExpressionFunctionShell<TerminalExpressionEvaluationContext>, Integer, TerminalExpressionEvaluationContext> {
 
     @Test
-    public void testApply() {
+    public void testApplyReturnValueConvertToStringFails() {
         final int timeout = 1234;
 
         final Iterator<String> inputLines = Lists.of(
@@ -43,7 +46,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
             "exit"
         ).iterator();
 
-        final List<String> printed = Lists.array();
+        final StringBuilder printed = new StringBuilder();
 
         final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
 
@@ -70,15 +73,41 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
             }
 
             @Override
+            public Printer output() {
+                return Printers.fake();
+            }
+
+            @Override
+            public Printer error() {
+                return this.error;
+            }
+
+            private final Printer error = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                return this.failConversion(
+                    target.cast(value),
+                    target
+                );
+            }
+
+            @Override
             public Object evaluate(final String expression) {
                 Objects.requireNonNull(expression, "expression");
 
+                Object value;
                 if ("exit".equals(expression)) {
                     this.open = false;
+                    value = null;
                 } else {
-                    printed.add(expression + expression);
+                    value = expression + expression;
                 }
-                return 1;
+                return value;
             }
         };
 
@@ -90,12 +119,100 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
         );
 
         this.checkEquals(
-            Lists.of(
-                "hellohello",
-                "hello2hello2"
-            ),
-            printed,
-            "printed"
+            "Failed to convert \"hellohello\" (java.lang.String) to java.lang.String\n" +
+                "Failed to convert \"hello2hello2\" (java.lang.String) to java.lang.String\n",
+            printed.toString(),
+            "error"
+        );
+    }
+
+    @Test
+    public void testApply() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "hello",
+            "hello2",
+            "exit"
+        ).iterator();
+
+        final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer output() {
+                return this.output;
+            }
+
+            private final Printer output = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public Printer error() {
+                return Printers.fake();
+            }
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                return this.successfulConversion(
+                    target.cast(value),
+                    target
+                );
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                Object value;
+                if ("exit".equals(expression)) {
+                    this.open = false;
+                    value = null;
+                } else {
+                    value = expression + expression;
+                }
+                return value;
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        this.checkEquals(
+            "hellohello\n" +
+                "hello2hello2\n",
+            printed.toString(),
+            "output"
         );
     }
 
@@ -109,7 +226,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
             "exit"
         ).iterator();
 
-        final List<String> printed = Lists.array();
+        final StringBuilder printed = new StringBuilder();
 
         final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
 
@@ -136,15 +253,41 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
             }
 
             @Override
+            public Printer output() {
+                return this.output;
+            }
+
+            private final Printer output = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public Printer error() {
+                return Printers.fake();
+            }
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                return this.successfulConversion(
+                    target.cast(value),
+                    target
+                );
+            }
+
+            @Override
             public Object evaluate(final String expression) {
                 Objects.requireNonNull(expression, "expression");
 
+                Object value;
                 if ("exit".equals(expression)) {
                     this.open = false;
+                    value = null;
                 } else {
-                    printed.add(expression + expression);
+                    value = expression + expression;
                 }
-                return 1;
+                return value;
             }
         };
 
@@ -156,11 +299,9 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
         );
 
         this.checkEquals(
-            Lists.of(
-                "helloworldhelloworld"
-            ),
-            printed,
-            "printed"
+            "helloworldhelloworld\n",
+            printed.toString(),
+            "output"
         );
     }
 
