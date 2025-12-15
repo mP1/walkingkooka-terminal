@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -82,6 +83,8 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
         }
 
         StringBuilder buffer = new StringBuilder();
+        final Printer output = context.output();
+        final Printer error = context.error();
 
         while (context.isTerminalOpen()) {
             final String line = context.input()
@@ -104,11 +107,27 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                     continue;
                 }
 
-                context.evaluate(
+                final Object value = context.evaluate(
                     CharSequences.unescape(
                         buffer.toString()
                     ).toString()
                 );
+                if (null != value) {
+                    try {
+                        output.println(
+                            context.convertOrFail(
+                                value,
+                                String.class
+                            )
+                        );
+                        output.flush();
+                    } catch (final UnsupportedOperationException rethrow) {
+                        throw rethrow;
+                    } catch (final RuntimeException cause) {
+                        error.println(cause.getMessage());
+                        error.flush();
+                    }
+                }
 
                 buffer = new StringBuilder();
             }
