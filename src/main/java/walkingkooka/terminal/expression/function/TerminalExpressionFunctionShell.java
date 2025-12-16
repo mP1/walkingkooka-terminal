@@ -31,9 +31,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A very simple shell that tries to read a line of text with support for line-continuation. Each complete input is then
- * {@link TerminalExpressionEvaluationContext#evaluate(String)}. If an exit command is executed, the {@link TerminalExpressionEvaluationContext#isTerminalOpen()},
- * will become false and reading of input will stop and the function exited with a code of 0.
+ * A very simple shell or REPL that tries to read a line of text with support for line-continuation. Each complete input is then
+ * {@link TerminalExpressionEvaluationContext#evaluate(String)}. Note input or output redirection is not supported.
+ * <br>
+ * If an exit command is executed, the {@link TerminalExpressionEvaluationContext#isTerminalOpen()}, will become false
+ * and reading of input will stop and the function exited with a code of 0.
  */
 final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluationContext> extends TerminalExpressionFunction<Integer, C> {
 
