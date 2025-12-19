@@ -71,7 +71,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
     }
 
     @Test
-    public void testWithNullHasExpressionEvaluationContextFactoryFails() {
+    public void testWithNullExpressionEvaluationContextFactoryFails() {
         assertThrows(
             NullPointerException.class,
             () -> SystemTerminalContext.with(
