@@ -237,6 +237,12 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
+        public Object evaluate(final String expression) {
+            Objects.requireNonNull(expression, "expression");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
             return new TestTerminalExpressionEvaluationContext();
         }
@@ -336,10 +342,19 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 TextReaders.fake(), // input
                 Printers.fake(), // output
                 Printers.fake(), // error
+                (e, c) -> {
+                    throw new UnsupportedOperationException();
+                },
                 (t) -> {
                     throw new UnsupportedOperationException();
                 }
             );
+        }
+
+        @Override
+        public Object evaluate(final String expression) {
+            Objects.requireNonNull(expression, "expression");
+            throw new UnsupportedOperationException();
         }
 
         @Override

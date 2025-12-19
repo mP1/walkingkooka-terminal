@@ -60,6 +60,11 @@ public interface TerminalContext extends Context,
     Printer error();
 
     /**
+     * Evaluate the given expression into a value.
+     */
+    Object evaluate(String expression);
+
+    /**
      * Returns a {@link TerminalExpressionEvaluationContext}, which may be used to get the environment, evaluate commands
      * and general input output.
      */

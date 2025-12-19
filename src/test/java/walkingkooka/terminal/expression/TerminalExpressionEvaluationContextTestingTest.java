@@ -221,6 +221,9 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
             return TerminalContexts.system(
                 TerminalId.with(1),
                 () -> ANONYMOUS,
+                (e, c) -> {
+                    throw new UnsupportedOperationException();
+                },
                 (t) -> {
                     throw new UnsupportedOperationException();
                 }
@@ -302,6 +305,13 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         @Override
         public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object evaluate(final String expression) {
+            Objects.requireNonNull(expression, "expression");
+
             throw new UnsupportedOperationException();
         }
 

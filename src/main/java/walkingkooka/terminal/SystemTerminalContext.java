@@ -30,6 +30,7 @@ import walkingkooka.util.OpenChecker;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -43,16 +44,19 @@ final class SystemTerminalContext implements TerminalContext {
      */
     static SystemTerminalContext with(final TerminalId terminalId,
                                       final HasUser hasUser,
+                                      final BiFunction<String, TerminalContext, Object> evaluator,
                                       final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         return new SystemTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(hasUser, "hasUser"),
+            Objects.requireNonNull(evaluator, "evaluator"),
             Objects.requireNonNull(expressionEvaluationContextFactory, "expressionEvaluationContextFactory")
         );
     }
 
     private SystemTerminalContext(final TerminalId terminalId,
                                   final HasUser hasUser,
+                                  final BiFunction<String, TerminalContext, Object> evaluator,
                                   final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         this.terminalId = terminalId;
 
@@ -65,6 +69,8 @@ final class SystemTerminalContext implements TerminalContext {
         );
         this.output = Printers.sysOut();
         this.error = Printers.sysErr();
+
+        this.evaluator = evaluator;
 
         this.openChecker = OpenChecker.with(
             "Terminal closed",
@@ -119,6 +125,19 @@ final class SystemTerminalContext implements TerminalContext {
     }
 
     private final Printer error;
+
+    @Override
+    public Object evaluate(final String expression) {
+        Objects.requireNonNull(expression, "expression");
+        this.openChecker.check();
+
+        return this.evaluator.apply(
+            expression,
+            this
+        );
+    }
+
+    private final BiFunction<String, TerminalContext, Object> evaluator;
 
     private final OpenChecker<IllegalStateException> openChecker;
 

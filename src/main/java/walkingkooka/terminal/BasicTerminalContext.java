@@ -26,6 +26,7 @@ import walkingkooka.util.OpenChecker;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -38,6 +39,7 @@ final class BasicTerminalContext implements TerminalContext {
                                      final TextReader input,
                                      final Printer output,
                                      final Printer error,
+                                     final BiFunction<String, TerminalContext, Object> evaluator,
                                      final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
@@ -45,6 +47,7 @@ final class BasicTerminalContext implements TerminalContext {
             Objects.requireNonNull(input, "input"),
             Objects.requireNonNull(output, "output"),
             Objects.requireNonNull(error, "error"),
+            Objects.requireNonNull(evaluator, "evaluator"),
             Objects.requireNonNull(expressionEvaluationContextFactory, "expressionEvaluationContextFactory")
         );
     }
@@ -54,12 +57,15 @@ final class BasicTerminalContext implements TerminalContext {
                                  final TextReader input,
                                  final Printer output,
                                  final Printer error,
+                                 final BiFunction<String, TerminalContext, Object> evaluator,
                                  final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         this.terminalId = terminalId;
         this.hasUser = hasUser;
         this.input = input;
         this.output = output;
         this.error = error;
+
+        this.evaluator = evaluator;
 
         this.openChecker = OpenChecker.with(
             "Terminal closed",
@@ -116,6 +122,19 @@ final class BasicTerminalContext implements TerminalContext {
     }
 
     private final Printer error;
+
+    @Override
+    public Object evaluate(final String expression) {
+        Objects.requireNonNull(expression, "expression");
+        this.openChecker.check();
+
+        return this.evaluator.apply(
+            expression,
+            this
+        );
+    }
+
+    private final BiFunction<String, TerminalContext, Object> evaluator;
 
     private final OpenChecker<IllegalStateException> openChecker;
 

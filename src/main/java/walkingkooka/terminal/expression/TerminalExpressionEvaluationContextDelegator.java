@@ -33,6 +33,9 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     ExpressionEvaluationContextDelegator,
     TerminalContextDelegator {
 
+    @Override
+    Object evaluate(final String expression);
+
     TerminalExpressionEvaluationContext terminalExpressionEvaluationContext();
     
     // ExpressionEvaluationContextDelegator.............................................................................
