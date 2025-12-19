@@ -23,6 +23,8 @@ import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
+import java.util.Objects;
+
 public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
 
     @Override
@@ -52,6 +54,12 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
         @Override
         public Printer error() {
             return Printers.fake();
+        }
+
+        @Override
+        public Object evaluate(final String expression) {
+            Objects.requireNonNull(expression, "expression");
+            throw new UnsupportedOperationException();
         }
 
         @Override

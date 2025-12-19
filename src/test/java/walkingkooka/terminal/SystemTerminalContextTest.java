@@ -23,6 +23,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,6 +40,10 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
         throw new UnsupportedOperationException();
     };
 
+    private final static BiFunction<String, TerminalContext, Object> EVALUATOR = (e, c) -> {
+        throw new UnsupportedOperationException();
+    };
+
     @Test
     public void testWithNullTerminalIdFails() {
         assertThrows(
@@ -46,6 +51,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             () -> SystemTerminalContext.with(
                 null,
                 HAS_USER,
+                EVALUATOR,
                 EXPRESSION_EVALUATION_CONTEXT_FACTORY
             )
         );
@@ -58,6 +64,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             () -> SystemTerminalContext.with(
                 TERMINAL_ID,
                 null,
+                EVALUATOR,
                 EXPRESSION_EVALUATION_CONTEXT_FACTORY
             )
         );
@@ -70,7 +77,21 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             () -> SystemTerminalContext.with(
                 TERMINAL_ID,
                 HAS_USER,
+                EVALUATOR,
                 null
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullEvaluatorFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SystemTerminalContext.with(
+                TERMINAL_ID,
+                HAS_USER,
+                null,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY
             )
         );
     }
@@ -80,6 +101,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
         return SystemTerminalContext.with(
             TERMINAL_ID,
             HAS_USER,
+            EVALUATOR,
             EXPRESSION_EVALUATION_CONTEXT_FACTORY
         );
     }

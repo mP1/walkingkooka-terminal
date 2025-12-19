@@ -22,6 +22,8 @@ import walkingkooka.ContextTesting;
 import walkingkooka.environment.HasUserTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C>,
     HasUserTesting,
     TreePrintableTesting {
@@ -62,6 +64,36 @@ public interface TerminalContextTesting<C extends TerminalContext> extends Conte
         );
     }
 
+    // evaluate.........................................................................................................
+
+    @Test
+    default void testEvaluateWithNullExpressionFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .evaluate(null)
+        );
+    }
+
+    default void evaluateAndCheck(final String expression,
+                                  final Object expected) {
+        this.evaluateAndCheck(
+            this.createContext(),
+            expression,
+            expected
+        );
+    }
+
+    default void evaluateAndCheck(final C context,
+                                  final String expression,
+                                  final Object expected) {
+        this.checkEquals(
+            expected,
+            context.evaluate(expression),
+            expression
+        );
+    }
+    
     // class............................................................................................................
 
     @Override//

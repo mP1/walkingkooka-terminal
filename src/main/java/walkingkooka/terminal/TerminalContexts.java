@@ -24,6 +24,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public final class TerminalContexts implements PublicStaticHelper {
@@ -36,6 +37,7 @@ public final class TerminalContexts implements PublicStaticHelper {
                                         final TextReader input,
                                         final Printer output,
                                         final Printer error,
+                                        final BiFunction<String, TerminalContext, Object> evaluator,
                                         final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         return BasicTerminalContext.with(
             terminalId,
@@ -43,6 +45,7 @@ public final class TerminalContexts implements PublicStaticHelper {
             input,
             output,
             error,
+            evaluator,
             expressionEvaluationContextFactory
         );
     }
@@ -60,10 +63,12 @@ public final class TerminalContexts implements PublicStaticHelper {
     @GwtIncompatible
     public static TerminalContext system(final TerminalId terminalId,
                                          final HasUser hasUser,
+                                         final BiFunction<String, TerminalContext, Object> evaluator,
                                          final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
         return SystemTerminalContext.with(
             terminalId,
             hasUser,
+            evaluator,
             expressionEvaluationContextFactory
         );
     }

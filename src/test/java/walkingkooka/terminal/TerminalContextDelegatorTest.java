@@ -25,6 +25,8 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
+import java.util.Objects;
+
 public final class TerminalContextDelegatorTest implements TerminalContextTesting<TestTerminalContextDelegator> {
 
     private final static TerminalId TERMINAL_ID = TerminalId.parse("1");
@@ -53,6 +55,12 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
     }
 
     final static class TestTerminalContextDelegator implements TerminalContextDelegator {
+
+        @Override
+        public Object evaluate(final String expression) {
+            Objects.requireNonNull(expression, "expression");
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public TerminalContext terminalContext() {
