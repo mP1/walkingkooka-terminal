@@ -22,7 +22,6 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
@@ -67,11 +66,6 @@ public class FakeTerminalContext extends FakeEnvironmentContext implements Termi
 
     @Override
     public Object evaluate(final String expression) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
         throw new UnsupportedOperationException();
     }
 

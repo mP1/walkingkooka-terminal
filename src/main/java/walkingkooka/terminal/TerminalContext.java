@@ -22,7 +22,6 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
@@ -68,12 +67,6 @@ public interface TerminalContext extends EnvironmentContext {
      * Evaluate the given expression into a value.
      */
     Object evaluate(String expression);
-
-    /**
-     * Returns a {@link TerminalExpressionEvaluationContext}, which may be used to get the environment, evaluate commands
-     * and general input output.
-     */
-    TerminalExpressionEvaluationContext terminalExpressionEvaluationContext();
 
     // EnvironmentContext...............................................................................................
 

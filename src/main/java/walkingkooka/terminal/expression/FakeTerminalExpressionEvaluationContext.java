@@ -67,11 +67,6 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
-        throw new UnsupportedOperationException();
-    }
-
     // EnvironmentContext...............................................................................................
 
     @Override

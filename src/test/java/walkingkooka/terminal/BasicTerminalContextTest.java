@@ -24,7 +24,6 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -33,7 +32,6 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -53,10 +51,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     private final static Printer ERROR = Printers.fake();
 
     private final static BiFunction<String, TerminalContext, Object> EVALUATOR = (e, c) -> {
-        throw new UnsupportedOperationException();
-    };
-
-    private final static Function<TerminalContext, TerminalExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT_FACTORY = (c) -> {
         throw new UnsupportedOperationException();
     };
 
@@ -81,7 +75,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -97,7 +90,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -113,7 +105,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 null,
                 ERROR,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -129,7 +120,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 null,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -144,23 +134,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 INPUT,
                 OUTPUT,
                 ERROR,
-                null,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
-                ENVIRONMENT_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullExpressionEvaluationContextFactoryFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicTerminalContext.with(
-                TERMINAL_ID,
-                INPUT,
-                OUTPUT,
-                ERROR,
-                EVALUATOR,
                 null,
                 ENVIRONMENT_CONTEXT
             )
@@ -177,7 +150,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
                 null
             )
         );
@@ -191,7 +163,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             OUTPUT,
             ERROR,
             EVALUATOR,
-            EXPRESSION_EVALUATION_CONTEXT_FACTORY,
             ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
     }
