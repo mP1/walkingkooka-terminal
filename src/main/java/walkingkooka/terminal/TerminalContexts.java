@@ -18,7 +18,7 @@
 package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.environment.HasUser;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
@@ -33,20 +33,20 @@ public final class TerminalContexts implements PublicStaticHelper {
      * {@see BasicTerminalContext}
      */
     public static TerminalContext basic(final TerminalId terminalId,
-                                        final HasUser hasUser,
                                         final TextReader input,
                                         final Printer output,
                                         final Printer error,
                                         final BiFunction<String, TerminalContext, Object> evaluator,
-                                        final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
+                                        final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory,
+                                        final EnvironmentContext environmentContext) {
         return BasicTerminalContext.with(
             terminalId,
-            hasUser,
             input,
             output,
             error,
             evaluator,
-            expressionEvaluationContextFactory
+            expressionEvaluationContextFactory,
+            environmentContext
         );
     }
 
@@ -62,14 +62,14 @@ public final class TerminalContexts implements PublicStaticHelper {
      */
     @GwtIncompatible
     public static TerminalContext system(final TerminalId terminalId,
-                                         final HasUser hasUser,
                                          final BiFunction<String, TerminalContext, Object> evaluator,
-                                         final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
+                                         final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory,
+                                         final EnvironmentContext environmentContext) {
         return SystemTerminalContext.with(
             terminalId,
-            hasUser,
             evaluator,
-            expressionEvaluationContextFactory
+            expressionEvaluationContextFactory,
+            environmentContext
         );
     }
 

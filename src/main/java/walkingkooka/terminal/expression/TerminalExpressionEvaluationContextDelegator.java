@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal.expression;
 
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
@@ -25,7 +26,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -59,12 +59,6 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     }
 
     @Override
-    default LocalDateTime now() {
-        return this.terminalExpressionEvaluationContext()
-            .now();
-    }
-
-    @Override
     default TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
         this.terminalExpressionEvaluationContext()
             .setLineEnding(lineEnding);
@@ -72,22 +66,10 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     }
 
     @Override
-    default Locale locale() {
-        return this.terminalExpressionEvaluationContext()
-            .locale();
-    }
-
-    @Override
     default TerminalExpressionEvaluationContext setLocale(final Locale locale) {
         this.terminalExpressionEvaluationContext()
             .setLocale(locale);
         return this;
-    }
-
-    @Override
-    default Optional<EmailAddress> user() {
-        return this.terminalContext()
-            .user();
     }
 
     @Override
@@ -99,6 +81,11 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
 
     @Override
     default ExpressionEvaluationContext expressionEvaluationContext() {
+        return this.terminalExpressionEvaluationContext();
+    }
+
+    @Override
+    default EnvironmentContext environmentContext() {
         return this.terminalExpressionEvaluationContext();
     }
 

@@ -18,16 +18,20 @@
 package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.environment.HasUser;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.util.OpenChecker;
 
 import java.io.InputStreamReader;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -37,30 +41,29 @@ import java.util.function.Function;
  * A {@link TerminalContext} that reads and write to the System IN and OUT streams.
  */
 @GwtIncompatible
-final class SystemTerminalContext implements TerminalContext {
+final class SystemTerminalContext implements TerminalContext,
+    EnvironmentContextDelegator {
 
     /**
      * Factory that creates a new {@link SystemTerminalContext}.
      */
     static SystemTerminalContext with(final TerminalId terminalId,
-                                      final HasUser hasUser,
                                       final BiFunction<String, TerminalContext, Object> evaluator,
-                                      final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
+                                      final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory,
+                                      final EnvironmentContext environmentContext) {
         return new SystemTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
-            Objects.requireNonNull(hasUser, "hasUser"),
             Objects.requireNonNull(evaluator, "evaluator"),
-            Objects.requireNonNull(expressionEvaluationContextFactory, "expressionEvaluationContextFactory")
+            Objects.requireNonNull(expressionEvaluationContextFactory, "expressionEvaluationContextFactory"),
+            Objects.requireNonNull(environmentContext, "environmentContext")
         );
     }
 
     private SystemTerminalContext(final TerminalId terminalId,
-                                  final HasUser hasUser,
                                   final BiFunction<String, TerminalContext, Object> evaluator,
-                                  final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory) {
+                                  final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory,
+                                  final EnvironmentContext environmentContext) {
         this.terminalId = terminalId;
-
-        this.hasUser = hasUser;
 
         this.input = TextReaders.reader(
             new InputStreamReader(System.in),
@@ -78,6 +81,8 @@ final class SystemTerminalContext implements TerminalContext {
         );
 
         this.expressionEvaluationContextFactory = expressionEvaluationContextFactory;
+
+        this.environmentContext = environmentContext;
     }
 
     @Override
@@ -86,13 +91,6 @@ final class SystemTerminalContext implements TerminalContext {
     }
 
     private final TerminalId terminalId;
-
-    @Override
-    public Optional<EmailAddress> user() {
-        return this.hasUser.user();
-    }
-
-    private final HasUser hasUser;
 
     @Override
     public boolean isTerminalOpen() {
@@ -153,10 +151,74 @@ final class SystemTerminalContext implements TerminalContext {
 
     private TerminalExpressionEvaluationContext terminalExpressionEvaluationContext;
 
+    // EnvironmentContextDelegator......................................................................................
+
+    @Override
+    public TerminalContext cloneEnvironment() {
+        return this.setEnvironmentContext(
+            this.environmentContext.cloneEnvironment()
+        );
+    }
+
+    @Override
+    public TerminalContext setEnvironmentContext(final EnvironmentContext context) {
+        final EnvironmentContext before = this.environmentContext;
+
+        return before == context ?
+            this :
+            new SystemTerminalContext(
+                this.terminalId,
+                this.evaluator,
+                this.expressionEvaluationContextFactory,
+                Objects.requireNonNull(context, "context")
+            );
+    }
+
+    @Override
+    public <T> TerminalContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                   final T value) {
+        this.environmentContext.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
+    }
+
+    @Override
+    public TerminalContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.environmentContext.removeEnvironmentValue(name);
+        return this;
+    }
+
+    @Override
+    public TerminalContext setLineEnding(final LineEnding lineEnding) {
+        this.environmentContext.setLineEnding(lineEnding);
+        return this;
+    }
+
+    @Override
+    public TerminalContext setLocale(final Locale locale) {
+        this.environmentContext.setLocale(locale);
+        return this;
+    }
+
+    @Override
+    public TerminalContext setUser(final Optional<EmailAddress> user) {
+        this.environmentContext.setUser(user);
+        return this;
+    }
+
+    @Override
+    public EnvironmentContext environmentContext() {
+        return this.environmentContext;
+    }
+
+    private final EnvironmentContext environmentContext;
+
     // Object...........................................................................................................
 
     @Override
     public String toString() {
-        return this.terminalId().toString();
+        return this.terminalId() + " " + this.environmentContext;
     }
 }

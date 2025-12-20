@@ -220,13 +220,13 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         public TerminalContext terminalContext() {
             return TerminalContexts.system(
                 TerminalId.with(1),
-                () -> ANONYMOUS,
                 (e, c) -> {
                     throw new UnsupportedOperationException();
                 },
                 (t) -> {
                     throw new UnsupportedOperationException();
-                }
+                },
+                EnvironmentContexts.fake()
             );
         }
 

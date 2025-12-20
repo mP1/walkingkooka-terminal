@@ -17,14 +17,19 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
+import java.util.Locale;
 import java.util.Optional;
 
-public class FakeTerminalContext implements TerminalContext {
+public class FakeTerminalContext extends FakeEnvironmentContext implements TerminalContext {
 
     public FakeTerminalContext() {
         super();
@@ -70,8 +75,41 @@ public class FakeTerminalContext implements TerminalContext {
         throw new UnsupportedOperationException();
     }
 
+    // FakeEnvironmentContext...........................................................................................
+
     @Override
-    public Optional<EmailAddress> user() {
+    public TerminalContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminalContext setEnvironmentContext(final EnvironmentContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> TerminalContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                   final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminalContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminalContext setLineEnding(final LineEnding lineEnding) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminalContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminalContext setUser(final Optional<EmailAddress> user) {
         throw new UnsupportedOperationException();
     }
 }
