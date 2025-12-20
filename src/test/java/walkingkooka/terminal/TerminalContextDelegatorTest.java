@@ -18,13 +18,16 @@
 package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.io.TextReader;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
-import walkingkooka.text.printer.Printer;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
 
+import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Objects;
 
 public final class TerminalContextDelegatorTest implements TerminalContextTesting<TestTerminalContextDelegator> {
@@ -64,33 +67,44 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
 
         @Override
         public TerminalContext terminalContext() {
-            return new FakeTerminalContext() {
-
-                @Override
-                public TerminalId terminalId() {
-                    return TERMINAL_ID;
-                }
-
-                @Override
-                public TextReader input() {
-                    return TextReaders.fake();
-                }
-
-                @Override
-                public Printer output() {
-                    return Printers.fake();
-                }
-
-                @Override
-                public Printer error() {
-                    return Printers.fake();
-                }
-            };
+            return terminalContext;
         }
+
+        private final TerminalContext terminalContext = TerminalContexts.basic(
+            TERMINAL_ID,
+            TextReaders.fake(), // input
+            Printers.fake(), // output
+            Printers.fake(), // error
+            (e, c) -> {
+                throw new UnsupportedOperationException();
+            },
+            (t) -> {
+                throw new UnsupportedOperationException();
+            },
+            EnvironmentContexts.map(
+                EnvironmentContexts.empty(
+                    LineEnding.NL,
+                    Locale.ENGLISH,
+                    LocalDateTime::now,
+                    EnvironmentContext.ANONYMOUS
+                )
+            )
+        );
 
         @Override
         public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
             throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public TerminalContext cloneEnvironment() {
+            return new TestTerminalContextDelegator();
+        }
+
+        @Override
+        public TerminalContext setEnvironmentContext(final EnvironmentContext context) {
+            Objects.requireNonNull(context, "context");
+            return new TestTerminalContextDelegator();
         }
 
         @Override

@@ -18,10 +18,14 @@
 package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.environment.HasUser;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.LineEnding;
 
+import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -32,10 +36,6 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
 
     private final TerminalId TERMINAL_ID = TerminalId.parse("1");
 
-    private final HasUser HAS_USER = () -> Optional.of(
-        EmailAddress.parse("user@example.com")
-    );
-
     private final static Function<TerminalContext, TerminalExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT_FACTORY = (c) -> {
         throw new UnsupportedOperationException();
     };
@@ -44,28 +44,28 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
         throw new UnsupportedOperationException();
     };
 
+    private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
+        EnvironmentContexts.map(
+            EnvironmentContexts.empty(
+                LineEnding.NL,
+                Locale.forLanguageTag("en-AU"),
+                LocalDateTime::now,
+                Optional.of(
+                    EmailAddress.parse("user@example.com")
+                )
+            )
+        )
+    );
+
     @Test
     public void testWithNullTerminalIdFails() {
         assertThrows(
             NullPointerException.class,
             () -> SystemTerminalContext.with(
                 null,
-                HAS_USER,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullHasUserFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SystemTerminalContext.with(
-                TERMINAL_ID,
-                null,
-                EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -76,9 +76,9 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             NullPointerException.class,
             () -> SystemTerminalContext.with(
                 TERMINAL_ID,
-                HAS_USER,
                 EVALUATOR,
-                null
+                null,
+                ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -89,9 +89,35 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             NullPointerException.class,
             () -> SystemTerminalContext.with(
                 TERMINAL_ID,
-                HAS_USER,
                 null,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                ENVIRONMENT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullExpressionEnvironmentContextFactoryFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SystemTerminalContext.with(
+                TERMINAL_ID,
+                EVALUATOR,
+                null,
+                ENVIRONMENT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullEnvironmentContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SystemTerminalContext.with(
+                TERMINAL_ID,
+                EVALUATOR,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                null
             )
         );
     }
@@ -100,9 +126,9 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
     public SystemTerminalContext createContext() {
         return SystemTerminalContext.with(
             TERMINAL_ID,
-            HAS_USER,
             EVALUATOR,
-            EXPRESSION_EVALUATION_CONTEXT_FACTORY
+            EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+            ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
     }
 

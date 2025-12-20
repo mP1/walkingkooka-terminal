@@ -19,14 +19,18 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.environment.HasUser;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
+import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -38,7 +42,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
 
     private final static TerminalId TERMINAL_ID = TerminalId.parse("123");
 
-    private final static HasUser HAS_USER = () -> Optional.of(
+    private final static Optional<EmailAddress> USER = Optional.of(
         EmailAddress.parse("user@example.com")
     );
 
@@ -56,34 +60,29 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
         throw new UnsupportedOperationException();
     };
 
+    private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
+        EnvironmentContexts.map(
+            EnvironmentContexts.empty(
+                LineEnding.NL,
+                Locale.forLanguageTag("en-AU"),
+                LocalDateTime::now,
+                USER
+            )
+        )
+    );
+
     @Test
     public void testWithNullTerminalIdFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 null,
-                HAS_USER,
                 INPUT,
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullHasUserFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicTerminalContext.with(
-                TERMINAL_ID,
-                null,
-                INPUT,
-                OUTPUT,
-                ERROR,
-                EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -94,12 +93,12 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
-                HAS_USER,
                 null,
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -110,12 +109,12 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
-                HAS_USER,
                 INPUT,
                 null,
                 ERROR,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -126,12 +125,12 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
-                HAS_USER,
                 INPUT,
                 OUTPUT,
                 null,
                 EVALUATOR,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -142,12 +141,12 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
-                HAS_USER,
                 INPUT,
                 OUTPUT,
                 ERROR,
                 null,
-                EXPRESSION_EVALUATION_CONTEXT_FACTORY
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -158,11 +157,27 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
-                HAS_USER,
                 INPUT,
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
+                null,
+                ENVIRONMENT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullEnvironmentContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicTerminalContext.with(
+                TERMINAL_ID,
+                INPUT,
+                OUTPUT,
+                ERROR,
+                EVALUATOR,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
                 null
             )
         );
@@ -172,12 +187,12 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     public BasicTerminalContext createContext() {
         return BasicTerminalContext.with(
             TERMINAL_ID,
-            HAS_USER,
             INPUT,
             OUTPUT,
             ERROR,
             EVALUATOR,
-            EXPRESSION_EVALUATION_CONTEXT_FACTORY
+            EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+            ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
     }
 
@@ -187,7 +202,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     public void testToString() {
         this.toStringAndCheck(
             this.createContext(),
-            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR
+            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR + " " + ENVIRONMENT_CONTEXT
         );
     }
 

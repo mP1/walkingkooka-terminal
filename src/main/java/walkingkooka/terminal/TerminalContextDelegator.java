@@ -17,14 +17,20 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
+import java.util.Locale;
 import java.util.Optional;
 
-public interface TerminalContextDelegator extends TerminalContext {
+public interface TerminalContextDelegator extends TerminalContext,
+    EnvironmentContextDelegator {
 
     @Override
     default TerminalId terminalId() {
@@ -70,11 +76,49 @@ public interface TerminalContextDelegator extends TerminalContext {
 
     TerminalContext terminalContext();
 
-    // HasUser..........................................................................................................
+    // EnvironmentContextDelegator......................................................................................
 
     @Override
-    default Optional<EmailAddress> user() {
-        return this.terminalContext()
-            .user();
+    default <T> TerminalContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                    final T value) {
+        this.environmentContext()
+            .setEnvironmentValue(
+                name,
+                value
+            );
+        return this;
+    }
+
+    @Override
+    default TerminalContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.environmentContext()
+            .removeEnvironmentValue(name);
+        return this;
+    }
+
+    @Override
+    default TerminalContext setLineEnding(final LineEnding lineEnding) {
+        this.environmentContext()
+            .setLineEnding(lineEnding);
+        return this;
+    }
+
+    @Override
+    default TerminalContext setLocale(final Locale locale) {
+        this.environmentContext()
+            .setLocale(locale);
+        return this;
+    }
+
+    @Override
+    default TerminalContext setUser(final Optional<EmailAddress> user) {
+        this.environmentContext()
+            .setUser(user);
+        return this;
+    }
+
+    @Override
+    default EnvironmentContext environmentContext() {
+        return this.terminalContext();
     }
 }

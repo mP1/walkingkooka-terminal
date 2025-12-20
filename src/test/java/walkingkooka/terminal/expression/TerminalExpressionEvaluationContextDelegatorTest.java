@@ -323,7 +323,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 LineEnding.NL,
                 TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
                 LocalDateTime::now,
-                Optional.empty()
+                EnvironmentContext.ANONYMOUS
             );
         }
 
@@ -338,7 +338,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         public TerminalContext terminalContext() {
             return TerminalContexts.basic(
                 TerminalId.with(1),
-                this,
                 TextReaders.fake(), // input
                 Printers.fake(), // output
                 Printers.fake(), // error
@@ -347,7 +346,15 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 },
                 (t) -> {
                     throw new UnsupportedOperationException();
-                }
+                },
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        LineEnding.NL,
+                        TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
+                        LocalDateTime::now,
+                        EnvironmentContext.ANONYMOUS
+                    )
+                )
             );
         }
 

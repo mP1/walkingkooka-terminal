@@ -18,16 +18,21 @@
 package walkingkooka.terminal;
 
 import walkingkooka.Context;
-import walkingkooka.environment.HasUser;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
+
+import java.util.Locale;
+import java.util.Optional;
 
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
  */
-public interface TerminalContext extends Context,
-    HasUser {
+public interface TerminalContext extends EnvironmentContext {
 
     /**
      * Returns the {@link TerminalId} identifying this session.
@@ -69,4 +74,28 @@ public interface TerminalContext extends Context,
      * and general input output.
      */
     TerminalExpressionEvaluationContext terminalExpressionEvaluationContext();
+
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    TerminalContext cloneEnvironment();
+
+    @Override
+    TerminalContext setEnvironmentContext(final EnvironmentContext environmentContext);
+
+    @Override
+    <T> TerminalContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                            final T value);
+
+    @Override
+    TerminalContext removeEnvironmentValue(final EnvironmentValueName<?> name);
+
+    @Override
+    TerminalContext setLineEnding(final LineEnding lineEnding);
+
+    @Override
+    TerminalContext setLocale(final Locale locale);
+
+    @Override
+    TerminalContext setUser(final Optional<EmailAddress> user);
 }

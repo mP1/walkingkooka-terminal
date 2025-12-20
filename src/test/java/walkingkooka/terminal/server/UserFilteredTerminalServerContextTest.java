@@ -50,12 +50,12 @@ public final class UserFilteredTerminalServerContextTest implements TerminalServ
 
         @Override
         public Optional<EmailAddress> user() {
-            return USER;
+            return UserFilteredTerminalServerContextTest.USER;
         }
 
         @Override
         public String toString() {
-            return "TerminalContext " + USER;
+            return "TerminalContext " + UserFilteredTerminalServerContextTest.USER;
         }
     };
 
