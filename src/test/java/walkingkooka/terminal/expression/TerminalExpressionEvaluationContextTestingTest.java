@@ -223,9 +223,6 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                 (e, c) -> {
                     throw new UnsupportedOperationException();
                 },
-                (t) -> {
-                    throw new UnsupportedOperationException();
-                },
                 EnvironmentContexts.fake()
             );
         }

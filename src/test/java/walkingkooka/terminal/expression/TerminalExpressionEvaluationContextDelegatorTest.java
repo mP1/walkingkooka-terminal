@@ -344,9 +344,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 (e, c) -> {
                     throw new UnsupportedOperationException();
                 },
-                (t) -> {
-                    throw new UnsupportedOperationException();
-                },
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
                         LineEnding.NL,
@@ -361,11 +358,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public Object evaluate(final String expression) {
             Objects.requireNonNull(expression, "expression");
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
             throw new UnsupportedOperationException();
         }
 

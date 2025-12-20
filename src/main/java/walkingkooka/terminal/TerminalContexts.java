@@ -21,11 +21,9 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 public final class TerminalContexts implements PublicStaticHelper {
 
@@ -37,7 +35,6 @@ public final class TerminalContexts implements PublicStaticHelper {
                                         final Printer output,
                                         final Printer error,
                                         final BiFunction<String, TerminalContext, Object> evaluator,
-                                        final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory,
                                         final EnvironmentContext environmentContext) {
         return BasicTerminalContext.with(
             terminalId,
@@ -45,7 +42,6 @@ public final class TerminalContexts implements PublicStaticHelper {
             output,
             error,
             evaluator,
-            expressionEvaluationContextFactory,
             environmentContext
         );
     }
@@ -63,12 +59,10 @@ public final class TerminalContexts implements PublicStaticHelper {
     @GwtIncompatible
     public static TerminalContext system(final TerminalId terminalId,
                                          final BiFunction<String, TerminalContext, Object> evaluator,
-                                         final Function<TerminalContext, TerminalExpressionEvaluationContext> expressionEvaluationContextFactory,
                                          final EnvironmentContext environmentContext) {
         return SystemTerminalContext.with(
             terminalId,
             evaluator,
-            expressionEvaluationContextFactory,
             environmentContext
         );
     }

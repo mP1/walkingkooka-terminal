@@ -22,7 +22,6 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
-import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -81,9 +80,6 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
             (e, c) -> {
                 throw new UnsupportedOperationException();
             },
-            (t) -> {
-                throw new UnsupportedOperationException();
-            },
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
                     LineEnding.NL,
@@ -93,11 +89,6 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
                 )
             )
         );
-
-        @Override
-        public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
-            throw new UnsupportedOperationException();
-        }
 
         @Override
         public TerminalContext cloneEnvironment() {

@@ -22,7 +22,6 @@ import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
@@ -66,12 +65,6 @@ public interface TerminalContextDelegator extends TerminalContext,
     default Printer error() {
         return this.terminalContext()
             .error();
-    }
-
-    @Override
-    default TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
-        return this.terminalContext()
-            .terminalExpressionEvaluationContext();
     }
 
     TerminalContext terminalContext();
