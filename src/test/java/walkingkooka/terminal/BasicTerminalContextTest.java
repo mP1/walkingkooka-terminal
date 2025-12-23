@@ -32,6 +32,7 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -43,6 +44,11 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     private final static Optional<EmailAddress> USER = Optional.of(
         EmailAddress.parse("user@example.com")
     );
+
+    private final static BooleanSupplier OPEN_TESTER = () -> true;
+
+    private final static Runnable CLOSER = () -> {
+    };
 
     private final static TextReader INPUT = TextReaders.fake();
 
@@ -71,6 +77,42 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 null,
+                OPEN_TESTER,
+                CLOSER,
+                INPUT,
+                OUTPUT,
+                ERROR,
+                EVALUATOR,
+                ENVIRONMENT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullOpenTesterFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicTerminalContext.with(
+                TERMINAL_ID,
+                null,
+                CLOSER,
+                INPUT,
+                OUTPUT,
+                ERROR,
+                EVALUATOR,
+                ENVIRONMENT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullCloserFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicTerminalContext.with(
+                TERMINAL_ID,
+                OPEN_TESTER,
+                null,
                 INPUT,
                 OUTPUT,
                 ERROR,
@@ -86,6 +128,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
+                OPEN_TESTER,
+                CLOSER,
                 null,
                 OUTPUT,
                 ERROR,
@@ -101,6 +145,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
+                OPEN_TESTER,
+                CLOSER,
                 INPUT,
                 null,
                 ERROR,
@@ -116,6 +162,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
+                OPEN_TESTER,
+                CLOSER,
                 INPUT,
                 OUTPUT,
                 null,
@@ -131,6 +179,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
+                OPEN_TESTER,
+                CLOSER,
                 INPUT,
                 OUTPUT,
                 ERROR,
@@ -146,6 +196,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             NullPointerException.class,
             () -> BasicTerminalContext.with(
                 TERMINAL_ID,
+                OPEN_TESTER,
+                CLOSER,
                 INPUT,
                 OUTPUT,
                 ERROR,
@@ -159,6 +211,8 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     public BasicTerminalContext createContext() {
         return BasicTerminalContext.with(
             TERMINAL_ID,
+            OPEN_TESTER,
+            CLOSER,
             INPUT,
             OUTPUT,
             ERROR,
