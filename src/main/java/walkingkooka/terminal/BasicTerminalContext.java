@@ -24,12 +24,12 @@ import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
-import walkingkooka.util.OpenChecker;
 
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 
 /**
@@ -39,6 +39,8 @@ final class BasicTerminalContext implements TerminalContext,
     EnvironmentContextDelegator {
 
     static BasicTerminalContext with(final TerminalId terminalId,
+                                     final BooleanSupplier openTester,
+                                     final Runnable closer,
                                      final TextReader input,
                                      final Printer output,
                                      final Printer error,
@@ -46,6 +48,8 @@ final class BasicTerminalContext implements TerminalContext,
                                      final EnvironmentContext environmentContext) {
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
+            Objects.requireNonNull(openTester, "openTester"),
+            Objects.requireNonNull(closer, "closer"),
             Objects.requireNonNull(input, "input"),
             Objects.requireNonNull(output, "output"),
             Objects.requireNonNull(error, "error"),
@@ -55,6 +59,8 @@ final class BasicTerminalContext implements TerminalContext,
     }
 
     private BasicTerminalContext(final TerminalId terminalId,
+                                 final BooleanSupplier openTester,
+                                 final Runnable closer,
                                  final TextReader input,
                                  final Printer output,
                                  final Printer error,
@@ -62,16 +68,15 @@ final class BasicTerminalContext implements TerminalContext,
                                  final EnvironmentContext environmentContext) {
         this.terminalId = terminalId;
 
+        this.openTester = openTester;
+        this.closer = closer;
+
         this.input = input;
         this.output = output;
         this.error = error;
 
         this.evaluator = evaluator;
 
-        this.openChecker = OpenChecker.with(
-            "Terminal closed",
-            (String message) -> new IllegalStateException(message)
-        );
 
         this.environmentContext = environmentContext;
     }
@@ -85,7 +90,7 @@ final class BasicTerminalContext implements TerminalContext,
 
     @Override
     public TextReader input() {
-        this.openChecker.check();
+        this.verifyTerminalOpen();
 
         return this.input;
     }
@@ -94,17 +99,29 @@ final class BasicTerminalContext implements TerminalContext,
 
     @Override
     public TerminalContext exitTerminal() {
-        this.openChecker.close();
+        this.closer.run();
         return this;
     }
 
+    private final Runnable closer;
+
     @Override
     public boolean isTerminalOpen() {
-        return false == this.openChecker.isClosed();
+        return this.openTester.getAsBoolean();
     }
+
+    private void verifyTerminalOpen() {
+        if (false == this.isTerminalOpen()) {
+            throw new IllegalStateException("Terminal " + this.terminalId + " is closed");
+        }
+    }
+
+    private final BooleanSupplier openTester;
 
     @Override
     public Printer output() {
+        this.verifyTerminalOpen();
+        
         return this.output;
     }
 
@@ -112,6 +129,8 @@ final class BasicTerminalContext implements TerminalContext,
 
     @Override
     public Printer error() {
+        this.verifyTerminalOpen();
+        
         return this.error;
     }
 
@@ -120,7 +139,7 @@ final class BasicTerminalContext implements TerminalContext,
     @Override
     public Object evaluate(final String expression) {
         Objects.requireNonNull(expression, "expression");
-        this.openChecker.check();
+        this.verifyTerminalOpen();
 
         return this.evaluator.apply(
             expression,
@@ -129,8 +148,6 @@ final class BasicTerminalContext implements TerminalContext,
     }
 
     private final BiFunction<String, TerminalContext, Object> evaluator;
-
-    private final OpenChecker<IllegalStateException> openChecker;
 
     // EnvironmentContextDelegator......................................................................................
 
@@ -149,6 +166,8 @@ final class BasicTerminalContext implements TerminalContext,
             this :
             new BasicTerminalContext(
                 this.terminalId,
+                this.openTester,
+                this.closer,
                 this.input,
                 this.output,
                 this.error,

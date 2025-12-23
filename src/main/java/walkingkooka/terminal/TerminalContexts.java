@@ -24,6 +24,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.printer.Printer;
 
 import java.util.function.BiFunction;
+import java.util.function.BooleanSupplier;
 
 public final class TerminalContexts implements PublicStaticHelper {
 
@@ -31,6 +32,8 @@ public final class TerminalContexts implements PublicStaticHelper {
      * {@see BasicTerminalContext}
      */
     public static TerminalContext basic(final TerminalId terminalId,
+                                        final BooleanSupplier openTester,
+                                        final Runnable closer,
                                         final TextReader input,
                                         final Printer output,
                                         final Printer error,
@@ -38,6 +41,8 @@ public final class TerminalContexts implements PublicStaticHelper {
                                         final EnvironmentContext environmentContext) {
         return BasicTerminalContext.with(
             terminalId,
+            openTester,
+            closer,
             input,
             output,
             error,

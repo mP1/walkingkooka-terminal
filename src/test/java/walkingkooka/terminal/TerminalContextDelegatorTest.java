@@ -71,6 +71,9 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
 
         private final TerminalContext terminalContext = TerminalContexts.basic(
             TERMINAL_ID,
+            () -> true, // openTester
+            () -> {
+            }, // closer
             TextReaders.fake(), // input
             Printers.fake(), // output
             Printers.fake(), // error
