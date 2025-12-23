@@ -34,6 +34,11 @@ import java.util.Optional;
 public interface TerminalContext extends EnvironmentContext {
 
     /**
+     * THe default terminal {@link LineEnding} for TTYs etc.
+     */
+    LineEnding TERMINAL_LINE_ENDING = LineEnding.CRNL;
+
+    /**
      * Returns the {@link TerminalId} identifying this session.
      */
     TerminalId terminalId();
