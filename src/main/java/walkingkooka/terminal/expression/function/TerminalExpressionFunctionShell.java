@@ -19,6 +19,7 @@ package walkingkooka.terminal.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.terminal.HasTerminalText;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.Printer;
@@ -116,12 +117,21 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                 );
                 if (null != value) {
                     try {
-                        output.println(
-                            context.convertOrFail(
+                        final String valueAsString;
+
+                        // print SpreadsheetError#message which has detailed message
+                        // #NAME?
+                        if (value instanceof HasTerminalText) {
+                            final HasTerminalText hasTerminalText = (HasTerminalText) value;
+                            valueAsString = hasTerminalText.terminalText();
+                        } else {
+                            valueAsString = context.convertOrFail(
                                 value,
                                 String.class
-                            )
-                        );
+                            );
+                        }
+
+                        output.println(valueAsString);
                         output.flush();
                     } catch (final UnsupportedOperationException rethrow) {
                         throw rethrow;

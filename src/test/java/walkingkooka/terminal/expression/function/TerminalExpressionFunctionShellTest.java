@@ -23,6 +23,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.io.FakeTextReader;
 import walkingkooka.io.TextReader;
+import walkingkooka.terminal.HasTerminalText;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.LineEnding;
@@ -300,6 +301,83 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
         this.checkEquals(
             "helloworldhelloworld\n",
+            printed.toString(),
+            "output"
+        );
+    }
+
+    @Test
+    public void testApplyHasTerminalText() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "hello"
+        ).iterator();
+
+        final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer output() {
+                return this.output;
+            }
+
+            private final Printer output = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public Printer error() {
+                return Printers.fake();
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                this.open = false; // need to also kill shell
+                return new HasTerminalText() {
+                    @Override
+                    public String terminalText() {
+                        return "World";
+                    }
+                };
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        this.checkEquals(
+            "World\n",
             printed.toString(),
             "output"
         );
