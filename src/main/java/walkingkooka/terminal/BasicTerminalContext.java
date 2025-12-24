@@ -79,6 +79,10 @@ final class BasicTerminalContext implements TerminalContext,
 
 
         this.environmentContext = environmentContext;
+        environmentContext.setEnvironmentValue(
+            TERMINAL_ID,
+            terminalId
+        );
     }
 
     @Override

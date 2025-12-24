@@ -45,7 +45,7 @@ public final class UserFilteredTerminalServerContextTest implements TerminalServ
 
         @Override
         public TerminalId terminalId() {
-            return TERMINAL_ID;
+            return UserFilteredTerminalServerContextTest.TERMINAL_ID;
         }
 
         @Override
