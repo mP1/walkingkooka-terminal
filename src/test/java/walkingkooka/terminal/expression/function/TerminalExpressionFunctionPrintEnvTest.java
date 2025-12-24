@@ -56,8 +56,7 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
     public void testApplyWithoutAnyEnvironmentValueNames() {
         this.applyAndCheck(
             ExpressionFunction.NO_PARAMETER_VALUES,
-            "lineEnding=\n" +
-                "\n" +
+            "lineEnding=\\n\n" +
                 "locale=en_AU\n" +
                 "number-value=456\n" +
                 "string-value=hello\n" +
@@ -92,6 +91,16 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
                 STRING_VALUE
             ),
             "hello\n"
+        );
+    }
+
+    @Test
+    public void testApplyWithLineEnding() {
+        this.applyAndCheck(
+            Lists.of(
+                EnvironmentContext.LINE_ENDING
+            ),
+            "\\n\n"
         );
     }
 

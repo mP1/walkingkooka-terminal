@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -85,10 +86,15 @@ final class TerminalExpressionFunctionPrintEnv<C extends TerminalExpressionEvalu
             final Object value = context.environmentValue(name)
                 .orElse(null);
             if (null != value) {
-                String stringValue = context.convert(
-                    value,
-                    String.class
-                ).orElseLeft(null);
+                // special case for LINE_ENDING, escape it so its actually readable
+
+                final String stringValue = name.equals(EnvironmentValueName.LINE_ENDING) ?
+                    CharSequences.escape(value.toString())
+                        .toString() :
+                    context.convert(
+                        value,
+                        String.class
+                    ).orElseLeft(null);
 
                 if (null != stringValue) {
                     if (prefixWithName) {
