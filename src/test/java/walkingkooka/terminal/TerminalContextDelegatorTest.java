@@ -70,7 +70,7 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
         }
 
         private final TerminalContext terminalContext = TerminalContexts.basic(
-            TERMINAL_ID,
+            TerminalContextDelegatorTest.TERMINAL_ID,
             () -> true, // openTester
             () -> {
             }, // closer

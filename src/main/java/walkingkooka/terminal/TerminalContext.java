@@ -34,6 +34,11 @@ import java.util.Optional;
 public interface TerminalContext extends EnvironmentContext {
 
     /**
+     * Retrieves the {@link TerminalId} using an {@link EnvironmentValueName}.
+     */
+    EnvironmentValueName<TerminalId> TERMINAL_ID = EnvironmentValueName.with("terminal");
+
+    /**
      * THe default terminal {@link LineEnding} for TTYs etc.
      */
     LineEnding TERMINAL_LINE_ENDING = LineEnding.CRNL;

@@ -207,6 +207,15 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
         );
     }
 
+    @Test
+    public void testEnvironmentValueNameTerminalId() {
+        this.environmentValueAndCheck(
+            this.createContext(),
+            TerminalContext.TERMINAL_ID,
+            TERMINAL_ID
+        );
+    }
+
     @Override
     public BasicTerminalContext createContext() {
         return BasicTerminalContext.with(
@@ -227,7 +236,12 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     public void testToString() {
         this.toStringAndCheck(
             this.createContext(),
-            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR + " " + ENVIRONMENT_CONTEXT
+            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR + " " +
+                ENVIRONMENT_CONTEXT.cloneEnvironment()
+                    .setEnvironmentValue(
+                        TerminalContext.TERMINAL_ID,
+                        TERMINAL_ID
+                    )
         );
     }
 
