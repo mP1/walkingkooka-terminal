@@ -18,7 +18,6 @@
 package walkingkooka.terminal.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
@@ -86,19 +85,17 @@ final class TerminalExpressionFunctionPrintEnv<C extends TerminalExpressionEvalu
             final Object value = context.environmentValue(name)
                 .orElse(null);
             if (null != value) {
-                final Either<String, String> stringValue = context.convert(
+                String stringValue = context.convert(
                     value,
                     String.class
-                );
+                ).orElseLeft(null);
 
-                if (stringValue.isLeft()) {
+                if (null != stringValue) {
                     if (prefixWithName) {
                         printer.print(name.value());
                         printer.print("=");
                     }
-                    printer.println(
-                        stringValue.leftValue()
-                    );
+                    printer.println(stringValue);
                 }
             }
         }
