@@ -110,35 +110,39 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                     continue;
                 }
 
-                final Object value = context.evaluate(
-                    CharSequences.unescape(
-                        buffer.toString()
-                    ).toString()
-                );
-                if (null != value) {
-                    try {
-                        final String valueAsString;
+                try {
+                    final Object value = context.evaluate(
+                        CharSequences.unescape(
+                            buffer.toString()
+                        ).toString()
+                    );
+                    if (null != value) {
+                        try {
+                            final String valueAsString;
 
-                        // print SpreadsheetError#message which has detailed message
-                        // #NAME?
-                        if (value instanceof HasTerminalText) {
-                            final HasTerminalText hasTerminalText = (HasTerminalText) value;
-                            valueAsString = hasTerminalText.terminalText();
-                        } else {
-                            valueAsString = context.convertOrFail(
-                                value,
-                                String.class
-                            );
+                            // print SpreadsheetError#message which has detailed message
+                            // #NAME?
+                            if (value instanceof HasTerminalText) {
+                                final HasTerminalText hasTerminalText = (HasTerminalText) value;
+                                valueAsString = hasTerminalText.terminalText();
+                            } else {
+                                valueAsString = context.convertOrFail(
+                                    value,
+                                    String.class
+                                );
+                            }
+
+                            output.println(valueAsString);
+                        } catch (final UnsupportedOperationException rethrow) {
+                            throw rethrow;
+                        } catch (final RuntimeException cause) {
+                            error.println(cause.getMessage());
+                            error.flush();
                         }
-
-                        output.println(valueAsString);
-                        output.flush();
-                    } catch (final UnsupportedOperationException rethrow) {
-                        throw rethrow;
-                    } catch (final RuntimeException cause) {
-                        error.println(cause.getMessage());
-                        error.flush();
                     }
+                } finally {
+                    output.flush(); // evaluated expression/function might have printed but not flushed.
+                    error.flush();
                 }
 
                 buffer = new StringBuilder();

@@ -75,7 +75,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
             @Override
             public Printer output() {
-                return Printers.fake();
+                return Printers.sink(LineEnding.NL);
             }
 
             @Override
@@ -175,7 +175,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
             @Override
             public Printer error() {
-                return Printers.fake();
+                return Printers.sink(LineEnding.NL);
             }
 
             @Override
@@ -265,7 +265,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
             @Override
             public Printer error() {
-                return Printers.fake();
+                return Printers.sink(LineEnding.NL);
             }
 
             @Override
@@ -352,7 +352,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
             @Override
             public Printer error() {
-                return Printers.fake();
+                return Printers.sink(LineEnding.NL);
             }
 
             @Override
