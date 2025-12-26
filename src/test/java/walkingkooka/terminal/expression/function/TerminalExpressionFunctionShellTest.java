@@ -23,6 +23,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.io.FakeTextReader;
 import walkingkooka.io.TextReader;
+import walkingkooka.terminal.HasTerminalErrorText;
 import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
@@ -307,7 +308,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
     }
 
     @Test
-    public void testApplyHasTerminalText() {
+    public void testApplyHasTerminalOutputText() {
         final int timeout = 1234;
 
         final Iterator<String> inputLines = Lists.of(
@@ -380,6 +381,83 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
             "World\n",
             printed.toString(),
             "output"
+        );
+    }
+
+    @Test
+    public void testApplyHasTerminalErrorText() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "hello"
+        ).iterator();
+
+        final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer error() {
+                return this.error;
+            }
+
+            private final Printer error = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public Printer output() {
+                return Printers.sink(LineEnding.NL);
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                this.open = false; // need to also kill shell
+                return new HasTerminalErrorText() {
+                    @Override
+                    public String terminalErrorText() {
+                        return "World";
+                    }
+                };
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        this.checkEquals(
+            "World\n",
+            printed.toString(),
+            "error"
         );
     }
 

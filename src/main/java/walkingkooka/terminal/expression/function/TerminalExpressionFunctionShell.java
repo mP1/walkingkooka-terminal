@@ -19,6 +19,7 @@ package walkingkooka.terminal.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.terminal.HasTerminalErrorText;
 import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.CharSequences;
@@ -118,21 +119,38 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                     );
                     if (null != value) {
                         try {
-                            final String valueAsString;
+                            final String outputString;
+                            final String errorString;
 
                             // print SpreadsheetError#message which has detailed message
                             // #NAME?
                             if (value instanceof HasTerminalOutputText) {
                                 final HasTerminalOutputText hasTerminalOutputText = (HasTerminalOutputText) value;
-                                valueAsString = hasTerminalOutputText.terminalOutputText();
+                                outputString = hasTerminalOutputText.terminalOutputText();
+                                errorString = null;
                             } else {
-                                valueAsString = context.convertOrFail(
-                                    value,
-                                    String.class
-                                );
+                                if (value instanceof HasTerminalErrorText) {
+                                    outputString = null;
+
+                                    final HasTerminalErrorText hasTerminalErrorText = (HasTerminalErrorText) value;
+                                    errorString = hasTerminalErrorText.terminalErrorText();
+
+                                } else {
+                                    outputString = context.convertOrFail(
+                                        value,
+                                        String.class
+                                    );
+
+                                    errorString = null;
+                                }
                             }
 
-                            output.println(valueAsString);
+                            if (null != outputString) {
+                                output.println(outputString);
+                            }
+                            if (null != errorString) {
+                                error.println(errorString);
+                            }
                         } catch (final UnsupportedOperationException rethrow) {
                             throw rethrow;
                         } catch (final RuntimeException cause) {
