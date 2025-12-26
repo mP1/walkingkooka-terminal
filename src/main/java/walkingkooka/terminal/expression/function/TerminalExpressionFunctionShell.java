@@ -19,7 +19,7 @@ package walkingkooka.terminal.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.terminal.HasTerminalText;
+import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.Printer;
@@ -122,9 +122,9 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
 
                             // print SpreadsheetError#message which has detailed message
                             // #NAME?
-                            if (value instanceof HasTerminalText) {
-                                final HasTerminalText hasTerminalText = (HasTerminalText) value;
-                                valueAsString = hasTerminalText.terminalText();
+                            if (value instanceof HasTerminalOutputText) {
+                                final HasTerminalOutputText hasTerminalOutputText = (HasTerminalOutputText) value;
+                                valueAsString = hasTerminalOutputText.terminalOutputText();
                             } else {
                                 valueAsString = context.convertOrFail(
                                     value,

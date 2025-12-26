@@ -17,24 +17,10 @@
 
 package walkingkooka.terminal;
 
-import walkingkooka.text.printer.TreePrintableTesting;
+/**
+ * Supports value providing an alternate text which can be printed by a terminal after {@link TerminalContext#evaluate(String)}.
+ */
+public interface HasTerminalOutputText {
 
-public interface HasTerminalTextTesting<H extends HasTerminalText> extends TreePrintableTesting {
-
-    default void terminalTextAndCheck(final HasTerminalText has,
-                                      final String expected) {
-        final String actual = has.terminalText();
-
-        this.checkNotEquals(
-            null,
-            actual,
-            has::toString
-        );
-
-        this.checkEquals(
-            expected,
-            actual,
-            has::toString
-        );
-    }
+    String terminalOutputText();
 }

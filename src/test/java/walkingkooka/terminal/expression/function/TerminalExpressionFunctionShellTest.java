@@ -23,7 +23,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.io.FakeTextReader;
 import walkingkooka.io.TextReader;
-import walkingkooka.terminal.HasTerminalText;
+import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.LineEnding;
@@ -360,9 +360,9 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 Objects.requireNonNull(expression, "expression");
 
                 this.open = false; // need to also kill shell
-                return new HasTerminalText() {
+                return new HasTerminalOutputText() {
                     @Override
-                    public String terminalText() {
+                    public String terminalOutputText() {
                         return "World";
                     }
                 };
