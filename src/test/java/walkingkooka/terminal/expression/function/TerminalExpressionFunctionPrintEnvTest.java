@@ -44,9 +44,15 @@ import java.util.Set;
 
 public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionFunctionTesting<TerminalExpressionFunctionPrintEnv<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
 
-    private final static EnvironmentValueName<Integer> NUMBER_VALUE = EnvironmentValueName.with("number-value");
+    private final static EnvironmentValueName<Integer> NUMBER_VALUE = EnvironmentValueName.with(
+        "number-value",
+        Integer.class
+    );
 
-    private final static EnvironmentValueName<String> STRING_VALUE = EnvironmentValueName.with("string-value");
+    private final static EnvironmentValueName<String> STRING_VALUE = EnvironmentValueName.with(
+        "string-value",
+        String.class
+    );
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
@@ -68,7 +74,10 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
     public void testApplyWithUnknownEnvironmentValue2() {
         this.applyAndCheck(
             Lists.of(
-                EnvironmentValueName.with("Unknown")
+                EnvironmentValueName.with(
+                    "Unknown",
+                    Object.class
+                )
             ),
             "" // nothing printed
         );

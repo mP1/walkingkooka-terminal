@@ -36,7 +36,10 @@ public interface TerminalContext extends EnvironmentContext {
     /**
      * Retrieves the {@link TerminalId} using an {@link EnvironmentValueName}.
      */
-    EnvironmentValueName<TerminalId> TERMINAL_ID = EnvironmentValueName.with("terminal");
+    EnvironmentValueName<TerminalId> TERMINAL_ID = EnvironmentValueName.with(
+        "terminal",
+        TerminalId.class
+    );
 
     /**
      * THe default terminal {@link LineEnding} for TTYs etc.
