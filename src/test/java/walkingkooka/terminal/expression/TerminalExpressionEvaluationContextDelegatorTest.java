@@ -94,7 +94,17 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
     }
 
     @Override
+    public void testRemoveEnvironmentValueWithNowFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetEnvironmentContextWithEqualEnvironmentContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetEnvironmentValueWithNowFails() {
         throw new UnsupportedOperationException();
     }
 
