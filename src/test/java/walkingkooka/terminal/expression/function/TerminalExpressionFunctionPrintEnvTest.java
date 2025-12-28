@@ -64,6 +64,7 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
             ExpressionFunction.NO_PARAMETER_VALUES,
             "lineEnding=\\n\n" +
                 "locale=en_AU\n" +
+                "now=1999-12-31T12:58\n" +
                 "number-value=456\n" +
                 "string-value=hello\n" +
                 "user=user@example.com\n"
@@ -176,7 +177,13 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
                 EnvironmentContexts.empty(
                     TerminalExpressionFunctionPrintEnvTest.LINE_ENDING,
                     TerminalExpressionFunctionPrintEnvTest.LOCALE,
-                    LocalDateTime::now,
+                    () -> LocalDateTime.of(
+                        1999,
+                        12,
+                        31,
+                        12,
+                        58
+                    ),
                     Optional.of(
                         EmailAddress.parse("user@example.com")
                     )
