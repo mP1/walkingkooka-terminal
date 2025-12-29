@@ -84,7 +84,7 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
                 EnvironmentContexts.empty(
                     LineEnding.NL,
                     Locale.ENGLISH,
-                    LocalDateTime::now,
+                    () -> LocalDateTime.MIN,
                     EnvironmentContext.ANONYMOUS
                 )
             )

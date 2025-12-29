@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.HasNow;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
@@ -54,6 +55,8 @@ import java.util.function.Function;
 public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
 
     private final static Locale LOCALE = Locale.ENGLISH;
+
+    private final static HasNow HAS_NOW = () -> LocalDateTime.MIN;
 
     @Test
     public void testLocale() {
@@ -312,7 +315,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
         @Override
         public LocalDateTime now() {
-            return LocalDateTime.now();
+            return HAS_NOW.now();
         }
 
         @Override
@@ -332,7 +335,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
             return EnvironmentContexts.empty(
                 LineEnding.NL,
                 TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
-                LocalDateTime::now,
+                HAS_NOW,
                 EnvironmentContext.ANONYMOUS
             );
         }
@@ -361,7 +364,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                     EnvironmentContexts.empty(
                         LineEnding.NL,
                         TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
-                        LocalDateTime::now,
+                        HAS_NOW,
                         EnvironmentContext.ANONYMOUS
                     )
                 )
