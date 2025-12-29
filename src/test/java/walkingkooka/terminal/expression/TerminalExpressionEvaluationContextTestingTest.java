@@ -59,6 +59,11 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
     }
 
     @Override
+    public void testEnvironmentValueNowEqualsNow() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testEnvironmentValueUserEqualsUser() {
         throw new UnsupportedOperationException();
     }

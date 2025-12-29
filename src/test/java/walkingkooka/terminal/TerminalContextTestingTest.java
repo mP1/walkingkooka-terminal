@@ -87,7 +87,7 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
                 EnvironmentContexts.empty(
                     LineEnding.NL,
                     Locale.ENGLISH,
-                    LocalDateTime::now,
+                    () -> LocalDateTime.MIN,
                     EnvironmentContext.ANONYMOUS
                 )
             )

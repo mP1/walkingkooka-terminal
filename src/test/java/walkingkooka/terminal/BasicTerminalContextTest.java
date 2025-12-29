@@ -65,7 +65,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             EnvironmentContexts.empty(
                 LineEnding.NL,
                 Locale.forLanguageTag("en-AU"),
-                LocalDateTime::now,
+                () -> LocalDateTime.MIN,
                 USER
             )
         )

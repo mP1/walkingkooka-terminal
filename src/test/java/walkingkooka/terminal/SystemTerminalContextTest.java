@@ -43,7 +43,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             EnvironmentContexts.empty(
                 LineEnding.NL,
                 Locale.forLanguageTag("en-AU"),
-                LocalDateTime::now,
+                () -> LocalDateTime.MIN,
                 Optional.of(
                     EmailAddress.parse("user@example.com")
                 )
