@@ -105,7 +105,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 Object value;
                 if ("exit".equals(expression)) {
                     this.open = false;
-                    value = "";
+                    value = null;
                 } else {
                     value = expression + expression;
                 }
@@ -122,15 +122,86 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
         this.checkEquals(
             "Failed to convert \"hellohello\" (java.lang.String) to java.lang.String\n" +
-                "Failed to convert \"hello2hello2\" (java.lang.String) to java.lang.String\n" +
-                "Failed to convert \"\" (java.lang.String) to java.lang.String\n",
+                "Failed to convert \"hello2hello2\" (java.lang.String) to java.lang.String\n",
             printed.toString(),
             "error"
         );
     }
 
     @Test
-    public void testApply() {
+    public void testApplySkipEmptyLine() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "",
+            " ",
+            "exit"
+        ).iterator();
+
+        //final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer output() {
+                return Printers.sink(LineEnding.NL);
+                //return this.output;
+            }
+
+            @Override
+            public Printer error() {
+                return Printers.sink(LineEnding.NL);
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                Object value;
+                if ("exit".equals(expression)) {
+                    this.open = false;
+                    value = null;
+                } else {
+                    value = expression + expression;
+                }
+                return value;
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        // nothing will be printed
+    }
+
+    @Test
+    public void testApplyMultipleCommands() {
         final int timeout = 1234;
 
         final Iterator<String> inputLines = Lists.of(
