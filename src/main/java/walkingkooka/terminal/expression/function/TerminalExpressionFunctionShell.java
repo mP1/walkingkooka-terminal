@@ -117,7 +117,7 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                             buffer.toString()
                         ).toString()
                     );
-                    if (null != value) {
+                    //if (null != value) {
                         try {
                             final String outputString;
                             final String errorString;
@@ -157,7 +157,7 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                             error.println(cause.getMessage());
                             error.flush();
                         }
-                    }
+                    //}
                 } finally {
                     output.flush(); // evaluated expression/function might have printed but not flushed.
                     error.flush();

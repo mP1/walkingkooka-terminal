@@ -105,7 +105,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 Object value;
                 if ("exit".equals(expression)) {
                     this.open = false;
-                    value = null;
+                    value = "";
                 } else {
                     value = expression + expression;
                 }
@@ -122,7 +122,8 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
         this.checkEquals(
             "Failed to convert \"hellohello\" (java.lang.String) to java.lang.String\n" +
-                "Failed to convert \"hello2hello2\" (java.lang.String) to java.lang.String\n",
+                "Failed to convert \"hello2hello2\" (java.lang.String) to java.lang.String\n" +
+                "Failed to convert \"\" (java.lang.String) to java.lang.String\n",
             printed.toString(),
             "error"
         );
