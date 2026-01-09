@@ -25,6 +25,7 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
@@ -329,6 +330,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
 
         @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
+            final LineEnding lineEnding = LineEnding.NL;
             final Locale locale = Locale.ENGLISH;
 
             return ExpressionEvaluationContexts.basic(
@@ -356,6 +358,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
+                        lineEnding,
                         ',', // valueSeparator
                         Converters.simple(),
                         DateTimeContexts.basic(
@@ -371,7 +374,12 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                     ),
                     ExpressionNumberKind.DEFAULT
                 ),
-                EnvironmentContexts.fake(),
+                new FakeEnvironmentContext() {
+                    @Override
+                    public LineEnding lineEnding() {
+                        return lineEnding;
+                    }
+                },
                 LocaleContexts.jre(locale)
             );
         }
