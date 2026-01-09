@@ -26,6 +26,7 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.io.TextReaders;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
@@ -392,6 +393,8 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
         @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
+            final LineEnding lineEnding = LineEnding.NL;
+
             return ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
                 (e, c) -> {
@@ -413,12 +416,18 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     Converters.EXCEL_1904_DATE_SYSTEM_OFFSET,
+                    lineEnding,
                     ',', // valueSeparator
                     Converters.simple(),
                     DateTimeContexts.fake(),
                     DECIMAL_NUMBER_CONTEXT
                 ),
-                EnvironmentContexts.fake(),
+                new FakeEnvironmentContext() {
+                    @Override
+                    public LineEnding lineEnding() {
+                        return lineEnding;
+                    }
+                },
                 LocaleContexts.jre(Locale.ENGLISH)
             );
         }
