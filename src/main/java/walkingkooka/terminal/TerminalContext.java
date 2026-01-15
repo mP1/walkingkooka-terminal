@@ -25,7 +25,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
-import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -98,9 +97,6 @@ public interface TerminalContext extends EnvironmentContext {
 
     @Override
     TerminalContext setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    TerminalContext setLocale(final Locale locale);
 
     @Override
     TerminalContext setUser(final Optional<EmailAddress> user);

@@ -26,7 +26,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 
-import java.util.Locale;
 import java.util.Optional;
 
 public interface TerminalExpressionEvaluationContextDelegator extends TerminalExpressionEvaluationContext,
@@ -62,13 +61,6 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     default TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
         this.terminalExpressionEvaluationContext()
             .setLineEnding(lineEnding);
-        return this;
-    }
-
-    @Override
-    default TerminalExpressionEvaluationContext setLocale(final Locale locale) {
-        this.terminalExpressionEvaluationContext()
-            .setLocale(locale);
         return this;
     }
 

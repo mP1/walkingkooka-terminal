@@ -27,7 +27,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -129,13 +128,6 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
 
     @Override
     public TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
-        throw new UnsupportedOperationException();
-    }
-
-    // LocaleContext....................................................................................................
-
-    @Override
-    public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 }

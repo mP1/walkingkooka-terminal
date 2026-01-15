@@ -239,7 +239,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
-        public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
+        public void setLocale(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
             throw new UnsupportedOperationException();
         }
@@ -307,11 +307,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public Locale locale() {
             return TerminalExpressionEvaluationContextDelegatorTest.LOCALE;
-        }
-
-        @Override
-        public TerminalExpressionEvaluationContext setLocale(final Locale locale) {
-            throw new UnsupportedOperationException();
         }
 
         @Override
