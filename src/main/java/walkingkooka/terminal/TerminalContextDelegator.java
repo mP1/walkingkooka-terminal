@@ -19,13 +19,8 @@ package walkingkooka.terminal;
 
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
-import walkingkooka.net.email.EmailAddress;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
-
-import java.util.Optional;
 
 public interface TerminalContextDelegator extends TerminalContext,
     EnvironmentContextDelegator {
@@ -69,38 +64,6 @@ public interface TerminalContextDelegator extends TerminalContext,
     TerminalContext terminalContext();
 
     // EnvironmentContextDelegator......................................................................................
-
-    @Override
-    default <T> TerminalContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                    final T value) {
-        this.environmentContext()
-            .setEnvironmentValue(
-                name,
-                value
-            );
-        return this;
-    }
-
-    @Override
-    default TerminalContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.environmentContext()
-            .removeEnvironmentValue(name);
-        return this;
-    }
-
-    @Override
-    default TerminalContext setLineEnding(final LineEnding lineEnding) {
-        this.environmentContext()
-            .setLineEnding(lineEnding);
-        return this;
-    }
-
-    @Override
-    default TerminalContext setUser(final Optional<EmailAddress> user) {
-        this.environmentContext()
-            .setUser(user);
-        return this;
-    }
 
     @Override
     default EnvironmentContext environmentContext() {

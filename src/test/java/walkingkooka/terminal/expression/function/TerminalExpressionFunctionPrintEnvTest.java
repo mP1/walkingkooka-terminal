@@ -173,28 +173,36 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
                 return this.environmentContext.environmentValueNames();
             }
 
-            private final EnvironmentContext environmentContext = EnvironmentContexts.map(
-                EnvironmentContexts.empty(
-                    TerminalExpressionFunctionPrintEnvTest.LINE_ENDING,
-                    TerminalExpressionFunctionPrintEnvTest.LOCALE,
-                    () -> LocalDateTime.of(
-                        1999,
-                        12,
-                        31,
-                        12,
-                        58
-                    ),
-                    Optional.of(
-                        EmailAddress.parse("user@example.com")
+            {
+                final EnvironmentContext context = EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        TerminalExpressionFunctionPrintEnvTest.LINE_ENDING,
+                        TerminalExpressionFunctionPrintEnvTest.LOCALE,
+                        () -> LocalDateTime.of(
+                            1999,
+                            12,
+                            31,
+                            12,
+                            58
+                        ),
+                        Optional.of(
+                            EmailAddress.parse("user@example.com")
+                        )
                     )
-                )
-            ).setEnvironmentValue(
-                STRING_VALUE,
-                "hello"
-            ).setEnvironmentValue(
-                NUMBER_VALUE,
-                456
-            );
+                );
+                context.setEnvironmentValue(
+                    STRING_VALUE,
+                    "hello"
+                );
+                context.setEnvironmentValue(
+                    NUMBER_VALUE,
+                    456
+                );
+
+                this.environmentContext = context;
+            }
+
+            private final EnvironmentContext environmentContext;
 
             @Override
             public <T> Either<T, String> convert(final Object value,

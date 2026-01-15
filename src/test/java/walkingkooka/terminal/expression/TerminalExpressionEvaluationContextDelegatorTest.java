@@ -25,7 +25,6 @@ import walkingkooka.datetime.HasNow;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.io.TextReaders;
 import walkingkooka.locale.LocaleContexts;
@@ -245,7 +244,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
-        public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+        public void setUser(final Optional<EmailAddress> user) {
             Objects.requireNonNull(user);
             throw new UnsupportedOperationException();
         }
@@ -286,20 +285,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
-        public <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                           final T value) {
-            this.environmentContext().setEnvironmentValue(name, value);
-            return this;
-        }
-
-        @Override
-        public TerminalExpressionEvaluationContext removeEnvironmentValue(EnvironmentValueName<?> name) {
-            this.environmentContext().removeEnvironmentValue(name);
-            return this;
-        }
-
-        @Override
-        public TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+        public void setLineEnding(final LineEnding lineEnding) {
             Objects.requireNonNull(lineEnding, "lineEnding");
             throw new UnsupportedOperationException();
         }
@@ -312,18 +298,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public LocalDateTime now() {
             return HAS_NOW.now();
-        }
-
-        @Override
-        public Optional<EmailAddress> user() {
-            return this.environmentContext()
-                .user();
-        }
-
-        @Override
-        public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
-            Objects.requireNonNull(user);
-            throw new UnsupportedOperationException();
         }
 
         @Override

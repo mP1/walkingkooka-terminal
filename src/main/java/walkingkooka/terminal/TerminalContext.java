@@ -21,11 +21,8 @@ import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
-
-import java.util.Optional;
 
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
@@ -87,17 +84,4 @@ public interface TerminalContext extends EnvironmentContext {
 
     @Override
     TerminalContext setEnvironmentContext(final EnvironmentContext environmentContext);
-
-    @Override
-    <T> TerminalContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                            final T value);
-
-    @Override
-    TerminalContext removeEnvironmentValue(final EnvironmentValueName<?> name);
-
-    @Override
-    TerminalContext setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    TerminalContext setUser(final Optional<EmailAddress> user);
 }

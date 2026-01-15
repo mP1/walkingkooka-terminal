@@ -19,14 +19,10 @@ package walkingkooka.terminal;
 
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
-import walkingkooka.net.email.EmailAddress;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
@@ -177,34 +173,6 @@ final class BasicTerminalContext implements TerminalContext,
                 this.evaluator,
                 Objects.requireNonNull(context, "context")
             );
-    }
-
-    @Override
-    public <T> TerminalContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                   final T value) {
-        this.environmentContext.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
-    }
-
-    @Override
-    public TerminalContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.environmentContext.removeEnvironmentValue(name);
-        return this;
-    }
-
-    @Override
-    public TerminalContext setLineEnding(final LineEnding lineEnding) {
-        this.environmentContext.setLineEnding(lineEnding);
-        return this;
-    }
-
-    @Override
-    public TerminalContext setUser(final Optional<EmailAddress> user) {
-        this.environmentContext.setUser(user);
-        return this;
     }
 
     @Override
