@@ -25,7 +25,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -199,12 +198,6 @@ final class BasicTerminalContext implements TerminalContext,
     @Override
     public TerminalContext setLineEnding(final LineEnding lineEnding) {
         this.environmentContext.setLineEnding(lineEnding);
-        return this;
-    }
-
-    @Override
-    public TerminalContext setLocale(final Locale locale) {
-        this.environmentContext.setLocale(locale);
         return this;
     }
 

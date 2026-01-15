@@ -25,7 +25,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
-import java.util.Locale;
 import java.util.Optional;
 
 public class FakeTerminalContext extends FakeEnvironmentContext implements TerminalContext {
@@ -94,11 +93,6 @@ public class FakeTerminalContext extends FakeEnvironmentContext implements Termi
 
     @Override
     public TerminalContext setLineEnding(final LineEnding lineEnding) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public TerminalContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 

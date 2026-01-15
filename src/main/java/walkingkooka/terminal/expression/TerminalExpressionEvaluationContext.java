@@ -24,7 +24,6 @@ import walkingkooka.terminal.TerminalContext;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
-import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -47,9 +46,6 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
 
     @Override
     TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    TerminalExpressionEvaluationContext setLocale(final Locale locale);
 
     @Override
     TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user);
