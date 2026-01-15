@@ -18,17 +18,10 @@
 package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.environment.EnvironmentValueWatcher;
 import walkingkooka.io.TextReader;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalId;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
-
-import java.util.Optional;
-import java.util.Set;
 
 public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvaluationContext implements TerminalExpressionEvaluationContext {
 
@@ -75,59 +68,6 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
 
     @Override
     public TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Set<EnvironmentValueName<?>> environmentValueNames() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                       final T value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public TerminalExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<EmailAddress> user() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Runnable addEventValueWatcher(final EnvironmentValueWatcher watcher) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Runnable addEventValueWatcherOnce(final EnvironmentValueWatcher watcher) {
-        throw new UnsupportedOperationException();
-    }
-
-    // LineEndingContext................................................................................................
-
-    @Override
-    public LineEnding lineEnding() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
         throw new UnsupportedOperationException();
     }
 }

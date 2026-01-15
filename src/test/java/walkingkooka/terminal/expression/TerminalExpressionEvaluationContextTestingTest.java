@@ -246,18 +246,6 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         // EnvironmentContext...........................................................................................
 
         @Override
-        public Optional<EmailAddress> user() {
-            return this.environmentContext()
-                .user();
-        }
-
-        @Override
-        public TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
-            Objects.requireNonNull(user);
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
         public TerminalExpressionEvaluationContext cloneEnvironment() {
             throw new UnsupportedOperationException();
         }
@@ -275,8 +263,8 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         }
 
         @Override
-        public <T> TestTerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                               final T value) {
+        public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                            final T value) {
             Objects.requireNonNull(name, "name");
             Objects.requireNonNull(value, "value");
 
@@ -284,7 +272,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         }
 
         @Override
-        public TestTerminalExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
             Objects.requireNonNull(name, "name");
 
             throw new UnsupportedOperationException();
@@ -310,7 +298,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         // ExpressionEvaluationContextDelegator.........................................................................
 
         @Override
-        public TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+        public void setLineEnding(final LineEnding lineEnding) {
             Objects.requireNonNull(lineEnding, "lineEnding");
             throw new UnsupportedOperationException();
         }

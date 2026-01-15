@@ -18,13 +18,8 @@
 package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-
-import java.util.Optional;
 
 /**
  * A {@link ExpressionEvaluationContext} with added {@link TerminalContext} support.
@@ -36,19 +31,6 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
 
     @Override
     TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext);
-
-    @Override
-    <T> TerminalExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                final T value);
-
-    @Override
-    TerminalExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name);
-
-    @Override
-    TerminalExpressionEvaluationContext setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    TerminalExpressionEvaluationContext setUser(final Optional<EmailAddress> user);
 
     @Override
     TerminalExpressionEvaluationContext exitTerminal();

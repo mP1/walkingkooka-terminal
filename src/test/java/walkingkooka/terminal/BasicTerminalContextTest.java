@@ -234,14 +234,15 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
 
     @Test
     public void testToString() {
+        final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
+        environmentContext.setEnvironmentValue(
+            TerminalContext.TERMINAL_ID,
+            TERMINAL_ID
+        );
+
         this.toStringAndCheck(
             this.createContext(),
-            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR + " " +
-                ENVIRONMENT_CONTEXT.cloneEnvironment()
-                    .setEnvironmentValue(
-                        TerminalContext.TERMINAL_ID,
-                        TERMINAL_ID
-                    )
+            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR + " " + environmentContext
         );
     }
 
