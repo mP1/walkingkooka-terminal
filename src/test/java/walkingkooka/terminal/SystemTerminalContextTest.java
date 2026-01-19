@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.text.LineEnding;
 
 import java.time.LocalDateTime;
@@ -39,6 +40,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
     };
 
     private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
+        Predicates.always(), // all values are readonly
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
                 LineEnding.NL,

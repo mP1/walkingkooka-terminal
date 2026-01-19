@@ -24,6 +24,7 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -61,6 +62,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     };
 
     private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
+        Predicates.always(), // all values are readonly
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
                 LineEnding.NL,
