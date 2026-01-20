@@ -201,6 +201,94 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
     }
 
     @Test
+    public void testApplyBackspaceCharacter() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "hel9\u007flo", // the backspace deletes the nine '9' character
+            "exit"
+        ).iterator();
+
+        final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer output() {
+                return this.output;
+            }
+
+            private final Printer output = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public Printer error() {
+                return Printers.sink(LineEnding.NL);
+            }
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                return this.successfulConversion(
+                    target.cast(value),
+                    target
+                );
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                Object value;
+                if ("exit".equals(expression)) {
+                    this.open = false;
+                    value = null;
+                } else {
+                    value = expression + expression;
+                }
+                return value;
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        this.checkEquals(
+            "hellohello\n",
+            printed.toString(),
+            "output"
+        );
+    }
+
+    @Test
     public void testApplyMultipleCommands() {
         final int timeout = 1234;
 
