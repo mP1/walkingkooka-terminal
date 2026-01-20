@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.terminal.HasTerminalErrorText;
 import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -34,7 +33,11 @@ import java.util.Optional;
 
 /**
  * A very simple shell or REPL that tries to read a line of text with support for line-continuation. Each complete input is then
- * {@link TerminalExpressionEvaluationContext#evaluate(String)}. Note input or output redirection is not supported.
+ * {@link TerminalExpressionEvaluationContext#evaluate(String)}.
+ * <br>
+ * The BACKSPACE character will remove the previous character in the input buffer.
+ * <br>
+ * Note input or output redirection is not supported.
  * <br>
  * If an exit command is executed, the {@link TerminalExpressionEvaluationContext#isTerminalOpen()}, will become false
  * and reading of input will stop and the function exited with a code of 0.
@@ -111,9 +114,7 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                     continue;
                 }
 
-                final String text = CharSequences.unescape(
-                    buffer.toString()
-                ).toString();
+                final String text = fixText(buffer);
                 buffer = new StringBuilder();
 
                 // empty lines are ignored.
@@ -175,6 +176,35 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
     }
 
     private final static String LINE_CONTINUATION = "\\";
+
+    /**
+     * Currently fixing text means handling BACKSPACE characters from the given input text buffer.
+     */
+    private static String fixText(final StringBuilder text) {
+        int i = 0;
+
+        while (i < text.length()) {
+            final char c = text.charAt(i);
+            if (BACKSPACE == c) {
+                // consume backspace and "delete" previous char.
+                if (i > 0) {
+                    text.deleteCharAt(i); // remove BACKSPACE character
+                    i--;
+                    text.deleteCharAt(i); // remove the previous DELETED character
+                    i--;
+                    continue;
+                }
+            }
+
+            i++;
+        }
+
+        return text.toString()
+            .trim();
+    }
+
+
+    private final static char BACKSPACE = (char) 127;
 
     @Override
     public boolean isPure(final ExpressionPurityContext expressionPurityContext) {
