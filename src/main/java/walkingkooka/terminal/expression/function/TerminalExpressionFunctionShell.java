@@ -51,7 +51,7 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
         return Cast.to(INSTANCE);
     }
 
-    private final static TerminalExpressionFunctionShell INSTANCE = new TerminalExpressionFunctionShell<>();
+    private final static TerminalExpressionFunctionShell<?> INSTANCE = new TerminalExpressionFunctionShell<>();
 
     private TerminalExpressionFunctionShell() {
         super("shell");
