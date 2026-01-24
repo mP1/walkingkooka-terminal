@@ -22,6 +22,7 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -85,6 +86,7 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
             },
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
+                    Indentation.SPACES2,
                     LineEnding.NL,
                     Locale.ENGLISH,
                     () -> LocalDateTime.MIN,

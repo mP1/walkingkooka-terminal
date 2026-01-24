@@ -37,6 +37,7 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextDelegatorTest.TestTerminalExpressionEvaluationContextDelegator;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -53,6 +54,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
+
+    private final static Indentation INDENTATION = Indentation.SPACES2;
 
     private final static Locale LOCALE = Locale.ENGLISH;
 
@@ -108,6 +111,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
     @Override
     public void testSetEnvironmentValueWithNowFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetIndentationWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
@@ -303,6 +311,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                 LineEnding.NL,
                 TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
                 HAS_NOW,
@@ -332,6 +341,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 },
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                         LineEnding.NL,
                         TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
                         HAS_NOW,
@@ -385,6 +395,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     Converters.EXCEL_1904_DATE_SYSTEM_OFFSET,
+                    TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                     lineEnding,
                     ',', // valueSeparator
                     Converters.simple(),

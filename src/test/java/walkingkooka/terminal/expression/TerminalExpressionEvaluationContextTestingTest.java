@@ -36,6 +36,7 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTestingTest.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
@@ -81,6 +82,11 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
 
     @Override
     public void testSetEnvironmentValueWithNowFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetIndentationWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
@@ -286,6 +292,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                Indentation.SPACES2,
                 LineEnding.NL,
                 Locale.FRANCE,
                 LocalDateTime::now,
@@ -346,6 +353,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
+                        Indentation.SPACES2,
                         lineEnding,
                         ',', // valueSeparator
                         Converters.simple(),
