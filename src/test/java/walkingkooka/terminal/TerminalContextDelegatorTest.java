@@ -24,6 +24,7 @@ import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -82,6 +83,7 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
             },
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
+                    TreePrintableTesting.INDENTATION,
                     LineEnding.NL,
                     Locale.ENGLISH,
                     () -> LocalDateTime.MIN,

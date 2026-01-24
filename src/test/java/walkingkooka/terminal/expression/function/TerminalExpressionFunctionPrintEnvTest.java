@@ -29,6 +29,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -54,6 +55,8 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
         String.class
     );
 
+    private final static Indentation INDENTATION = Indentation.SPACES2;
+
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
     private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
@@ -62,7 +65,8 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
     public void testApplyWithoutAnyEnvironmentValueNames() {
         this.applyAndCheck(
             ExpressionFunction.NO_PARAMETER_VALUES,
-            "lineEnding=\\n\n" +
+            "indentation=  \n" +
+                "lineEnding=\\n\n" +
                 "locale=en_AU\n" +
                 "now=1999-12-31T12:58\n" +
                 "number-value=456\n" +
@@ -176,6 +180,7 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
             {
                 final EnvironmentContext context = EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        TerminalExpressionFunctionPrintEnvTest.INDENTATION,
                         TerminalExpressionFunctionPrintEnvTest.LINE_ENDING,
                         TerminalExpressionFunctionPrintEnvTest.LOCALE,
                         () -> LocalDateTime.of(
