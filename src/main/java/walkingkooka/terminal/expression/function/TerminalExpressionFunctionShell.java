@@ -158,13 +158,14 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                             if (null != errorString) {
                                 error.println(errorString);
                             }
-                        } catch (final UnsupportedOperationException rethrow) {
-                            throw rethrow;
                         } catch (final RuntimeException cause) {
                             error.println(cause.getMessage());
                             error.flush();
                         }
                     }
+                } catch (final RuntimeException cause) {
+                    error.println(cause.getMessage());
+                    error.flush();
                 } finally {
                     output.flush(); // evaluated expression/function might have printed but not flushed.
                     error.flush();
