@@ -28,6 +28,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -125,47 +126,44 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                 try {
                     final Object value = context.evaluate(text);
                     if (null != value) {
-                        try {
-                            final String outputString;
-                            final String errorString;
+                        final String outputString;
+                        final String errorString;
 
-                            // print SpreadsheetError#message which has detailed message
-                            // #NAME?
-                            if (value instanceof HasTerminalOutputText) {
-                                final HasTerminalOutputText hasTerminalOutputText = (HasTerminalOutputText) value;
-                                outputString = hasTerminalOutputText.terminalOutputText();
-                                errorString = null;
+                        // print SpreadsheetError#message which has detailed message
+                        // #NAME?
+                        if (value instanceof HasTerminalOutputText) {
+                            final HasTerminalOutputText hasTerminalOutputText = (HasTerminalOutputText) value;
+                            outputString = hasTerminalOutputText.terminalOutputText();
+                            errorString = null;
+                        } else {
+                            if (value instanceof HasTerminalErrorText) {
+                                outputString = null;
+
+                                final HasTerminalErrorText hasTerminalErrorText = (HasTerminalErrorText) value;
+                                errorString = hasTerminalErrorText.terminalErrorText();
+
                             } else {
-                                if (value instanceof HasTerminalErrorText) {
-                                    outputString = null;
+                                outputString = context.convertOrFail(
+                                    value,
+                                    String.class
+                                );
 
-                                    final HasTerminalErrorText hasTerminalErrorText = (HasTerminalErrorText) value;
-                                    errorString = hasTerminalErrorText.terminalErrorText();
-
-                                } else {
-                                    outputString = context.convertOrFail(
-                                        value,
-                                        String.class
-                                    );
-
-                                    errorString = null;
-                                }
+                                errorString = null;
                             }
+                        }
 
-                            if (null != outputString) {
-                                output.println(outputString);
-                            }
-                            if (null != errorString) {
-                                error.println(errorString);
-                            }
-                        } catch (final RuntimeException cause) {
-                            error.println(cause.getMessage());
-                            error.flush();
+                        if (null != outputString) {
+                            output.println(outputString);
+                        }
+                        if (null != errorString) {
+                            error.println(errorString);
                         }
                     }
                 } catch (final RuntimeException cause) {
-                    error.println(cause.getMessage());
-                    error.flush();
+                    final PrintStream printStream = error.asPrintStream();
+
+                    cause.printStackTrace(printStream);
+                    printStream.flush();
                 } finally {
                     output.flush(); // evaluated expression/function might have printed but not flushed.
                     error.flush();

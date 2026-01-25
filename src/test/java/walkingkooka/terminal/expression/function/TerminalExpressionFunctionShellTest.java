@@ -32,6 +32,7 @@ import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
 
+import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
@@ -120,10 +121,15 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
             TerminalExpressionFunctionShell.OK_EXIT_CODE
         );
 
+        final String printedString = printed.toString();
+        final int eol = printedString.indexOf('\n');
+
         this.checkEquals(
-            "Failed to convert \"hellohello\" (java.lang.String) to java.lang.String\n" +
-                "Failed to convert \"hello2hello2\" (java.lang.String) to java.lang.String\n",
-            printed.toString(),
+            "walkingkooka.convert.ConverterException: Failed to convert \"hellohello\" (java.lang.String) to java.lang.String",
+            printedString.substring(
+                0,
+                eol
+            ),
             "error"
         );
     }
@@ -616,6 +622,101 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
         this.checkEquals(
             "World\n",
+            printed.toString(),
+            "error"
+        );
+    }
+
+    @Test
+    public void testApplyFunctionThrowsPrintsStackTrace() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "throw",
+            "exit"
+        ).iterator();
+
+        final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer output() {
+                return Printers.sink(LineEnding.NL);
+            }
+
+            @Override
+            public Printer error() {
+                return this.error;
+            }
+
+            private final Printer error = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                return this.failConversion(
+                    target.cast(value),
+                    target
+                );
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                switch (expression) {
+                    case "exit":
+                        this.open = false;
+                        return null;
+                    case "throw":
+                        throw new RuntimeException("Hello World") {
+
+                            @Override
+                            public void printStackTrace(final PrintStream p) {
+                                p.println("Stacktrace 123");
+                            }
+                        };
+                    default:
+                        throw new UnsupportedOperationException();
+                }
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        this.checkEquals(
+            "Stacktrace 123\n",
             printed.toString(),
             "error"
         );
