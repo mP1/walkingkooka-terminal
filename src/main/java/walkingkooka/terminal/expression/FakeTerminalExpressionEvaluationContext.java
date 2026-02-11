@@ -19,9 +19,16 @@ package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.io.TextReader;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalId;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
+
+import java.time.ZoneOffset;
+import java.util.Locale;
+import java.util.Optional;
 
 public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvaluationContext implements TerminalExpressionEvaluationContext {
 
@@ -68,6 +75,36 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
 
     @Override
     public TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setIndentation(final Indentation indentation) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setLineEnding(final LineEnding lineEnding) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ZoneOffset timeOffset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setTimeOffset(final ZoneOffset zoneOffset) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setUser(final Optional<EmailAddress> optional) {
         throw new UnsupportedOperationException();
     }
 }
