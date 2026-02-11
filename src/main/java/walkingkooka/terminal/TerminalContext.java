@@ -50,7 +50,7 @@ public interface TerminalContext extends EnvironmentContext {
     /**
      * Used to programmatically quite or close this terminal session.
      */
-    void exitTerminal();
+    void exitTerminal(final Object value);
 
     /**
      * Tests if the terminal has been closed.

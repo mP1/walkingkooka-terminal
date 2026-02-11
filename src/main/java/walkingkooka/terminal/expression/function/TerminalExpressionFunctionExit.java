@@ -23,11 +23,13 @@ import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
 import java.util.List;
 
 /**
- * Quits the terminal session by invoking {@link TerminalContext#exitTerminal()}
+ * Quits the terminal session by invoking {@link TerminalContext#exitTerminal(Object)}
  */
 final class TerminalExpressionFunctionExit<C extends TerminalExpressionEvaluationContext> extends TerminalExpressionFunction<Void, C> {
 
@@ -49,7 +51,13 @@ final class TerminalExpressionFunctionExit<C extends TerminalExpressionEvaluatio
         return PARAMETERS;
     }
 
-    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.empty();
+    final static ExpressionFunctionParameter<Object> EXIT_VALUE = ExpressionFunctionParameterName.with("exitValue")
+        .optional(Object.class)
+        .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
+        EXIT_VALUE
+    );
 
     @Override
     public Class<Void> returnType() {
@@ -61,7 +69,12 @@ final class TerminalExpressionFunctionExit<C extends TerminalExpressionEvaluatio
                       final C context) {
         this.checkParameterCount(parameters);
 
-        context.exitTerminal();
+        context.exitTerminal(
+            EXIT_VALUE.get(
+                parameters,
+                0
+            ).orElse(null)
+        );
         return null;
     }
 

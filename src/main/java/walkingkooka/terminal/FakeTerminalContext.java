@@ -34,7 +34,7 @@ public class FakeTerminalContext extends FakeEnvironmentContext implements Termi
     }
 
     @Override
-    public void exitTerminal() {
+    public void exitTerminal(final Object value) {
         throw new UnsupportedOperationException();
     }
 

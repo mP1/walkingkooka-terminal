@@ -25,6 +25,7 @@ import walkingkooka.text.printer.Printer;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -40,6 +41,7 @@ final class BasicTerminalContext implements TerminalContext,
                                      final Printer output,
                                      final Printer error,
                                      final BiFunction<String, TerminalContext, Object> evaluator,
+                                     final Consumer<Object> exitValue,
                                      final EnvironmentContext environmentContext) {
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
@@ -49,6 +51,7 @@ final class BasicTerminalContext implements TerminalContext,
             Objects.requireNonNull(output, "output"),
             Objects.requireNonNull(error, "error"),
             Objects.requireNonNull(evaluator, "evaluator"),
+            Objects.requireNonNull(exitValue, "exitValue"),
             Objects.requireNonNull(environmentContext, "environmentContext")
         );
     }
@@ -60,6 +63,7 @@ final class BasicTerminalContext implements TerminalContext,
                                  final Printer output,
                                  final Printer error,
                                  final BiFunction<String, TerminalContext, Object> evaluator,
+                                 final Consumer<Object> exitValue,
                                  final EnvironmentContext environmentContext) {
         this.terminalId = terminalId;
 
@@ -72,6 +76,7 @@ final class BasicTerminalContext implements TerminalContext,
 
         this.evaluator = evaluator;
 
+        this.exitValue = exitValue;
 
         this.environmentContext = environmentContext;
         environmentContext.setEnvironmentValue(
@@ -97,11 +102,14 @@ final class BasicTerminalContext implements TerminalContext,
     private final TextReader input;
 
     @Override
-    public void exitTerminal() {
+    public void exitTerminal(final Object value) {
         this.closer.run();
+        this.exitValue.accept(value);
     }
 
     private final Runnable closer;
+
+    private final Consumer<Object> exitValue;
 
     @Override
     public boolean isTerminalOpen() {
@@ -170,6 +178,7 @@ final class BasicTerminalContext implements TerminalContext,
                 this.output,
                 this.error,
                 this.evaluator,
+                this.exitValue,
                 Objects.requireNonNull(context, "context")
             );
     }

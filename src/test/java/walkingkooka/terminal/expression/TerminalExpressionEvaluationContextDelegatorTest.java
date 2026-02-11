@@ -339,6 +339,9 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 (e, c) -> {
                     throw new UnsupportedOperationException();
                 },
+                (e) -> {
+                    throw new UnsupportedOperationException();
+                },
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
                         TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,

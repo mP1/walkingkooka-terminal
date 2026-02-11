@@ -28,14 +28,14 @@ import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
 public final class TerminalExpressionFunctionExitTest implements ExpressionFunctionTesting<TerminalExpressionFunctionExit<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
 
     @Test
-    public void testApply() {
-        this.quit = false;
+    public void testApplyWithoutParameters() {
+        this.exitValue = "***";
 
         final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
 
             @Override
-            public void exitTerminal() {
-                TerminalExpressionFunctionExitTest.this.quit = true;
+            public void exitTerminal(final Object exitValue) {
+                TerminalExpressionFunctionExitTest.this.exitValue = exitValue;
             }
         };
 
@@ -47,12 +47,41 @@ public final class TerminalExpressionFunctionExitTest implements ExpressionFunct
         );
 
         this.checkEquals(
-            true,
-            this.quit
+            null,
+            this.exitValue,
+            "exitValue"
         );
     }
 
-    private boolean quit;
+    @Test
+    public void testApplyWitParameters() {
+        this.exitValue = "***";
+
+        final Object exitValue = "*** EXIT VALUE ***";
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public void exitTerminal(final Object exitValue) {
+                TerminalExpressionFunctionExitTest.this.exitValue = exitValue;
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionExit.instance(),
+            Lists.of(exitValue),
+            context,
+            null
+        );
+
+        this.checkEquals(
+            exitValue,
+            this.exitValue,
+            "exitValue"
+        );
+    }
+
+    private Object exitValue;
 
     @Test
     public void testIsPure() {

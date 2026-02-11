@@ -81,6 +81,9 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
             (e, c) -> {
                 throw new UnsupportedOperationException();
             },
+            (e) -> {
+                throw new UnsupportedOperationException();
+            },
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
                     TreePrintableTesting.INDENTATION,
