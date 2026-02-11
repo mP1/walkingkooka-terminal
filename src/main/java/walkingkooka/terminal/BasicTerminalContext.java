@@ -36,7 +36,6 @@ final class BasicTerminalContext implements TerminalContext,
 
     static BasicTerminalContext with(final TerminalId terminalId,
                                      final BooleanSupplier openTester,
-                                     final Runnable closer,
                                      final TextReader input,
                                      final Printer output,
                                      final Printer error,
@@ -46,7 +45,6 @@ final class BasicTerminalContext implements TerminalContext,
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(openTester, "openTester"),
-            Objects.requireNonNull(closer, "closer"),
             Objects.requireNonNull(input, "input"),
             Objects.requireNonNull(output, "output"),
             Objects.requireNonNull(error, "error"),
@@ -58,7 +56,6 @@ final class BasicTerminalContext implements TerminalContext,
 
     private BasicTerminalContext(final TerminalId terminalId,
                                  final BooleanSupplier openTester,
-                                 final Runnable closer,
                                  final TextReader input,
                                  final Printer output,
                                  final Printer error,
@@ -68,7 +65,6 @@ final class BasicTerminalContext implements TerminalContext,
         this.terminalId = terminalId;
 
         this.openTester = openTester;
-        this.closer = closer;
 
         this.input = input;
         this.output = output;
@@ -103,11 +99,8 @@ final class BasicTerminalContext implements TerminalContext,
 
     @Override
     public void exitTerminal(final Object value) {
-        this.closer.run();
         this.exitValue.accept(value);
     }
-
-    private final Runnable closer;
 
     private final Consumer<Object> exitValue;
 
@@ -173,7 +166,6 @@ final class BasicTerminalContext implements TerminalContext,
             new BasicTerminalContext(
                 this.terminalId,
                 this.openTester,
-                this.closer,
                 this.input,
                 this.output,
                 this.error,

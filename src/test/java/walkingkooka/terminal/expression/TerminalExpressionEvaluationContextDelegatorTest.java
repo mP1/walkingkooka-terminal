@@ -331,8 +331,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
             return TerminalContexts.basic(
                 TerminalId.with(1),
                 () -> true, // openTester
-                () -> {
-                }, // closer
                 TextReaders.fake(), // input
                 Printers.fake(), // output
                 Printers.fake(), // error
