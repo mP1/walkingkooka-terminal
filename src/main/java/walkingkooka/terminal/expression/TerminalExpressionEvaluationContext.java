@@ -31,7 +31,4 @@ public interface TerminalExpressionEvaluationContext extends ExpressionEvaluatio
 
     @Override
     TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext);
-
-    @Override
-    TerminalExpressionEvaluationContext exitTerminal();
 }

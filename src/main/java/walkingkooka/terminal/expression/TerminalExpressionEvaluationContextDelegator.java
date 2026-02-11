@@ -47,12 +47,6 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     // TerminalContextDelegator.........................................................................................
 
     @Override
-    default TerminalExpressionEvaluationContext exitTerminal() {
-        return this.terminalExpressionEvaluationContext()
-            .exitTerminal();
-    }
-
-    @Override
     default TerminalContext terminalContext() {
         return this.terminalExpressionEvaluationContext();
     }
