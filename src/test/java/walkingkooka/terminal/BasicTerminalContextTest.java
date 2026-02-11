@@ -35,6 +35,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -59,6 +60,10 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     private final static Printer ERROR = Printers.fake();
 
     private final static BiFunction<String, TerminalContext, Object> EVALUATOR = (e, c) -> {
+        throw new UnsupportedOperationException();
+    };
+
+    private final static Consumer<Object> EXIT_VALUE = (e) -> {
         throw new UnsupportedOperationException();
     };
 
@@ -87,6 +92,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
+                EXIT_VALUE,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -104,6 +110,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
+                EXIT_VALUE,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -121,6 +128,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
+                EXIT_VALUE,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -138,6 +146,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
+                EXIT_VALUE,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -155,6 +164,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 null,
                 ERROR,
                 EVALUATOR,
+                EXIT_VALUE,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -172,6 +182,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 null,
                 EVALUATOR,
+                EXIT_VALUE,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -188,6 +199,25 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 INPUT,
                 OUTPUT,
                 ERROR,
+                null,
+                EXIT_VALUE,
+                ENVIRONMENT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullExitValueFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicTerminalContext.with(
+                TERMINAL_ID,
+                OPEN_TESTER,
+                CLOSER,
+                INPUT,
+                OUTPUT,
+                ERROR,
+                EVALUATOR,
                 null,
                 ENVIRONMENT_CONTEXT
             )
@@ -206,6 +236,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 OUTPUT,
                 ERROR,
                 EVALUATOR,
+                EXIT_VALUE,
                 null
             )
         );
@@ -230,6 +261,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             OUTPUT,
             ERROR,
             EVALUATOR,
+            EXIT_VALUE,
             ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
     }

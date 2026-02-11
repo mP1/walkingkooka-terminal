@@ -84,6 +84,9 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
             (e, c) -> {
                 throw new UnsupportedOperationException();
             },
+            (ev) -> {
+                throw new UnsupportedOperationException();
+            },
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
                     Indentation.SPACES2,

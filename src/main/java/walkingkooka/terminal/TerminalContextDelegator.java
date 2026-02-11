@@ -38,9 +38,9 @@ public interface TerminalContextDelegator extends TerminalContext,
     }
 
     @Override
-    default void exitTerminal() {
+    default void exitTerminal(final Object value) {
         this.terminalContext()
-            .exitTerminal();
+            .exitTerminal(value);
     }
 
     @Override

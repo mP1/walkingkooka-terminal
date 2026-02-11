@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -37,6 +38,10 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
     private final TerminalId TERMINAL_ID = TerminalId.parse("1");
 
     private final static BiFunction<String, TerminalContext, Object> EVALUATOR = (e, c) -> {
+        throw new UnsupportedOperationException();
+    };
+
+    private final static Consumer<Object> EXIT_VALUE = (e) -> {
         throw new UnsupportedOperationException();
     };
 
@@ -62,6 +67,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             () -> SystemTerminalContext.with(
                 null,
                 EVALUATOR,
+                EXIT_VALUE,
                 ENVIRONMENT_CONTEXT
             )
         );
@@ -73,6 +79,20 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             NullPointerException.class,
             () -> SystemTerminalContext.with(
                 TERMINAL_ID,
+                null,
+                EXIT_VALUE,
+                ENVIRONMENT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullExitValueFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SystemTerminalContext.with(
+                TERMINAL_ID,
+                EVALUATOR,
                 null,
                 ENVIRONMENT_CONTEXT
             )
@@ -86,6 +106,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             () -> SystemTerminalContext.with(
                 TERMINAL_ID,
                 EVALUATOR,
+                EXIT_VALUE,
                 null
             )
         );
@@ -96,6 +117,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
         return SystemTerminalContext.with(
             TERMINAL_ID,
             EVALUATOR,
+            EXIT_VALUE,
             ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
     }

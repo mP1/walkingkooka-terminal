@@ -239,7 +239,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         // TerminalContextDelegator.....................................................................................
 
         @Override
-        public void exitTerminal() {
+        public void exitTerminal(final Object exitValue) {
             throw new UnsupportedOperationException();
         }
 
@@ -248,6 +248,9 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
             return TerminalContexts.system(
                 TerminalId.with(1),
                 (e, c) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (e) -> {
                     throw new UnsupportedOperationException();
                 },
                 EnvironmentContexts.fake()

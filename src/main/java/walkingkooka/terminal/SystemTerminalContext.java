@@ -29,6 +29,7 @@ import walkingkooka.util.OpenChecker;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 /**
  * A {@link TerminalContext} that reads and write to the System IN and OUT streams.
@@ -42,16 +43,19 @@ final class SystemTerminalContext implements TerminalContext,
      */
     static SystemTerminalContext with(final TerminalId terminalId,
                                       final BiFunction<String, TerminalContext, Object> evaluator,
+                                      final Consumer<Object> exitValue,
                                       final EnvironmentContext environmentContext) {
         return new SystemTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(evaluator, "evaluator"),
+            Objects.requireNonNull(exitValue, "exitValue"),
             Objects.requireNonNull(environmentContext, "environmentContext")
         );
     }
 
     private SystemTerminalContext(final TerminalId terminalId,
                                   final BiFunction<String, TerminalContext, Object> evaluator,
+                                  final Consumer<Object> exitValue,
                                   final EnvironmentContext environmentContext) {
         this.terminalId = terminalId;
 
@@ -64,6 +68,8 @@ final class SystemTerminalContext implements TerminalContext,
         this.error = Printers.sysErr();
 
         this.evaluator = evaluator;
+
+        this.exitValue = exitValue;
 
         this.openChecker = OpenChecker.with(
             "Terminal closed",
@@ -86,9 +92,12 @@ final class SystemTerminalContext implements TerminalContext,
     }
 
     @Override
-    public void exitTerminal() {
+    public void exitTerminal(final Object exitValue) {
         this.openChecker.close();
+        this.exitValue.accept(exitValue);
     }
+
+    private final Consumer<Object> exitValue;
 
     @Override
     public TextReader input() {
@@ -144,6 +153,7 @@ final class SystemTerminalContext implements TerminalContext,
             new SystemTerminalContext(
                 this.terminalId,
                 this.evaluator,
+                this.exitValue,
                 Objects.requireNonNull(context, "context")
             );
     }

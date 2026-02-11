@@ -25,6 +25,7 @@ import walkingkooka.text.printer.Printer;
 
 import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 
 public final class TerminalContexts implements PublicStaticHelper {
 
@@ -38,6 +39,7 @@ public final class TerminalContexts implements PublicStaticHelper {
                                         final Printer output,
                                         final Printer error,
                                         final BiFunction<String, TerminalContext, Object> evaluator,
+                                        final Consumer<Object> exitValue,
                                         final EnvironmentContext environmentContext) {
         return BasicTerminalContext.with(
             terminalId,
@@ -47,6 +49,7 @@ public final class TerminalContexts implements PublicStaticHelper {
             output,
             error,
             evaluator,
+            exitValue,
             environmentContext
         );
     }
@@ -64,10 +67,12 @@ public final class TerminalContexts implements PublicStaticHelper {
     @GwtIncompatible
     public static TerminalContext system(final TerminalId terminalId,
                                          final BiFunction<String, TerminalContext, Object> evaluator,
+                                         final Consumer<Object> exitValue,
                                          final EnvironmentContext environmentContext) {
         return SystemTerminalContext.with(
             terminalId,
             evaluator,
+            exitValue,
             environmentContext
         );
     }
