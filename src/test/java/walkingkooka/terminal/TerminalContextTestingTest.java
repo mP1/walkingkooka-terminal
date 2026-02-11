@@ -76,8 +76,6 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
         private final TerminalContext terminalContext = TerminalContexts.basic(
             TerminalId.with(1),
             () -> true, // openTester
-            () -> {
-            }, // closer
             TextReaders.fake(), // input
             Printers.fake(), // output
             Printers.fake(), // error

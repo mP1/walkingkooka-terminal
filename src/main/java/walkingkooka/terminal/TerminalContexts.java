@@ -34,7 +34,6 @@ public final class TerminalContexts implements PublicStaticHelper {
      */
     public static TerminalContext basic(final TerminalId terminalId,
                                         final BooleanSupplier openTester,
-                                        final Runnable closer,
                                         final TextReader input,
                                         final Printer output,
                                         final Printer error,
@@ -44,7 +43,6 @@ public final class TerminalContexts implements PublicStaticHelper {
         return BasicTerminalContext.with(
             terminalId,
             openTester,
-            closer,
             input,
             output,
             error,
