@@ -97,9 +97,8 @@ final class BasicTerminalContext implements TerminalContext,
     private final TextReader input;
 
     @Override
-    public TerminalContext exitTerminal() {
+    public void exitTerminal() {
         this.closer.run();
-        return this;
     }
 
     private final Runnable closer;

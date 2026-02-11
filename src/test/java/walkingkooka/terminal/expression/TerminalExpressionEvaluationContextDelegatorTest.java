@@ -327,11 +327,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         // TerminalContextDelegator.....................................................................................
 
         @Override
-        public TerminalExpressionEvaluationContext exitTerminal() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
         public TerminalContext terminalContext() {
             return TerminalContexts.basic(
                 TerminalId.with(1),
