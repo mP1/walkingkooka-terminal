@@ -31,6 +31,7 @@ import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -68,6 +69,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
         Predicates.always(), // all values are readonly
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                Currency.getInstance("AUD"),
                 Indentation.SPACES2,
                 LineEnding.NL,
                 Locale.forLanguageTag("en-AU"),

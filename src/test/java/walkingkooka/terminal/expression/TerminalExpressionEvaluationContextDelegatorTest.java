@@ -48,12 +48,15 @@ import walkingkooka.tree.expression.ExpressionReference;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
 public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
+
+    private final static Currency CURRENCY = Currency.getInstance("AUD");
 
     private final static Indentation INDENTATION = Indentation.SPACES2;
 
@@ -111,6 +114,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
     @Override
     public void testSetEnvironmentValueWithNowFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetCurrencyWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
@@ -316,6 +324,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                TerminalExpressionEvaluationContextDelegatorTest.CURRENCY,
                 TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                 LineEnding.NL,
                 TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
@@ -342,6 +351,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 },
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        TerminalExpressionEvaluationContextDelegatorTest.CURRENCY,
                         TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                         LineEnding.NL,
                         TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
