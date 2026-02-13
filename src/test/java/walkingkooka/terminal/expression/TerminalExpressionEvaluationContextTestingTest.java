@@ -48,6 +48,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -82,6 +83,11 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
 
     @Override
     public void testSetEnvironmentValueWithNowFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetCurrencyWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
@@ -300,6 +306,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                Currency.getInstance("AUD"),
                 Indentation.SPACES2,
                 LineEnding.NL,
                 Locale.FRANCE,

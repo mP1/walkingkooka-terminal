@@ -27,6 +27,7 @@ import walkingkooka.text.printer.Printers;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -84,6 +85,7 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
             },
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
+                    Currency.getInstance("AUD"),
                     TreePrintableTesting.INDENTATION,
                     LineEnding.NL,
                     Locale.ENGLISH,
