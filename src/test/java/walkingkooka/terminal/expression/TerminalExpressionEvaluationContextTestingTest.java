@@ -366,6 +366,12 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                 ExpressionNumberConverterContexts.basic(
                     Converters.simple(),
                     ConverterContexts.basic(
+                        (l) -> {
+                            throw new UnsupportedOperationException();
+                        }, // canDateTimeSymbolsForLocale
+                        (l) -> {
+                            throw new UnsupportedOperationException();
+                        }, // canDecimalNumberSymbolsForLocale
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
                         Indentation.SPACES2,
