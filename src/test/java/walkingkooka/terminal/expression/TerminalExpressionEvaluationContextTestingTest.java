@@ -369,15 +369,6 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                         (l) -> {
                             throw new UnsupportedOperationException();
                         }, // canCurrencyForLocale
-                        (l) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canDateTimeSymbolsForLocale
-                        (l) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canDecimalNumberSymbolsForLocale
-                        (lt) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canLocaleForLanguageTag
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
                         Indentation.SPACES2,
@@ -393,7 +384,8 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                             50, // twoDigitYear
                             EnvironmentContexts.fake()
                         ),
-                        DECIMAL_NUMBER_CONTEXT
+                        DECIMAL_NUMBER_CONTEXT,
+                        LocaleContexts.fake()
                     ),
                     ExpressionNumberKind.DEFAULT
                 ),

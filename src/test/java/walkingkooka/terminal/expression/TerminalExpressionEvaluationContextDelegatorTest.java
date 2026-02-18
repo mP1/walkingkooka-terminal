@@ -407,15 +407,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                     (l) -> {
                         throw new UnsupportedOperationException();
                     }, // canCurrencyForLocale
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canDateTimeSymbolsForLocale
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canDecimalNumberSymbolsForLocale
-                    (lt) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canLocaleForLanguageTag
                     false, // canNumbersHaveGroupSeparator
                     Converters.EXCEL_1904_DATE_SYSTEM_OFFSET,
                     TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
@@ -423,7 +414,8 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                     ',', // valueSeparator
                     Converters.simple(),
                     DateTimeContexts.fake(),
-                    DECIMAL_NUMBER_CONTEXT
+                    DECIMAL_NUMBER_CONTEXT,
+                    LocaleContexts.fake()
                 ),
                 new FakeEnvironmentContext() {
                     @Override
