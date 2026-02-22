@@ -178,6 +178,7 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
 
     /**
      * Currently fixing text means handling BACKSPACE characters from the given input text buffer.
+     * When a backspace character is encountered it and the following character, are removed from the final text.
      */
     private static String fixText(final StringBuilder text) {
         int i = 0;
