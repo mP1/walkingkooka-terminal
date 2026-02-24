@@ -19,6 +19,7 @@ package walkingkooka.terminal.expression;
 
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
@@ -366,15 +367,13 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                 ExpressionNumberConverterContexts.basic(
                     Converters.simple(),
                     ConverterContexts.basic(
-                        (l) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canCurrencyForLocale
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
                         Indentation.SPACES2,
                         lineEnding,
                         ',', // valueSeparator
                         Converters.simple(),
+                        CurrencyLocaleContexts.fake(),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(
                                 new DateFormatSymbols(locale)
@@ -384,8 +383,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                             50, // twoDigitYear
                             EnvironmentContexts.fake()
                         ),
-                        DECIMAL_NUMBER_CONTEXT,
-                        LocaleContexts.fake()
+                        DECIMAL_NUMBER_CONTEXT
                     ),
                     ExpressionNumberKind.DEFAULT
                 ),

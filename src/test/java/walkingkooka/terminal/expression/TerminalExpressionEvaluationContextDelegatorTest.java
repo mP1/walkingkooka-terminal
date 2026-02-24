@@ -20,6 +20,7 @@ package walkingkooka.terminal.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.HasNow;
 import walkingkooka.environment.EnvironmentContext;
@@ -404,18 +405,15 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.INSENSITIVE,
                 ConverterContexts.basic(
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canCurrencyForLocale
                     false, // canNumbersHaveGroupSeparator
                     Converters.EXCEL_1904_DATE_SYSTEM_OFFSET,
                     TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                     lineEnding,
                     ',', // valueSeparator
                     Converters.simple(),
+                    CurrencyLocaleContexts.fake(),
                     DateTimeContexts.fake(),
-                    DECIMAL_NUMBER_CONTEXT,
-                    LocaleContexts.fake()
+                    DECIMAL_NUMBER_CONTEXT
                 ),
                 new FakeEnvironmentContext() {
                     @Override
