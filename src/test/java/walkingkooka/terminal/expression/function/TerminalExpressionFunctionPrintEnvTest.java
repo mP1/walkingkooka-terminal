@@ -36,6 +36,7 @@ import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
 
+import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -214,6 +215,58 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
             }
 
             private final EnvironmentContext environmentContext;
+
+            @Override
+            public Optional<Currency> currencyForLocale(final Locale locale) {
+                return Optional.of(
+                    Currency.getInstance(locale)
+                );
+            }
+
+            @Override
+            public Locale locale() {
+                return this.environmentContext.locale();
+            }
+
+            @Override
+            public String currencySymbol() {
+                return "$";
+            }
+
+            @Override
+            public char decimalSeparator() {
+                return '.';
+            }
+
+            @Override
+            public String exponentSymbol() {
+                return "E";
+            }
+
+            @Override
+            public char groupSeparator() {
+                return ',';
+            }
+
+            @Override
+            public char negativeSign() {
+                return '-';
+            }
+
+            @Override
+            public char percentSymbol() {
+                return '%';
+            }
+
+            @Override
+            public char positiveSign() {
+                return '+';
+            }
+
+            @Override
+            public MathContext mathContext() {
+                return MathContext.DECIMAL32;
+            }
 
             @Override
             public <T> Either<T, String> convert(final Object value,
