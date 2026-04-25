@@ -20,6 +20,7 @@ package walkingkooka.terminal;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HasNotFoundTextTesting;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.HasUrlFragmentTesting;
 import walkingkooka.reflect.ClassTesting2;
@@ -37,14 +38,18 @@ public final class TerminalIdTest implements ClassTesting2<TerminalId>,
     JsonNodeMarshallingTesting<TerminalId>,
     ParseStringTesting<TerminalId>,
     TreePrintableTesting,
-    ToStringTesting<TerminalId> {
+    ToStringTesting<TerminalId>,
+    ValueTesting {
 
     private final static Long VALUE = 123L;
 
     @Test
     public void testWith() {
         final TerminalId id = TerminalId.with(VALUE);
-        this.checkEquals(VALUE, id.value(), "value");
+        this.valueAndCheck(
+            id,
+            VALUE
+        );
         this.checkEquals(VALUE, id.id(), "id");
     }
 
