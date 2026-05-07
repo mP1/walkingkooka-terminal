@@ -19,8 +19,8 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HasNotFoundTextTesting;
+import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.HasUrlFragmentTesting;
 import walkingkooka.reflect.ClassTesting2;
@@ -39,7 +39,7 @@ public final class TerminalIdTest implements ClassTesting2<TerminalId>,
     ParseStringTesting<TerminalId>,
     TreePrintableTesting,
     ToStringTesting<TerminalId>,
-    ValueTesting {
+    HasValueTesting {
 
     private final static Long VALUE = 123L;
 
