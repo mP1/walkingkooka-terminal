@@ -20,7 +20,7 @@ package walkingkooka.terminal;
 import walkingkooka.Cast;
 import walkingkooka.HasId;
 import walkingkooka.HasNotFoundText;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.net.HasUrlFragment;
 import walkingkooka.net.UrlFragment;
 import walkingkooka.text.CharSequences;
@@ -36,7 +36,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
  */
 public final class TerminalId implements Comparable<TerminalId>,
     HasId<Long>,
-    Value<Long>,
+    HasValue<Long>,
     HasUrlFragment,
     HasNotFoundText,
     TreePrintable {
