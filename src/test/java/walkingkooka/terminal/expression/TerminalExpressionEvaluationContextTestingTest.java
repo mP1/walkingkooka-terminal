@@ -19,6 +19,7 @@ package walkingkooka.terminal.expression;
 
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -373,6 +374,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                         lineEnding,
                         ',', // valueSeparator
                         Converters.simple(),
+                        CurrencyExchangeRaters.fake(),
                         CurrencyLocaleContexts.fake(),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(
