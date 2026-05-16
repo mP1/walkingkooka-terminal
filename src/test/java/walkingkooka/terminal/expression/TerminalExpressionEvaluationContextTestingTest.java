@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal.expression;
 
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -366,6 +367,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                 CaseSensitivity.SENSITIVE,
                 ExpressionNumberConverterContexts.basic(
                     Converters.simple(),
+                    BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
@@ -373,6 +375,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                         lineEnding,
                         ',', // valueSeparator
                         Converters.simple(),
+                        BinaryNumberConverterFunctions.fake(), // multiplier
                         CurrencyLocaleContexts.fake(),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(

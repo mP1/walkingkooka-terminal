@@ -18,6 +18,7 @@
 package walkingkooka.terminal.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -411,6 +412,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                     lineEnding,
                     ',', // valueSeparator
                     Converters.simple(),
+                    BinaryNumberConverterFunctions.fake(), // multiplier
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.fake(),
                     DECIMAL_NUMBER_CONTEXT
