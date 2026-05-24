@@ -48,6 +48,7 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -370,6 +371,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
+                        StandardCharsets.UTF_8,
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
                         Indentation.SPACES2,
                         lineEnding,

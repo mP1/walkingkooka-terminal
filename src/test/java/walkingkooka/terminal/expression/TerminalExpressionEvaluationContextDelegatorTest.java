@@ -49,6 +49,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -407,6 +408,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 CaseSensitivity.INSENSITIVE,
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
+                    StandardCharsets.UTF_8,
                     Converters.EXCEL_1904_DATE_SYSTEM_OFFSET,
                     TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                     lineEnding,
