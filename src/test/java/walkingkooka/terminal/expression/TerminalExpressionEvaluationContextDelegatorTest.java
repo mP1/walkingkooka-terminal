@@ -49,6 +49,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -58,6 +59,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
+
+    private final static Charset CHARSET = StandardCharsets.UTF_8;
 
     private final static Currency CURRENCY = Currency.getInstance("AUD");
 
@@ -327,6 +330,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                TerminalExpressionEvaluationContextDelegatorTest.CHARSET,
                 TerminalExpressionEvaluationContextDelegatorTest.CURRENCY,
                 TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                 LineEnding.NL,
@@ -354,6 +358,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 },
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        TerminalExpressionEvaluationContextDelegatorTest.CHARSET,
                         TerminalExpressionEvaluationContextDelegatorTest.CURRENCY,
                         TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
                         LineEnding.NL,
