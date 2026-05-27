@@ -30,6 +30,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -69,6 +70,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
         Predicates.always(), // all values are readonly
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                StandardCharsets.UTF_8,
                 Currency.getInstance("AUD"),
                 Indentation.SPACES2,
                 LineEnding.NL,

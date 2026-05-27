@@ -309,6 +309,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
         @Override
         public EnvironmentContext environmentContext() {
             return EnvironmentContexts.empty(
+                StandardCharsets.UTF_8,
                 Currency.getInstance("AUD"),
                 Indentation.SPACES2,
                 LineEnding.NL,

@@ -37,6 +37,8 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -57,6 +59,8 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
         String.class
     );
 
+    private final static Charset CHARSET = StandardCharsets.UTF_8;
+
     private final static Currency CURRENCY = Currency.getInstance("AUD");
 
     private final static Indentation INDENTATION = Indentation.SPACES2;
@@ -69,6 +73,7 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
     public void testApplyWithoutAnyEnvironmentValueNames() {
         this.applyAndCheck(
             ExpressionFunction.NO_PARAMETER_VALUES,
+            "charset=UTF-8\n" +
             "currency=AUD\n" +
             "indentation=  \n" +
                 "lineEnding=\\n\n" +
@@ -186,6 +191,7 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
             {
                 final EnvironmentContext context = EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        TerminalExpressionFunctionPrintEnvTest.CHARSET,
                         TerminalExpressionFunctionPrintEnvTest.CURRENCY,
                         TerminalExpressionFunctionPrintEnvTest.INDENTATION,
                         TerminalExpressionFunctionPrintEnvTest.LINE_ENDING,
