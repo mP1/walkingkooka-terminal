@@ -40,7 +40,6 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTesti
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -376,10 +375,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                         ',', // valueSeparator
                         Converters.simple(),
                         BinaryNumberConverterFunctions.fake(), // multiplier
-                        TextPrinting.with(
-                            Indentation.SPACES2,
-                            TerminalExpressionEvaluationContextTestingTest.LINE_ENDING
-                        ).setCharset(StandardCharsets.UTF_8),
+                        BINARY_TEXT_CONTEXT,
                         CurrencyLocaleContexts.fake(),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(
