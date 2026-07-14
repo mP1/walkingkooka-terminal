@@ -39,9 +39,7 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextDelegatorTest.TestTerminalExpressionEvaluationContextDelegator;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
@@ -50,8 +48,6 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 
 import java.math.MathContext;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -61,11 +57,7 @@ import java.util.function.Function;
 
 public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
 
-    private final static Charset CHARSET = StandardCharsets.UTF_8;
-
     private final static Currency CURRENCY = Currency.getInstance("AUD");
-
-    private final static Indentation INDENTATION = Indentation.SPACES2;
 
     private final static Locale LOCALE = Locale.ENGLISH;
 
@@ -416,10 +408,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                     ',', // valueSeparator
                     Converters.simple(),
                     BinaryNumberConverterFunctions.fake(), // multiplier
-                    TextPrinting.with(
-                        TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
-                        TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING
-                    ).setCharset(StandardCharsets.UTF_8),
+                    BINARY_TEXT_CONTEXT,
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.fake(),
                     DECIMAL_NUMBER_CONTEXT
