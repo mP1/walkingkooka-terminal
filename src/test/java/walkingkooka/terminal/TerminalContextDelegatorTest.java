@@ -22,7 +22,6 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.text.printer.TreePrintableTesting;
 
@@ -89,7 +88,7 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
                     StandardCharsets.UTF_8,
                     Currency.getInstance("AUD"),
                     TreePrintableTesting.INDENTATION,
-                    LineEnding.NL,
+                    TerminalContextDelegatorTest.LINE_ENDING,
                     Locale.ENGLISH,
                     () -> LocalDateTime.MIN,
                     EnvironmentContext.ANONYMOUS

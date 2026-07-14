@@ -334,7 +334,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 TerminalExpressionEvaluationContextDelegatorTest.CHARSET,
                 TerminalExpressionEvaluationContextDelegatorTest.CURRENCY,
                 TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
-                LineEnding.NL,
+                TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING,
                 TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
                 HAS_NOW,
                 EnvironmentContext.ANONYMOUS
@@ -362,7 +362,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                         TerminalExpressionEvaluationContextDelegatorTest.CHARSET,
                         TerminalExpressionEvaluationContextDelegatorTest.CURRENCY,
                         TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
-                        LineEnding.NL,
+                        TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING,
                         TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
                         HAS_NOW,
                         EnvironmentContext.ANONYMOUS
@@ -392,8 +392,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
         @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
-            final LineEnding lineEnding = LineEnding.NL;
-
             return ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
                 (e, c) -> {
@@ -420,7 +418,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     TextPrinting.with(
                         TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
-                        lineEnding
+                        TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING
                     ).setCharset(StandardCharsets.UTF_8),
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.fake(),
@@ -429,7 +427,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 new FakeEnvironmentContext() {
                     @Override
                     public LineEnding lineEnding() {
-                        return lineEnding;
+                        return TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING;
                     }
                 },
                 LocaleContexts.jre(Locale.ENGLISH)

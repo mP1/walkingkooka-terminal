@@ -23,7 +23,6 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -54,7 +53,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
                 StandardCharsets.UTF_8,
                 Currency.getInstance("AUD"),
                 Indentation.SPACES2,
-                LineEnding.NL,
+                LINE_ENDING,
                 Locale.forLanguageTag("en-AU"),
                 () -> LocalDateTime.MIN,
                 Optional.of(
