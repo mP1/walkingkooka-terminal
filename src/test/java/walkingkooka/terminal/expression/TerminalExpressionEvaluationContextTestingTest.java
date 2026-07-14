@@ -313,7 +313,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                 StandardCharsets.UTF_8,
                 Currency.getInstance("AUD"),
                 Indentation.SPACES2,
-                LineEnding.NL,
+                TerminalExpressionEvaluationContextTestingTest.LINE_ENDING,
                 Locale.FRANCE,
                 LocalDateTime::now,
                 Optional.of(
@@ -345,7 +345,6 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
 
         @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
-            final LineEnding lineEnding = LineEnding.NL;
             final Locale locale = Locale.ENGLISH;
 
             return ExpressionEvaluationContexts.basic(
@@ -379,7 +378,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                         BinaryNumberConverterFunctions.fake(), // multiplier
                         TextPrinting.with(
                             Indentation.SPACES2,
-                            lineEnding
+                            TerminalExpressionEvaluationContextTestingTest.LINE_ENDING
                         ).setCharset(StandardCharsets.UTF_8),
                         CurrencyLocaleContexts.fake(),
                         DateTimeContexts.basic(
@@ -398,7 +397,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                 new FakeEnvironmentContext() {
                     @Override
                     public LineEnding lineEnding() {
-                        return lineEnding;
+                        return TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING;
                     }
                 },
                 LocaleContexts.jre(locale)

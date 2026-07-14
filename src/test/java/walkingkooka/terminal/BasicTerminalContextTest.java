@@ -26,7 +26,6 @@ import walkingkooka.io.TextReaders;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
@@ -73,7 +72,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 StandardCharsets.UTF_8,
                 Currency.getInstance("AUD"),
                 Indentation.SPACES2,
-                LineEnding.NL,
+                LINE_ENDING,
                 Locale.forLanguageTag("en-AU"),
                 () -> LocalDateTime.MIN,
                 USER
