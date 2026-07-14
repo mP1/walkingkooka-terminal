@@ -41,6 +41,7 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextDeleg
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
@@ -413,13 +414,14 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 CaseSensitivity.INSENSITIVE,
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
-                    StandardCharsets.UTF_8,
                     Converters.EXCEL_1904_DATE_SYSTEM_OFFSET,
-                    TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
-                    lineEnding,
                     ',', // valueSeparator
                     Converters.simple(),
                     BinaryNumberConverterFunctions.fake(), // multiplier
+                    TextPrinting.with(
+                        TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
+                        lineEnding
+                    ).setCharset(StandardCharsets.UTF_8),
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.fake(),
                     DECIMAL_NUMBER_CONTEXT

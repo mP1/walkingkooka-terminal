@@ -40,6 +40,7 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTesti
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -372,13 +373,14 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
-                        StandardCharsets.UTF_8,
                         Converters.EXCEL_1904_DATE_SYSTEM_OFFSET, // dateTimeOffset
-                        Indentation.SPACES2,
-                        lineEnding,
                         ',', // valueSeparator
                         Converters.simple(),
                         BinaryNumberConverterFunctions.fake(), // multiplier
+                        TextPrinting.with(
+                            Indentation.SPACES2,
+                            lineEnding
+                        ).setCharset(StandardCharsets.UTF_8),
                         CurrencyLocaleContexts.fake(),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(
