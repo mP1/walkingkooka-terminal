@@ -49,15 +49,12 @@ import walkingkooka.tree.expression.ExpressionReference;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
 public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
-
-    private final static Currency CURRENCY = Currency.getInstance("AUD");
 
     private final static HasNow HAS_NOW = () -> LocalDateTime.MIN;
 
