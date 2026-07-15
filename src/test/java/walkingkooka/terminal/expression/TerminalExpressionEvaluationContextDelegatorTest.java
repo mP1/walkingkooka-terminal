@@ -59,8 +59,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
     private final static Currency CURRENCY = Currency.getInstance("AUD");
 
-    private final static Locale LOCALE = Locale.ENGLISH;
-
     private final static HasNow HAS_NOW = () -> LocalDateTime.MIN;
 
     @Test
