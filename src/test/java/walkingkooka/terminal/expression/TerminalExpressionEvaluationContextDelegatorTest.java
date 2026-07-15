@@ -23,7 +23,6 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.HasNow;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
@@ -55,8 +54,6 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
-
-    private final static HasNow HAS_NOW = () -> LocalDateTime.MIN;
 
     @Test
     public void testLocale() {
