@@ -18,17 +18,7 @@
 package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.net.email.EmailAddress;
-import walkingkooka.predicate.Predicates;
-import walkingkooka.text.Indentation;
 
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
@@ -45,23 +35,6 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
     private final static Consumer<Object> EXIT_VALUE = (e) -> {
         throw new UnsupportedOperationException();
     };
-
-    private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
-        Predicates.always(), // all values are readonly
-        EnvironmentContexts.map(
-            EnvironmentContexts.empty(
-                StandardCharsets.UTF_8,
-                Currency.getInstance("AUD"),
-                Indentation.SPACES2,
-                LINE_ENDING,
-                Locale.forLanguageTag("en-AU"),
-                () -> LocalDateTime.MIN,
-                Optional.of(
-                    EmailAddress.parse("user@example.com")
-                )
-            )
-        )
-    );
 
     @Test
     public void testWithNullTerminalIdFails() {
