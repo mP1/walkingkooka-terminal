@@ -20,20 +20,11 @@ package walkingkooka.terminal;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
-import walkingkooka.net.email.EmailAddress;
-import walkingkooka.predicate.Predicates;
-import walkingkooka.text.Indentation;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
@@ -44,10 +35,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     ToStringTesting<BasicTerminalContext> {
 
     private final static TerminalId TERMINAL_ID = TerminalId.parse("123");
-
-    private final static Optional<EmailAddress> USER = Optional.of(
-        EmailAddress.parse("user@example.com")
-    );
 
     private final static BooleanSupplier OPEN_TESTER = () -> true;
 
@@ -64,21 +51,6 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
     private final static Consumer<Object> EXIT_VALUE = (e) -> {
         throw new UnsupportedOperationException();
     };
-
-    private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
-        Predicates.always(), // all values are readonly
-        EnvironmentContexts.map(
-            EnvironmentContexts.empty(
-                StandardCharsets.UTF_8,
-                Currency.getInstance("AUD"),
-                Indentation.SPACES2,
-                LINE_ENDING,
-                Locale.forLanguageTag("en-AU"),
-                () -> LocalDateTime.MIN,
-                USER
-            )
-        )
-    );
 
     @Test
     public void testWithNullTerminalIdFails() {
