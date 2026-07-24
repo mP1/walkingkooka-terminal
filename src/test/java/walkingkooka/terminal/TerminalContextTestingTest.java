@@ -18,18 +18,12 @@
 package walkingkooka.terminal;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
-import walkingkooka.text.Indentation;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
 import java.util.Objects;
 
 public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
@@ -86,17 +80,7 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
             (ev) -> {
                 throw new UnsupportedOperationException();
             },
-            EnvironmentContexts.map(
-                EnvironmentContexts.empty(
-                    StandardCharsets.UTF_8,
-                    Currency.getInstance("AUD"),
-                    Indentation.SPACES2,
-                    SystemTerminalContextTest.LINE_ENDING,
-                    Locale.ENGLISH,
-                    () -> LocalDateTime.MIN,
-                    EnvironmentContext.ANONYMOUS
-                )
-            )
+            ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
 
         @Override

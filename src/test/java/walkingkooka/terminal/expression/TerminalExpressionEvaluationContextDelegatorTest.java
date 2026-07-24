@@ -25,7 +25,6 @@ import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.io.TextReaders;
 import walkingkooka.locale.LocaleContexts;
@@ -314,15 +313,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
         @Override
         public EnvironmentContext environmentContext() {
-            return EnvironmentContexts.empty(
-                TerminalExpressionEvaluationContextDelegatorTest.CHARSET,
-                TerminalExpressionEvaluationContextDelegatorTest.CURRENCY,
-                TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
-                TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING,
-                TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
-                HAS_NOW,
-                EnvironmentContext.ANONYMOUS
-            );
+            return ENVIRONMENT_CONTEXT;
         }
 
         // TerminalContextDelegator.....................................................................................
@@ -341,17 +332,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 (e) -> {
                     throw new UnsupportedOperationException();
                 },
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        TerminalExpressionEvaluationContextDelegatorTest.CHARSET,
-                        TerminalExpressionEvaluationContextDelegatorTest.CURRENCY,
-                        TerminalExpressionEvaluationContextDelegatorTest.INDENTATION,
-                        TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING,
-                        TerminalExpressionEvaluationContextDelegatorTest.LOCALE,
-                        HAS_NOW,
-                        EnvironmentContext.ANONYMOUS
-                    )
-                )
+                ENVIRONMENT_CONTEXT.cloneEnvironment()
             );
         }
 

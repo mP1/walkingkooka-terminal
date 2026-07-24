@@ -19,16 +19,10 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.io.TextReaders;
 import walkingkooka.terminal.TerminalContextDelegatorTest.TestTerminalContextDelegator;
 import walkingkooka.text.printer.Printers;
-import walkingkooka.text.printer.TreePrintableTesting;
 
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
 import java.util.Objects;
 
 public final class TerminalContextDelegatorTest implements TerminalContextTesting<TestTerminalContextDelegator> {
@@ -83,17 +77,7 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
             (e) -> {
                 throw new UnsupportedOperationException();
             },
-            EnvironmentContexts.map(
-                EnvironmentContexts.empty(
-                    StandardCharsets.UTF_8,
-                    Currency.getInstance("AUD"),
-                    TreePrintableTesting.INDENTATION,
-                    TerminalContextDelegatorTest.LINE_ENDING,
-                    Locale.ENGLISH,
-                    () -> LocalDateTime.MIN,
-                    EnvironmentContext.ANONYMOUS
-                )
-            )
+            ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
 
         @Override
