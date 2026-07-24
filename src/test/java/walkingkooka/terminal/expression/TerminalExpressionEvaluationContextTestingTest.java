@@ -31,14 +31,12 @@ import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTestingTest.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
@@ -48,10 +46,8 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 
 import java.math.MathContext;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
-import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -308,17 +304,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
 
         @Override
         public EnvironmentContext environmentContext() {
-            return EnvironmentContexts.empty(
-                StandardCharsets.UTF_8,
-                Currency.getInstance("AUD"),
-                Indentation.SPACES2,
-                TerminalExpressionEvaluationContextTestingTest.LINE_ENDING,
-                Locale.FRANCE,
-                LocalDateTime::now,
-                Optional.of(
-                    EmailAddress.parse("user@example.com")
-                )
-            );
+            return ENVIRONMENT_CONTEXT.cloneEnvironment();
         }
 
         // ExpressionEvaluationContextDelegator.........................................................................

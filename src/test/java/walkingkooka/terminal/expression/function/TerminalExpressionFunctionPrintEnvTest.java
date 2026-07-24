@@ -24,30 +24,25 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
 
 import java.math.MathContext;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionFunctionTesting<TerminalExpressionFunctionPrintEnv<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
+public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionFunctionTesting<TerminalExpressionFunctionPrintEnv<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext>,
+    EnvironmentContextTesting {
 
     private final static EnvironmentValueName<Integer> NUMBER_VALUE = EnvironmentValueName.with(
         "number-value",
@@ -59,14 +54,6 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
         String.class
     );
 
-    private final static Charset CHARSET = StandardCharsets.UTF_8;
-
-    private final static Currency CURRENCY = Currency.getInstance("AUD");
-
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
-
     private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
 
     @Test
@@ -74,15 +61,15 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
         this.applyAndCheck(
             ExpressionFunction.NO_PARAMETER_VALUES,
             "charset=UTF-8\n" +
-            "currency=AUD\n" +
-            "indentation=  \n" +
+                "currency=AUD\n" +
+                "indentation=  \n" +
                 "lineEnding=\\n\n" +
                 "locale=en_AU\n" +
-                "now=1999-12-31T12:58\n" +
+                "now=1999-12-31T12:58:59\n" +
                 "number-value=456\n" +
                 "string-value=hello\n" +
                 "timeOffset=Z\n" +
-                "user=user@example.com\n"
+                "user=user123@example.com\n"
         );
     }
 
@@ -189,25 +176,7 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
             }
 
             {
-                final EnvironmentContext context = EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        TerminalExpressionFunctionPrintEnvTest.CHARSET,
-                        TerminalExpressionFunctionPrintEnvTest.CURRENCY,
-                        TerminalExpressionFunctionPrintEnvTest.INDENTATION,
-                        TerminalExpressionFunctionPrintEnvTest.LINE_ENDING,
-                        TerminalExpressionFunctionPrintEnvTest.LOCALE,
-                        () -> LocalDateTime.of(
-                            1999,
-                            12,
-                            31,
-                            12,
-                            58
-                        ),
-                        Optional.of(
-                            EmailAddress.parse("user@example.com")
-                        )
-                    )
-                );
+                final EnvironmentContext context = ENVIRONMENT_CONTEXT.cloneEnvironment();
                 context.setEnvironmentValue(
                     STRING_VALUE,
                     "hello"
