@@ -44,7 +44,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
                 null,
                 EVALUATOR,
                 EXIT_VALUE,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -57,7 +57,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
                 TERMINAL_ID,
                 null,
                 EXIT_VALUE,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -70,13 +70,13 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
                 TERMINAL_ID,
                 EVALUATOR,
                 null,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
 
     @Test
-    public void testWithNullEnvironmentContextFails() {
+    public void testWithNullStorageEnvironmentContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> SystemTerminalContext.with(
@@ -94,7 +94,7 @@ public final class SystemTerminalContextTest implements TerminalContextTesting<S
             TERMINAL_ID,
             EVALUATOR,
             EXIT_VALUE,
-            ENVIRONMENT_CONTEXT.cloneEnvironment()
+            STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
     }
 

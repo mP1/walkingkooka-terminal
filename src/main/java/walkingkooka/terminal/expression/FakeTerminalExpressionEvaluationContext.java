@@ -20,6 +20,7 @@ package walkingkooka.terminal.expression;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -75,6 +76,26 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
 
     @Override
     public TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<StoragePath> currentWorkingDirectory() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCurrentWorkingDirectory(final Optional<StoragePath> optional) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<StoragePath> homeDirectory() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setHomeDirectory(final Optional<StoragePath> optional) {
         throw new UnsupportedOperationException();
     }
 

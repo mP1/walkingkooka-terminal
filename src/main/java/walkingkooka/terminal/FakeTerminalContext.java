@@ -18,11 +18,11 @@
 package walkingkooka.terminal;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.io.TextReader;
+import walkingkooka.storage.FakeStorageEnvironmentContext;
 import walkingkooka.text.printer.Printer;
 
-public class FakeTerminalContext extends FakeEnvironmentContext implements TerminalContext {
+public class FakeTerminalContext extends FakeStorageEnvironmentContext implements TerminalContext {
 
     public FakeTerminalContext() {
         super();

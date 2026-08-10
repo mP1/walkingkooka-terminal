@@ -21,13 +21,14 @@ import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
+import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
  */
-public interface TerminalContext extends EnvironmentContext {
+public interface TerminalContext extends StorageEnvironmentContext {
 
     /**
      * Retrieves the {@link TerminalId} using an {@link EnvironmentValueName}.

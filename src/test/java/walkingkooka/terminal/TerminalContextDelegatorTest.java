@@ -77,7 +77,7 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
             (e) -> {
                 throw new UnsupportedOperationException();
             },
-            ENVIRONMENT_CONTEXT.cloneEnvironment()
+            STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
 
         @Override

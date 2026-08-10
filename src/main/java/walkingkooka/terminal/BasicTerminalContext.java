@@ -18,8 +18,9 @@
 package walkingkooka.terminal;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.io.TextReader;
+import walkingkooka.storage.StorageEnvironmentContext;
+import walkingkooka.storage.StorageEnvironmentContextDelegator;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Objects;
@@ -32,7 +33,7 @@ import java.util.function.Function;
  * A {@link TerminalContext} that reads line from a {@link Function}, with the timeout, and prints to a {@link Printer}.
  */
 final class BasicTerminalContext implements TerminalContext,
-    EnvironmentContextDelegator {
+    StorageEnvironmentContextDelegator {
 
     static BasicTerminalContext with(final TerminalId terminalId,
                                      final BooleanSupplier openTester,
@@ -41,7 +42,7 @@ final class BasicTerminalContext implements TerminalContext,
                                      final Printer error,
                                      final BiFunction<String, TerminalContext, Object> evaluator,
                                      final Consumer<Object> exitValue,
-                                     final EnvironmentContext environmentContext) {
+                                     final StorageEnvironmentContext storageEnvironmentContext) {
         return new BasicTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(openTester, "openTester"),
@@ -50,7 +51,7 @@ final class BasicTerminalContext implements TerminalContext,
             Objects.requireNonNull(error, "error"),
             Objects.requireNonNull(evaluator, "evaluator"),
             Objects.requireNonNull(exitValue, "exitValue"),
-            Objects.requireNonNull(environmentContext, "environmentContext")
+            Objects.requireNonNull(storageEnvironmentContext, "storageEnvironmentContext")
         );
     }
 
@@ -61,7 +62,7 @@ final class BasicTerminalContext implements TerminalContext,
                                  final Printer error,
                                  final BiFunction<String, TerminalContext, Object> evaluator,
                                  final Consumer<Object> exitValue,
-                                 final EnvironmentContext environmentContext) {
+                                 final StorageEnvironmentContext storageEnvironmentContext) {
         this.terminalId = terminalId;
 
         this.openTester = openTester;
@@ -74,8 +75,8 @@ final class BasicTerminalContext implements TerminalContext,
 
         this.exitValue = exitValue;
 
-        this.environmentContext = environmentContext;
-        environmentContext.setEnvironmentValue(
+        this.storageEnvironmentContext = storageEnvironmentContext;
+        storageEnvironmentContext.setEnvironmentValue(
             TERMINAL_ID,
             terminalId
         );
@@ -148,20 +149,21 @@ final class BasicTerminalContext implements TerminalContext,
 
     private final BiFunction<String, TerminalContext, Object> evaluator;
 
-    // EnvironmentContextDelegator......................................................................................
+    // StorageEnvironmentContextDelegator...............................................................................
 
     @Override
     public TerminalContext cloneEnvironment() {
         return this.setEnvironmentContext(
-            this.environmentContext.cloneEnvironment()
+            this.storageEnvironmentContext.cloneEnvironment()
         );
     }
 
     @Override
     public TerminalContext setEnvironmentContext(final EnvironmentContext context) {
-        final EnvironmentContext before = this.environmentContext;
+        final StorageEnvironmentContext before = this.storageEnvironmentContext;
+        final StorageEnvironmentContext after = before.setEnvironmentContext(context);
 
-        return before == context ?
+        return before == after ?
             this :
             new BasicTerminalContext(
                 this.terminalId,
@@ -171,21 +173,21 @@ final class BasicTerminalContext implements TerminalContext,
                 this.error,
                 this.evaluator,
                 this.exitValue,
-                Objects.requireNonNull(context, "context")
+                Objects.requireNonNull(after, "context")
             );
     }
 
     @Override
-    public EnvironmentContext environmentContext() {
-        return this.environmentContext;
+    public StorageEnvironmentContext storageEnvironmentContext() {
+        return this.storageEnvironmentContext;
     }
 
-    private final EnvironmentContext environmentContext;
+    private final StorageEnvironmentContext storageEnvironmentContext;
 
     // Object...........................................................................................................
 
     @Override
     public String toString() {
-        return this.terminalId + ", input: " + this.input + ", output: " + this.output + ", error: " + this.error + " " + this.environmentContext;
+        return this.terminalId + ", input: " + this.input + ", output: " + this.output + ", error: " + this.error + " " + this.storageEnvironmentContext;
     }
 }

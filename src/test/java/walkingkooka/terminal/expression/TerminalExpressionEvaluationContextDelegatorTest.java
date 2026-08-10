@@ -332,7 +332,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                 (e) -> {
                     throw new UnsupportedOperationException();
                 },
-                ENVIRONMENT_CONTEXT.cloneEnvironment()
+                STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment()
             );
         }
 
