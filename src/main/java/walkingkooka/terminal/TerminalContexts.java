@@ -18,9 +18,9 @@
 package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.text.printer.Printer;
 
 import java.util.function.BiFunction;
@@ -39,7 +39,7 @@ public final class TerminalContexts implements PublicStaticHelper {
                                         final Printer error,
                                         final BiFunction<String, TerminalContext, Object> evaluator,
                                         final Consumer<Object> exitValue,
-                                        final EnvironmentContext environmentContext) {
+                                        final StorageEnvironmentContext storageEnvironmentContext) {
         return BasicTerminalContext.with(
             terminalId,
             openTester,
@@ -48,7 +48,7 @@ public final class TerminalContexts implements PublicStaticHelper {
             error,
             evaluator,
             exitValue,
-            environmentContext
+            storageEnvironmentContext
         );
     }
 
@@ -66,12 +66,12 @@ public final class TerminalContexts implements PublicStaticHelper {
     public static TerminalContext system(final TerminalId terminalId,
                                          final BiFunction<String, TerminalContext, Object> evaluator,
                                          final Consumer<Object> exitValue,
-                                         final EnvironmentContext environmentContext) {
+                                         final StorageEnvironmentContext storageEnvironmentContext) {
         return SystemTerminalContext.with(
             terminalId,
             evaluator,
             exitValue,
-            environmentContext
+            storageEnvironmentContext
         );
     }
 

@@ -19,9 +19,10 @@ package walkingkooka.terminal;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
+import walkingkooka.storage.StorageEnvironmentContext;
+import walkingkooka.storage.StorageEnvironmentContextDelegator;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.util.OpenChecker;
@@ -36,7 +37,7 @@ import java.util.function.Consumer;
  */
 @GwtIncompatible
 final class SystemTerminalContext implements TerminalContext,
-    EnvironmentContextDelegator {
+    StorageEnvironmentContextDelegator {
 
     /**
      * Factory that creates a new {@link SystemTerminalContext}.
@@ -44,19 +45,19 @@ final class SystemTerminalContext implements TerminalContext,
     static SystemTerminalContext with(final TerminalId terminalId,
                                       final BiFunction<String, TerminalContext, Object> evaluator,
                                       final Consumer<Object> exitValue,
-                                      final EnvironmentContext environmentContext) {
+                                      final StorageEnvironmentContext storageEnvironmentContext) {
         return new SystemTerminalContext(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(evaluator, "evaluator"),
             Objects.requireNonNull(exitValue, "exitValue"),
-            Objects.requireNonNull(environmentContext, "environmentContext")
+            Objects.requireNonNull(storageEnvironmentContext, "storageEnvironmentContext")
         );
     }
 
     private SystemTerminalContext(final TerminalId terminalId,
                                   final BiFunction<String, TerminalContext, Object> evaluator,
                                   final Consumer<Object> exitValue,
-                                  final EnvironmentContext environmentContext) {
+                                  final StorageEnvironmentContext storageEnvironmentContext) {
         this.terminalId = terminalId;
 
         this.input = TextReaders.reader(
@@ -76,7 +77,7 @@ final class SystemTerminalContext implements TerminalContext,
             (String message) -> new IllegalStateException(message)
         );
 
-        this.environmentContext = environmentContext;
+        this.storageEnvironmentContext = storageEnvironmentContext;
     }
 
     @Override
@@ -135,40 +136,41 @@ final class SystemTerminalContext implements TerminalContext,
 
     private final OpenChecker<IllegalStateException> openChecker;
 
-    // EnvironmentContextDelegator......................................................................................
+    // StorageEnvironmentContextDelegator...............................................................................
 
     @Override
     public TerminalContext cloneEnvironment() {
         return this.setEnvironmentContext(
-            this.environmentContext.cloneEnvironment()
+            this.storageEnvironmentContext.cloneEnvironment()
         );
     }
 
     @Override
     public TerminalContext setEnvironmentContext(final EnvironmentContext context) {
-        final EnvironmentContext before = this.environmentContext;
+        final StorageEnvironmentContext before = this.storageEnvironmentContext;
+        final StorageEnvironmentContext after = before.setEnvironmentContext(context);
 
-        return before == context ?
+        return before == after ?
             this :
             new SystemTerminalContext(
                 this.terminalId,
                 this.evaluator,
                 this.exitValue,
-                Objects.requireNonNull(context, "context")
+                Objects.requireNonNull(after, "context")
             );
     }
 
     @Override
-    public EnvironmentContext environmentContext() {
-        return this.environmentContext;
+    public StorageEnvironmentContext storageEnvironmentContext() {
+        return this.storageEnvironmentContext;
     }
 
-    private final EnvironmentContext environmentContext;
+    private final StorageEnvironmentContext storageEnvironmentContext;
 
     // Object...........................................................................................................
 
     @Override
     public String toString() {
-        return this.terminalId() + " " + this.environmentContext;
+        return this.terminalId() + " " + this.storageEnvironmentContext;
     }
 }

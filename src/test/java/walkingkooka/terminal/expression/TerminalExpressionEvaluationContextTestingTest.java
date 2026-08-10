@@ -31,6 +31,7 @@ import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.storage.StorageEnvironmentContexts;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.terminal.TerminalContexts;
@@ -258,7 +259,7 @@ public class TerminalExpressionEvaluationContextTestingTest implements TerminalE
                 (e) -> {
                     throw new UnsupportedOperationException();
                 },
-                EnvironmentContexts.fake()
+                StorageEnvironmentContexts.fake()
             );
         }
 

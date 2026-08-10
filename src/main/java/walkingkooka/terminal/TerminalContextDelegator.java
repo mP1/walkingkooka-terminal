@@ -17,13 +17,13 @@
 
 package walkingkooka.terminal;
 
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.io.TextReader;
+import walkingkooka.storage.StorageEnvironmentContext;
+import walkingkooka.storage.StorageEnvironmentContextDelegator;
 import walkingkooka.text.printer.Printer;
 
 public interface TerminalContextDelegator extends TerminalContext,
-    EnvironmentContextDelegator {
+    StorageEnvironmentContextDelegator {
 
     @Override
     default TerminalId terminalId() {
@@ -63,10 +63,10 @@ public interface TerminalContextDelegator extends TerminalContext,
 
     TerminalContext terminalContext();
 
-    // EnvironmentContextDelegator......................................................................................
+    // StorageEnvironmentContextDelegator...............................................................................
 
     @Override
-    default EnvironmentContext environmentContext() {
+    default StorageEnvironmentContext storageEnvironmentContext() {
         return this.terminalContext();
     }
 }

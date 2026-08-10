@@ -80,7 +80,7 @@ public final class TerminalContextTestingTest implements TerminalContextTesting<
             (ev) -> {
                 throw new UnsupportedOperationException();
             },
-            ENVIRONMENT_CONTEXT.cloneEnvironment()
+            STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
 
         @Override

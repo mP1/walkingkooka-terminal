@@ -19,9 +19,9 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
+import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
@@ -64,7 +64,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 ERROR,
                 EVALUATOR,
                 EXIT_VALUE,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -81,7 +81,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 ERROR,
                 EVALUATOR,
                 EXIT_VALUE,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -98,7 +98,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 ERROR,
                 EVALUATOR,
                 EXIT_VALUE,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -115,7 +115,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 ERROR,
                 EVALUATOR,
                 EXIT_VALUE,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -132,7 +132,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 null,
                 EVALUATOR,
                 EXIT_VALUE,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -149,7 +149,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 ERROR,
                 null,
                 EXIT_VALUE,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
@@ -166,13 +166,13 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
                 ERROR,
                 EVALUATOR,
                 null,
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT
             )
         );
     }
 
     @Test
-    public void testWithNullEnvironmentContextFails() {
+    public void testWithNullStorageEnvironmentContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicTerminalContext.with(
@@ -207,7 +207,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
             ERROR,
             EVALUATOR,
             EXIT_VALUE,
-            ENVIRONMENT_CONTEXT.cloneEnvironment()
+            STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
     }
 
@@ -215,15 +215,15 @@ public final class BasicTerminalContextTest implements TerminalContextTesting<Ba
 
     @Test
     public void testToString() {
-        final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
-        environmentContext.setEnvironmentValue(
+        final StorageEnvironmentContext storageEnvironmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
+        storageEnvironmentContext.setEnvironmentValue(
             TerminalContext.TERMINAL_ID,
             TERMINAL_ID
         );
 
         this.toStringAndCheck(
             this.createContext(),
-            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR + " " + environmentContext
+            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR + " " + storageEnvironmentContext
         );
     }
 
