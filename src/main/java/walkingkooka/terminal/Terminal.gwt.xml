@@ -21,6 +21,7 @@
 
     <inherits name="walkingkooka.environment.Environment"/>
     <inherits name="walkingkooka.net.Net"/>
+    <inherits name="walkingkooka.storage.Storage"/>
     <inherits name="walkingkooka.text.printer.Printer"/>
     <source path=""/>
 </module>
