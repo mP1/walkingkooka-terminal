@@ -27,6 +27,7 @@ import walkingkooka.terminal.HasTerminalErrorText;
 import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.HasTextWithLineBreaks;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -624,6 +625,89 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
             "World\n",
             printed.toString(),
             "error"
+        );
+    }
+
+    @Test
+    public void testApplyHasTextWithLineBreaks() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "hello"
+        ).iterator();
+
+        final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer output() {
+                return this.output;
+            }
+
+            private final Printer output = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public Printer error() {
+                return Printers.sink(LineEnding.NL);
+            }
+
+            @Override
+            public LineEnding lineEnding() {
+                return LineEnding.TERMINAL;
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                this.open = false; // need to also kill shell
+                return new HasTextWithLineBreaks() {
+
+                    @Override
+                    public String textWithLineBreaks(final LineEnding lineEnding) {
+                        return "World" + lineEnding;
+                    }
+                };
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        this.checkEquals(
+            "World\r\n\n",
+            printed.toString(),
+            "output"
         );
     }
 
