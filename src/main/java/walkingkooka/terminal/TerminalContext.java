@@ -22,7 +22,6 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.storage.StorageEnvironmentContext;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 
 /**
@@ -37,11 +36,6 @@ public interface TerminalContext extends StorageEnvironmentContext {
         "terminal",
         TerminalId.class
     );
-
-    /**
-     * THe default terminal {@link LineEnding} for TTYs etc.
-     */
-    LineEnding TERMINAL_LINE_ENDING = LineEnding.CRNL;
 
     /**
      * Returns the {@link TerminalId} identifying this session.
