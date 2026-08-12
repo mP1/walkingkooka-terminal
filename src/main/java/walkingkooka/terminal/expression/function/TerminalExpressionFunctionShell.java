@@ -23,6 +23,7 @@ import walkingkooka.terminal.HasTerminalErrorText;
 import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.HasTextWithLineBreaks;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -161,10 +162,20 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                         }
 
                         if (null != outputString) {
-                            output.println(outputString);
+                            output.print(outputString);
+
+                            printLineEndingIfMissing(
+                                outputString,
+                                output
+                            );
                         }
                         if (null != errorString) {
-                            error.println(errorString);
+                            error.print(errorString);
+
+                            printLineEndingIfMissing(
+                                errorString,
+                                error
+                            );
                         }
                     }
                 } catch (final RuntimeException cause) {
@@ -213,6 +224,31 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
 
 
     private final static char BACKSPACE = (char) 127;
+
+    /**
+     * Used to print the {@link LineEnding} only if the text is missing a line-ending.
+     */
+    private static void printLineEndingIfMissing(final String text,
+                                                 final Printer printer) {
+        boolean missingEol = text.isEmpty();
+        if (false == missingEol) {
+            switch (text.charAt(
+                text.length() - 1
+            )) {
+                case '\r':
+                case '\n':
+                    missingEol = false;
+                    break;
+                default:
+                    missingEol = true;
+                    break;
+            }
+        }
+
+        if (missingEol) {
+            printer.println();
+        }
+    }
 
     @Override
     public boolean isPure(final ExpressionPurityContext expressionPurityContext) {

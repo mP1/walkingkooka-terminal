@@ -475,7 +475,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
     }
 
     @Test
-    public void testApplyHasTerminalOutputText() {
+    public void testApplyHasTerminalOutputTextMissingTrailingLineEnding() {
         final int timeout = 1234;
 
         final Iterator<String> inputLines = Lists.of(
@@ -552,7 +552,84 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
     }
 
     @Test
-    public void testApplyHasTerminalErrorText() {
+    public void testApplyHasTerminalOutputText() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "hello"
+        ).iterator();
+
+        final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer output() {
+                return this.output;
+            }
+
+            private final Printer output = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public Printer error() {
+                return Printers.sink(LineEnding.NL);
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                this.open = false; // need to also kill shell
+                return new HasTerminalOutputText() {
+                    @Override
+                    public String terminalOutputText() {
+                        return "World\r";
+                    }
+                };
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        this.checkEquals(
+            "World\r",
+            printed.toString(),
+            "output"
+        );
+    }
+
+    @Test
+    public void testApplyHasTerminalErrorTextMissingTrailingLineEnding() {
         final int timeout = 1234;
 
         final Iterator<String> inputLines = Lists.of(
@@ -623,6 +700,83 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
         this.checkEquals(
             "World\n",
+            printed.toString(),
+            "error"
+        );
+    }
+
+    @Test
+    public void testApplyHasTerminalErrorText() {
+        final int timeout = 1234;
+
+        final Iterator<String> inputLines = Lists.of(
+            "hello"
+        ).iterator();
+
+        final StringBuilder printed = new StringBuilder();
+
+        final TerminalExpressionEvaluationContext context = new FakeTerminalExpressionEvaluationContext() {
+
+            @Override
+            public boolean isTerminalOpen() {
+                return this.open;
+            }
+
+            private boolean open = true;
+
+            @Override
+            public TextReader input() {
+                return new FakeTextReader() {
+
+                    @Override
+                    public Optional<String> readLine(final long timeout) {
+                        return Optional.ofNullable(
+                            inputLines.hasNext() ?
+                                inputLines.next() :
+                                null
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public Printer error() {
+                return this.error;
+            }
+
+            private final Printer error = Printers.stringBuilder(
+                printed,
+                LineEnding.NL
+            );
+
+            @Override
+            public Printer output() {
+                return Printers.sink(LineEnding.NL);
+            }
+
+            @Override
+            public Object evaluate(final String expression) {
+                Objects.requireNonNull(expression, "expression");
+
+                this.open = false; // need to also kill shell
+                return new HasTerminalErrorText() {
+                    @Override
+                    public String terminalErrorText() {
+                        return "World\r";
+                    }
+                };
+            }
+        };
+
+        this.applyAndCheck(
+            TerminalExpressionFunctionShell.instance(),
+            Lists.of(timeout),
+            context,
+            TerminalExpressionFunctionShell.OK_EXIT_CODE
+        );
+
+        this.checkEquals(
+            "World\r",
             printed.toString(),
             "error"
         );
@@ -705,7 +859,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
         );
 
         this.checkEquals(
-            "World\r\n\n",
+            "World\r\n",
             printed.toString(),
             "output"
         );
