@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.terminal.HasTerminalErrorText;
 import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
+import walkingkooka.text.HasTextWithLineBreaks;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -143,10 +144,17 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                                 errorString = hasTerminalErrorText.terminalErrorText();
 
                             } else {
-                                outputString = context.convertOrFail(
-                                    value,
-                                    String.class
-                                );
+                                if (value instanceof HasTextWithLineBreaks) {
+                                    final HasTextWithLineBreaks textWithLineBreaks = (HasTextWithLineBreaks) value;
+                                    outputString = textWithLineBreaks.textWithLineBreaks(
+                                        context.lineEnding()
+                                    );
+                                } else {
+                                    outputString = context.convertOrFail(
+                                        value,
+                                        String.class
+                                    );
+                                }
 
                                 errorString = null;
                             }
