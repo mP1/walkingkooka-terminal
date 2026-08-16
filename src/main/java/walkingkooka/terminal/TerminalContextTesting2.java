@@ -15,35 +15,59 @@
  *
  */
 
-package walkingkooka.terminal.expression;
+package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.environment.EnvironmentContextTesting2;
-import walkingkooka.terminal.TerminalContextTesting2;
-import walkingkooka.tree.expression.ExpressionEvaluationContextTesting2;
+import walkingkooka.ContextTesting;
+import walkingkooka.storage.StorageEnvironmentContextTesting2;
 
-public interface TerminalExpressionEvaluationContextTesting<C extends TerminalExpressionEvaluationContext> extends ExpressionEvaluationContextTesting2<C>,
-    TerminalContextTesting2<C>,
-    EnvironmentContextTesting2<C> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public interface TerminalContextTesting2<C extends TerminalContext> extends TerminalContextTesting,
+    ContextTesting<C>,
+    StorageEnvironmentContextTesting2<C> {
 
     @Test
-    @Override
-    default void testSetLocaleWithNullFails() {
-        ExpressionEvaluationContextTesting2.super.testSetLocaleWithNullFails();
+    default void testInputNotNull() {
+        this.checkNotEquals(
+            null,
+            this.createContext()
+                .input()
+        );
+    }
+
+    @Test
+    default void testOutputNotNull() {
+        this.checkNotEquals(
+            null,
+            this.createContext()
+                .output()
+        );
+    }
+
+    @Test
+    default void testErrorNotNull() {
+        this.checkNotEquals(
+            null,
+            this.createContext()
+                .error()
+        );
     }
 
     // evaluate.........................................................................................................
 
     @Test
-    @Override
     default void testEvaluateWithNullExpressionFails() {
-        ExpressionEvaluationContextTesting2.super.testEvaluateWithNullFails();
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .evaluate(null)
+        );
     }
 
-    @Override
     default void evaluateAndCheck(final String expression,
                                   final Object expected) {
-        ExpressionEvaluationContextTesting2.super.evaluateAndCheck(
+        this.evaluateAndCheck(
             this.createContext(),
             expression,
             expected
@@ -59,6 +83,6 @@ public interface TerminalExpressionEvaluationContextTesting<C extends TerminalEx
 
     @Override//
     default String typeNameSuffix() {
-        return TerminalExpressionEvaluationContext.class.getSimpleName();
+        return TerminalContext.class.getSimpleName();
     }
 }

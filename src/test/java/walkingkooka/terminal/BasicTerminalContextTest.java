@@ -31,7 +31,7 @@ import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicTerminalContextTest implements TerminalContextTesting<BasicTerminalContext>,
+public final class BasicTerminalContextTest implements TerminalContextTesting2<BasicTerminalContext>,
     ToStringTesting<BasicTerminalContext> {
 
     private final static TerminalId TERMINAL_ID = TerminalId.parse("123");
