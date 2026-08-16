@@ -32,7 +32,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UserFilteredTerminalServerContextTest implements TerminalServerContextTesting<UserFilteredTerminalServerContext>,
+public final class UserFilteredTerminalServerContextTest implements TerminalServerContextTesting2<UserFilteredTerminalServerContext>,
     ToStringTesting<UserFilteredTerminalServerContext> {
 
     private final static Optional<EmailAddress> USER = Optional.of(

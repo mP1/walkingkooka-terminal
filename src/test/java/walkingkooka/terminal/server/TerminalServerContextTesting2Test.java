@@ -20,13 +20,13 @@ package walkingkooka.terminal.server;
 import walkingkooka.Cast;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
-import walkingkooka.terminal.server.TerminalServerContextTestingTest.TestTerminalServerContext;
+import walkingkooka.terminal.server.TerminalServerContextTesting2Test.TestTerminalServerContext;
 
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public final class TerminalServerContextTestingTest implements TerminalServerContextTesting<TestTerminalServerContext> {
+public final class TerminalServerContextTesting2Test implements TerminalServerContextTesting2<TestTerminalServerContext> {
 
     @Override
     public TestTerminalServerContext createContext() {

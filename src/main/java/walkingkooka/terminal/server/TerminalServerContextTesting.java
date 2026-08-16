@@ -17,55 +17,7 @@
 
 package walkingkooka.terminal.server;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTesting;
+import walkingkooka.text.printer.TreePrintableTesting;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public interface TerminalServerContextTesting<C extends TerminalServerContext> extends ContextTesting<C> {
-
-    // addTerminalContext...............................................................................................
-
-    @Test
-    default void testAddTerminalContextWithNullFunctionFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .addTerminalContext(null)
-        );
-    }
-
-    // terminalContext..................................................................................................
-
-    @Test
-    default void testTerminalContextWithNullTerminalIdFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .terminalContext(null)
-        );
-    }
-
-    // removeTerminal...................................................................................................
-
-    @Test
-    default void testRemoveTerminalContextWithNullTerminalIdFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .terminalContext(null)
-        );
-    }
-
-    // class............................................................................................................
-
-    @Override//
-    default String typeNamePrefix() {
-        return "";
-    }
-
-    @Override//
-    default String typeNameSuffix() {
-        return TerminalServerContext.class.getSimpleName();
-    }
+public interface TerminalServerContextTesting extends TreePrintableTesting {
 }
