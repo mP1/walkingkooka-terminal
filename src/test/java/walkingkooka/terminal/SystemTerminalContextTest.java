@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SystemTerminalContextTest implements TerminalContextTesting<SystemTerminalContext> {
+public final class SystemTerminalContextTest implements TerminalContextTesting2<SystemTerminalContext> {
 
     private final TerminalId TERMINAL_ID = TerminalId.parse("1");
 

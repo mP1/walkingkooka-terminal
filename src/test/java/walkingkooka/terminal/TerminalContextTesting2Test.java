@@ -20,13 +20,13 @@ package walkingkooka.terminal;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
-import walkingkooka.terminal.TerminalContextTestingTest.TestTerminalContext;
+import walkingkooka.terminal.TerminalContextTesting2Test.TestTerminalContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
 import java.util.Objects;
 
-public final class TerminalContextTestingTest implements TerminalContextTesting<TestTerminalContext> {
+public final class TerminalContextTesting2Test implements TerminalContextTesting2<TestTerminalContext> {
 
     @Override
     public TestTerminalContext createContext() {

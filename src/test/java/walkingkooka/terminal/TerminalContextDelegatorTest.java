@@ -25,7 +25,7 @@ import walkingkooka.text.printer.Printers;
 
 import java.util.Objects;
 
-public final class TerminalContextDelegatorTest implements TerminalContextTesting<TestTerminalContextDelegator> {
+public final class TerminalContextDelegatorTest implements TerminalContextTesting2<TestTerminalContextDelegator> {
 
     private final static TerminalId TERMINAL_ID = TerminalId.parse("1");
 

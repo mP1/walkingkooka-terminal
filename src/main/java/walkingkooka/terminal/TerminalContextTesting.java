@@ -17,16 +17,9 @@
 
 package walkingkooka.terminal;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTesting;
-import walkingkooka.storage.StorageEnvironmentContextTesting2;
-import walkingkooka.text.printer.TreePrintableTesting;
+import walkingkooka.storage.StorageEnvironmentContextTesting;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public interface TerminalContextTesting<C extends TerminalContext> extends ContextTesting<C>,
-    StorageEnvironmentContextTesting2<C>,
-    TreePrintableTesting {
+public interface TerminalContextTesting extends StorageEnvironmentContextTesting {
 
     default void terminalIdAndCheck(final TerminalContext context,
                                     final TerminalId expected) {
@@ -37,54 +30,10 @@ public interface TerminalContextTesting<C extends TerminalContext> extends Conte
         );
     }
 
-    @Test
-    default void testInputNotNull() {
-        this.checkNotEquals(
-            null,
-            this.createContext()
-                .input()
-        );
-    }
-
-    @Test
-    default void testOutputNotNull() {
-        this.checkNotEquals(
-            null,
-            this.createContext()
-                .output()
-        );
-    }
-
-    @Test
-    default void testErrorNotNull() {
-        this.checkNotEquals(
-            null,
-            this.createContext()
-                .error()
-        );
-    }
-
     // evaluate.........................................................................................................
 
-    @Test
-    default void testEvaluateWithNullExpressionFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .evaluate(null)
-        );
-    }
 
-    default void evaluateAndCheck(final String expression,
-                                  final Object expected) {
-        this.evaluateAndCheck(
-            this.createContext(),
-            expression,
-            expected
-        );
-    }
-
-    default void evaluateAndCheck(final C context,
+    default void evaluateAndCheck(final TerminalContext context,
                                   final String expression,
                                   final Object expected) {
         this.checkEquals(
@@ -92,17 +41,5 @@ public interface TerminalContextTesting<C extends TerminalContext> extends Conte
             context.evaluate(expression),
             expression
         );
-    }
-    
-    // class............................................................................................................
-
-    @Override//
-    default String typeNamePrefix() {
-        return "";
-    }
-
-    @Override//
-    default String typeNameSuffix() {
-        return TerminalContext.class.getSimpleName();
     }
 }
