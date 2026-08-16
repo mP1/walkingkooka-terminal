@@ -20,16 +20,16 @@ package walkingkooka.terminal.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.terminal.TerminalContextTesting;
-import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
+import walkingkooka.tree.expression.ExpressionEvaluationContextTesting2;
 
-public interface TerminalExpressionEvaluationContextTesting<C extends TerminalExpressionEvaluationContext> extends ExpressionEvaluationContextTesting<C>,
+public interface TerminalExpressionEvaluationContextTesting<C extends TerminalExpressionEvaluationContext> extends ExpressionEvaluationContextTesting2<C>,
     TerminalContextTesting<C>,
     EnvironmentContextTesting2<C> {
 
     @Test
     @Override
     default void testSetLocaleWithNullFails() {
-        ExpressionEvaluationContextTesting.super.testSetLocaleWithNullFails();
+        ExpressionEvaluationContextTesting2.super.testSetLocaleWithNullFails();
     }
 
     // evaluate.........................................................................................................
@@ -37,13 +37,13 @@ public interface TerminalExpressionEvaluationContextTesting<C extends TerminalEx
     @Test
     @Override
     default void testEvaluateWithNullExpressionFails() {
-        ExpressionEvaluationContextTesting.super.testEvaluateWithNullFails();
+        ExpressionEvaluationContextTesting2.super.testEvaluateWithNullFails();
     }
 
     @Override
     default void evaluateAndCheck(final String expression,
                                   final Object expected) {
-        ExpressionEvaluationContextTesting.super.evaluateAndCheck(
+        ExpressionEvaluationContextTesting2.super.evaluateAndCheck(
             this.createContext(),
             expression,
             expected
@@ -54,7 +54,7 @@ public interface TerminalExpressionEvaluationContextTesting<C extends TerminalEx
     default void evaluateAndCheck(final C context,
                                   final String expression,
                                   final Object expected) {
-        ExpressionEvaluationContextTesting.super.evaluateAndCheck(
+        ExpressionEvaluationContextTesting2.super.evaluateAndCheck(
             context,
             expression,
             expected
