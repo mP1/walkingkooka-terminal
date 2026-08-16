@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public final class TerminalServerContextDelegatorTest implements TerminalServerContextTesting<TestTerminalServerContext> {
+public final class TerminalServerContextDelegatorTest implements TerminalServerContextTesting2<TestTerminalServerContext> {
 
     @Override
     public TestTerminalServerContext createContext() {

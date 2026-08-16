@@ -25,7 +25,7 @@ import walkingkooka.terminal.TerminalId;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicTerminalServerContextTest implements TerminalServerContextTesting<BasicTerminalServerContext> {
+public final class BasicTerminalServerContextTest implements TerminalServerContextTesting2<BasicTerminalServerContext> {
 
     @Test
     public void testWithNullNextTerminalIdFails() {
