@@ -19,7 +19,7 @@ package walkingkooka.terminal;
 
 import walkingkooka.text.printer.TreePrintableTesting;
 
-public interface HasTerminalErrorTextTesting<H extends HasTerminalErrorText> extends TreePrintableTesting {
+public interface HasTerminalErrorTextTesting extends TreePrintableTesting {
 
     default void terminalErrorTextAndCheck(final HasTerminalErrorText has,
                                            final String expected) {
