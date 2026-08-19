@@ -20,6 +20,7 @@ package walkingkooka.terminal.expression;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
+import walkingkooka.tree.expression.CanEvaluateString;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 
@@ -27,10 +28,14 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     ExpressionEvaluationContextDelegator,
     TerminalContextDelegator {
 
-    @Override
-    Object evaluate(final String expression);
-
     TerminalExpressionEvaluationContext terminalExpressionEvaluationContext();
+
+    // CanEvaluateStringDelegator......................................................................................
+
+    @Override
+    default CanEvaluateString canEvaluateString() {
+        return this.expressionEvaluationContext();
+    }
 
     // ExpressionEvaluationContextDelegator.............................................................................
 

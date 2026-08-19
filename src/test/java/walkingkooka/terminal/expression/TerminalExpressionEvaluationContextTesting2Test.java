@@ -39,6 +39,7 @@ import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTesting2Test.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.CanEvaluateString;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -306,6 +307,13 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
         @Override
         public EnvironmentContext environmentContext() {
             return ENVIRONMENT_CONTEXT.cloneEnvironment();
+        }
+
+        // CanEvaluateStringDelegator...................................................................................
+
+        @Override
+        public CanEvaluateString canEvaluateString() {
+            throw new UnsupportedOperationException();
         }
 
         // ExpressionEvaluationContextDelegator.........................................................................
