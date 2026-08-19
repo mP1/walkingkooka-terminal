@@ -17,48 +17,11 @@
 
 package walkingkooka.terminal.expression;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.environment.EnvironmentContextTesting2;
-import walkingkooka.terminal.TerminalContextTesting2;
-import walkingkooka.tree.expression.ExpressionEvaluationContextTesting2;
+import walkingkooka.environment.EnvironmentContextTesting;
+import walkingkooka.terminal.TerminalContextTesting;
+import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
 
-public interface TerminalExpressionEvaluationContextTesting<C extends TerminalExpressionEvaluationContext> extends ExpressionEvaluationContextTesting2<C>,
-    TerminalContextTesting2<C>,
-    EnvironmentContextTesting2<C> {
-
-    @Test
-    @Override
-    default void testSetLocaleWithNullFails() {
-        ExpressionEvaluationContextTesting2.super.testSetLocaleWithNullFails();
-    }
-
-    // evaluate.........................................................................................................
-
-    @Test
-    @Override
-    default void testEvaluateWithNullExpressionFails() {
-        ExpressionEvaluationContextTesting2.super.testEvaluateWithNullFails();
-    }
-
-    @Override
-    default void evaluateAndCheck(final String expression,
-                                  final Object expected) {
-        ExpressionEvaluationContextTesting2.super.evaluateAndCheck(
-            this.createContext(),
-            expression,
-            expected
-        );
-    }
-
-    // class............................................................................................................
-
-    @Override//
-    default String typeNamePrefix() {
-        return "";
-    }
-
-    @Override//
-    default String typeNameSuffix() {
-        return TerminalExpressionEvaluationContext.class.getSimpleName();
-    }
+public interface TerminalExpressionEvaluationContextTesting extends ExpressionEvaluationContextTesting,
+    TerminalContextTesting,
+    EnvironmentContextTesting {
 }
