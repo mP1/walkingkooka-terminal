@@ -21,8 +21,11 @@ import walkingkooka.io.TextReader;
 import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.storage.StorageEnvironmentContextDelegator;
 import walkingkooka.text.printer.Printer;
+import walkingkooka.tree.expression.CanEvaluateString;
+import walkingkooka.tree.expression.CanEvaluateStringDelegator;
 
 public interface TerminalContextDelegator extends TerminalContext,
+    CanEvaluateStringDelegator,
     StorageEnvironmentContextDelegator {
 
     @Override
@@ -62,6 +65,13 @@ public interface TerminalContextDelegator extends TerminalContext,
     }
 
     TerminalContext terminalContext();
+
+    // CanEvaluateStringDelegator.......................................................................................
+
+    @Override
+    default CanEvaluateString canEvaluateString() {
+        return this.terminalContext();
+    }
 
     // StorageEnvironmentContextDelegator...............................................................................
 

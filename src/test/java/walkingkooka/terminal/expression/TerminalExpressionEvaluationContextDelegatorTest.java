@@ -39,6 +39,7 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextDeleg
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.tree.expression.CanEvaluateString;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -339,6 +340,13 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         @Override
         public Object evaluate(final String expression) {
             Objects.requireNonNull(expression, "expression");
+            throw new UnsupportedOperationException();
+        }
+
+        // CanEvaluateStringDelegator...................................................................................
+
+        @Override
+        public CanEvaluateString canEvaluateString() {
             throw new UnsupportedOperationException();
         }
 

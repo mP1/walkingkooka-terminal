@@ -23,11 +23,13 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.text.printer.Printer;
+import walkingkooka.tree.expression.CanEvaluateString;
 
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
  */
-public interface TerminalContext extends StorageEnvironmentContext {
+public interface TerminalContext extends CanEvaluateString,
+    StorageEnvironmentContext {
 
     /**
      * Retrieves the {@link TerminalId} using an {@link EnvironmentValueName}.
@@ -66,11 +68,6 @@ public interface TerminalContext extends StorageEnvironmentContext {
      * A {@link Printer} for errors.
      */
     Printer error();
-
-    /**
-     * Evaluate the given expression into a value.
-     */
-    Object evaluate(String expression);
 
     // EnvironmentContext...............................................................................................
 
