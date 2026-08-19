@@ -33,24 +33,6 @@ public interface TerminalExpressionEvaluationContextTesting2<C extends TerminalE
         ExpressionEvaluationContextTesting2.super.testSetLocaleWithNullFails();
     }
 
-    // evaluate.........................................................................................................
-
-    @Test
-    @Override
-    default void testEvaluateWithNullExpressionFails() {
-        ExpressionEvaluationContextTesting2.super.testEvaluateWithNullFails();
-    }
-
-    @Override
-    default void evaluateAndCheck(final String expression,
-                                  final Object expected) {
-        ExpressionEvaluationContextTesting2.super.evaluateAndCheck(
-            this.createContext(),
-            expression,
-            expected
-        );
-    }
-
     // class............................................................................................................
 
     @Override//
