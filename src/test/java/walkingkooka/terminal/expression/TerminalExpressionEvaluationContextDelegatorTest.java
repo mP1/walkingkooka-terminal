@@ -52,7 +52,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContextDelegator> {
+public final class TerminalExpressionEvaluationContextDelegatorTest implements TerminalExpressionEvaluationContextTesting2<TestTerminalExpressionEvaluationContextDelegator> {
 
     @Test
     public void testLocale() {

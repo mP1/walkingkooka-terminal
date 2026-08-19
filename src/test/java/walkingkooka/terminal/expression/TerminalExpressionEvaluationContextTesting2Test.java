@@ -36,7 +36,7 @@ import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
-import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTestingTest.TestTerminalExpressionEvaluationContext;
+import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTesting2Test.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -54,7 +54,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class TerminalExpressionEvaluationContextTestingTest implements TerminalExpressionEvaluationContextTesting<TestTerminalExpressionEvaluationContext> {
+public class TerminalExpressionEvaluationContextTesting2Test implements TerminalExpressionEvaluationContextTesting2<TestTerminalExpressionEvaluationContext> {
 
     @Override
     public void testEnvironmentValueLocaleEqualsLocale() {
