@@ -31,6 +31,7 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
 import walkingkooka.terminal.TerminalContexts;
@@ -47,7 +48,6 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 
 import java.math.MathContext;
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -297,25 +297,16 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         }
 
         @Override
-        public void setLineEnding(final LineEnding lineEnding) {
-            Objects.requireNonNull(lineEnding, "lineEnding");
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Locale locale() {
-            return TerminalExpressionEvaluationContextDelegatorTest.LOCALE;
-        }
-
-        @Override
-        public LocalDateTime now() {
-            return HAS_NOW.now();
-        }
-
-        @Override
         public EnvironmentContext environmentContext() {
-            return ENVIRONMENT_CONTEXT;
+            return this.storageEnvironmentContext;
         }
+
+        @Override
+        public StorageEnvironmentContext storageEnvironmentContext() {
+            return this.storageEnvironmentContext;
+        }
+
+        private final StorageEnvironmentContext storageEnvironmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
         // TerminalContextDelegator.....................................................................................
 
