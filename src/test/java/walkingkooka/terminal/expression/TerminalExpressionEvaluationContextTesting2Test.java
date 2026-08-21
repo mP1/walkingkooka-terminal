@@ -31,6 +31,7 @@ import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.storage.StorageEnvironmentContexts;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
@@ -58,67 +59,12 @@ import java.util.function.Function;
 public class TerminalExpressionEvaluationContextTesting2Test implements TerminalExpressionEvaluationContextTesting2<TestTerminalExpressionEvaluationContext> {
 
     @Override
-    public void testEnvironmentValueLocaleEqualsLocale() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testEnvironmentValueNowEqualsNow() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testEnvironmentValueUserEqualsUser() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testRemoveEnvironmentValueWithNowFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void testSetEnvironmentContextWithEqualEnvironmentContext() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void testSetEnvironmentValueWithNowFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetCurrencyWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetIndentationWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void testSetLineEndingWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetLocaleWithDifferent() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetLocaleWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetTimeOffsetWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetUserWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
@@ -280,34 +226,34 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
 
         @Override
         public Locale locale() {
-            throw new UnsupportedOperationException();
+            return this.storageEnvironmentContext.locale();
         }
 
         @Override
         public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
                                             final T value) {
-            Objects.requireNonNull(name, "name");
-            Objects.requireNonNull(value, "value");
-
-            throw new UnsupportedOperationException();
+            this.storageEnvironmentContext.setEnvironmentValue(
+                name,
+                value
+            );
         }
 
         @Override
         public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
-            Objects.requireNonNull(name, "name");
-
-            throw new UnsupportedOperationException();
+            this.storageEnvironmentContext.removeEnvironmentValue(name);
         }
 
         @Override
         public LocalDateTime now() {
-            throw new UnsupportedOperationException();
+            return this.storageEnvironmentContext.now();
         }
 
         @Override
         public EnvironmentContext environmentContext() {
-            return STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
+            return this.storageEnvironmentContext;
         }
+
+        private final StorageEnvironmentContext storageEnvironmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
         // CanEvaluateStringDelegator...................................................................................
 
@@ -317,18 +263,6 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
         }
 
         // ExpressionEvaluationContextDelegator.........................................................................
-
-        @Override
-        public void setLineEnding(final LineEnding lineEnding) {
-            Objects.requireNonNull(lineEnding, "lineEnding");
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void setLocale(final Locale locale) {
-            Objects.requireNonNull(locale, "locale");
-            throw new UnsupportedOperationException();
-        }
 
         @Override
         public Object evaluate(final String expression) {
