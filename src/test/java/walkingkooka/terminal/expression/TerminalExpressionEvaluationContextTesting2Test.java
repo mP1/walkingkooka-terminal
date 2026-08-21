@@ -306,7 +306,7 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
 
         @Override
         public EnvironmentContext environmentContext() {
-            return ENVIRONMENT_CONTEXT.cloneEnvironment();
+            return STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
         }
 
         // CanEvaluateStringDelegator...................................................................................
