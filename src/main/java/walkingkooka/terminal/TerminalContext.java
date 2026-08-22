@@ -18,15 +18,12 @@
 package walkingkooka.terminal;
 
 import walkingkooka.Context;
-import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.CanEvaluateString;
-
-import java.util.Objects;
 
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
@@ -41,26 +38,6 @@ public interface TerminalContext extends CanEvaluateString,
         "terminalId",
         TerminalId.class
     );
-
-    /**
-     * A {@link CanParseEnvironmentValueName} that only works for {@link TerminalContext}.
-     */
-    CanParseEnvironmentValueName TERMINAL_CONTEXT_PARSE = (final String name) -> {
-        Objects.requireNonNull(name, "name");
-
-        final EnvironmentValueName<?> environmentValueName;
-
-        // assumes Case insensitive
-        switch (name.toLowerCase()) {
-            case "terminal":
-                environmentValueName = TERMINAL_ID;
-                break;
-            default:
-                environmentValueName = StorageEnvironmentContext.STORAGE_ENVIRONMENT_CONTEXT_PARSE.parseEnvironmentValueName(name);
-        }
-
-        return environmentValueName;
-    };
 
     /**
      * Returns the {@link TerminalId} identifying this session.
