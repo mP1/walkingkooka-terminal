@@ -38,7 +38,7 @@ public interface TerminalContext extends CanEvaluateString,
      * Retrieves the {@link TerminalId} using an {@link EnvironmentValueName}.
      */
     EnvironmentValueName<TerminalId> TERMINAL_ID = EnvironmentValueName.with(
-        "terminal",
+        "terminalId",
         TerminalId.class
     );
 
