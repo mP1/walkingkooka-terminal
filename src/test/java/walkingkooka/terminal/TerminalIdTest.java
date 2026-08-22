@@ -28,14 +28,14 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 public final class TerminalIdTest implements ClassTesting2<TerminalId>,
     ComparableTesting2<TerminalId>,
     HasNotFoundTextTesting,
     HasUrlFragmentTesting,
-    JsonNodeMarshallingTesting<TerminalId>,
+    JsonNodeMarshallerTesting<TerminalId>,
     ParseStringTesting<TerminalId>,
     TreePrintableTesting,
     ToStringTesting<TerminalId>,
@@ -137,7 +137,7 @@ public final class TerminalIdTest implements ClassTesting2<TerminalId>,
         return TerminalId.with(VALUE);
     }
 
-    // JsonNodeMarshallingTesting.......................................................................................
+    // JsonNodeMarshallerTesting....................................................................................
 
     @Test
     public void testUnmarshallInvalidStringFails() {
