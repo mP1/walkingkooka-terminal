@@ -19,6 +19,7 @@ package walkingkooka.terminal;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
 import walkingkooka.storage.StorageEnvironmentContext;
@@ -194,6 +195,26 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
             this.createContext(),
             TerminalContext.TERMINAL_ID,
             TERMINAL_ID
+        );
+    }
+
+    @Test
+    public void testParseEnvironmentValueNameAfterSetEnvironmentValue() {
+        final EnvironmentValueName<String> name = EnvironmentValueName.with(
+            "magic",
+            String.class
+        );
+
+        final BasicTerminalContext context = this.createContext();
+        this.setEnvironmentValueAndCheck(
+            context,
+            name,
+            "value123"
+        );
+
+        this.parseEnvironmentValueNameAndCheck(
+            context,
+            name
         );
     }
 
