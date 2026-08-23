@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.io.TextReader;
 import walkingkooka.io.TextReaders;
@@ -31,6 +32,19 @@ public final class TerminalContextTesting2Test implements TerminalContextTesting
     @Override
     public TestTerminalContext createContext() {
         return new TestTerminalContext();
+    }
+
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final TestTerminalContext context = this.createContext();
+
+        this.environmentContextAndCheck(
+            context,
+            context.terminalContext
+        );
     }
 
     // class............................................................................................................

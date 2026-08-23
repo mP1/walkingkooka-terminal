@@ -42,6 +42,21 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
         return new TestTerminalContextDelegator();
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final TestTerminalContextDelegator context = this.createContext();
+
+        this.environmentContextAndCheck(
+            context,
+            context.terminalContext
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<TestTerminalContextDelegator> type() {
         return TestTerminalContextDelegator.class;

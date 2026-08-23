@@ -17,6 +17,7 @@
 
 package walkingkooka.terminal.expression;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -102,6 +103,19 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
     @Override
     public void testIsPureNullNameFails() {
         throw new UnsupportedOperationException();
+    }
+
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final TestTerminalExpressionEvaluationContext context = new TestTerminalExpressionEvaluationContext();
+
+        this.environmentContextAndCheck(
+            context,
+            context.storageEnvironmentContext
+        );
     }
 
     // class............................................................................................................
