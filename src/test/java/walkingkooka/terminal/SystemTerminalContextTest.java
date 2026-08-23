@@ -98,6 +98,22 @@ public final class SystemTerminalContextTest implements TerminalContextTesting2<
         );
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        this.environmentContextAndCheck(
+            SystemTerminalContext.with(
+                TERMINAL_ID,
+                EVALUATOR,
+                EXIT_VALUE,
+                STORAGE_ENVIRONMENT_CONTEXT
+            ),
+            STORAGE_ENVIRONMENT_CONTEXT
+        );
+    }
+
     // class............................................................................................................
 
     @Override

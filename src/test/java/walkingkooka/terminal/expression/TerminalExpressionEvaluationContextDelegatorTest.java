@@ -153,6 +153,19 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         return new TestTerminalExpressionEvaluationContextDelegator();
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final TestTerminalExpressionEvaluationContextDelegator context = this.createContext();
+
+        this.environmentContextAndCheck(
+            context,
+            context.context
+        );
+    }
+
     private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
 
     @Override
@@ -269,8 +282,10 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
         @Override
         public TerminalExpressionEvaluationContext terminalExpressionEvaluationContext() {
-            return new TestTerminalExpressionEvaluationContext();
+            return this.context;
         }
+
+        private final TerminalExpressionEvaluationContext context = new TestTerminalExpressionEvaluationContext();
 
         @Override
         public String toString() {

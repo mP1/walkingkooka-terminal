@@ -248,6 +248,28 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
         );
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final StorageEnvironmentContext environmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
+
+        this.environmentContextAndCheck(
+            BasicTerminalContext.with(
+                TERMINAL_ID,
+                OPEN_TESTER,
+                INPUT,
+                OUTPUT,
+                ERROR,
+                EVALUATOR,
+                EXIT_VALUE,
+                environmentContext
+            ),
+            environmentContext
+        );
+    }
+
     // class............................................................................................................
 
     @Override
