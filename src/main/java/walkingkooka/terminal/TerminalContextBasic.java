@@ -33,10 +33,10 @@ import java.util.function.Function;
 /**
  * A {@link TerminalContext} that reads line from a {@link Function}, with the timeout, and prints to a {@link Printer}.
  */
-final class BasicTerminalContext implements TerminalContext,
+final class TerminalContextBasic implements TerminalContext,
     StorageEnvironmentContextDelegator {
 
-    static BasicTerminalContext with(final TerminalId terminalId,
+    static TerminalContextBasic with(final TerminalId terminalId,
                                      final BooleanSupplier openTester,
                                      final TextReader input,
                                      final Printer output,
@@ -44,7 +44,7 @@ final class BasicTerminalContext implements TerminalContext,
                                      final BiFunction<String, TerminalContext, Object> evaluator,
                                      final Consumer<Object> exitValue,
                                      final StorageEnvironmentContext storageEnvironmentContext) {
-        return new BasicTerminalContext(
+        return new TerminalContextBasic(
             Objects.requireNonNull(terminalId, "terminalId"),
             Objects.requireNonNull(openTester, "openTester"),
             Objects.requireNonNull(input, "input"),
@@ -56,7 +56,7 @@ final class BasicTerminalContext implements TerminalContext,
         );
     }
 
-    private BasicTerminalContext(final TerminalId terminalId,
+    private TerminalContextBasic(final TerminalId terminalId,
                                  final BooleanSupplier openTester,
                                  final TextReader input,
                                  final Printer output,
@@ -181,7 +181,7 @@ final class BasicTerminalContext implements TerminalContext,
 
         return before == after ?
             this :
-            new BasicTerminalContext(
+            new TerminalContextBasic(
                 this.terminalId,
                 this.openTester,
                 this.input,

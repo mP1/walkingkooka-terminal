@@ -40,7 +40,7 @@ public final class TerminalContexts implements PublicStaticHelper {
                                         final BiFunction<String, TerminalContext, Object> evaluator,
                                         final Consumer<Object> exitValue,
                                         final StorageEnvironmentContext storageEnvironmentContext) {
-        return BasicTerminalContext.with(
+        return TerminalContextBasic.with(
             terminalId,
             openTester,
             input,
