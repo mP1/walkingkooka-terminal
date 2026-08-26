@@ -32,8 +32,8 @@ import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicTerminalContextTest implements TerminalContextTesting2<BasicTerminalContext>,
-    ToStringTesting<BasicTerminalContext> {
+public final class TerminalContextBasicTest implements TerminalContextTesting2<TerminalContextBasic>,
+    ToStringTesting<TerminalContextBasic> {
 
     private final static TerminalId TERMINAL_ID = TerminalId.parse("123");
 
@@ -57,7 +57,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testWithNullTerminalIdFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalContext.with(
+            () -> TerminalContextBasic.with(
                 null,
                 OPEN_TESTER,
                 INPUT,
@@ -74,7 +74,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testWithNullOpenTesterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalContext.with(
+            () -> TerminalContextBasic.with(
                 TERMINAL_ID,
                 null,
                 INPUT,
@@ -91,7 +91,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testWithNullInputFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalContext.with(
+            () -> TerminalContextBasic.with(
                 TERMINAL_ID,
                 OPEN_TESTER,
                 null,
@@ -108,7 +108,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testWithNullOutputFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalContext.with(
+            () -> TerminalContextBasic.with(
                 TERMINAL_ID,
                 OPEN_TESTER,
                 INPUT,
@@ -125,7 +125,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testWithNullErrorFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalContext.with(
+            () -> TerminalContextBasic.with(
                 TERMINAL_ID,
                 OPEN_TESTER,
                 INPUT,
@@ -142,7 +142,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testWithNullEvaluatorFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalContext.with(
+            () -> TerminalContextBasic.with(
                 TERMINAL_ID,
                 OPEN_TESTER,
                 INPUT,
@@ -159,7 +159,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testWithNullExitValueFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalContext.with(
+            () -> TerminalContextBasic.with(
                 TERMINAL_ID,
                 OPEN_TESTER,
                 INPUT,
@@ -176,7 +176,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testWithNullStorageEnvironmentContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicTerminalContext.with(
+            () -> TerminalContextBasic.with(
                 TERMINAL_ID,
                 OPEN_TESTER,
                 INPUT,
@@ -205,7 +205,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
             String.class
         );
 
-        final BasicTerminalContext context = this.createContext();
+        final TerminalContextBasic context = this.createContext();
         this.setEnvironmentValueAndCheck(
             context,
             name,
@@ -222,7 +222,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     public void testParseEnvironmentValueNameWrappedMissingTerminalId() {
         final StorageEnvironmentContext storageEnvironmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
-        final BasicTerminalContext basicTerminalContext = BasicTerminalContext.with(
+        final TerminalContextBasic terminalContextBasic = TerminalContextBasic.with(
             TERMINAL_ID,
             OPEN_TESTER,
             INPUT,
@@ -236,19 +236,19 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
         storageEnvironmentContext.removeEnvironmentValue(TerminalContext.TERMINAL_ID);
 
         this.environmentValueAndCheck(
-            basicTerminalContext,
+            terminalContextBasic,
             TerminalContext.TERMINAL_ID
         );
 
         this.parseEnvironmentValueNameAndCheck(
-            basicTerminalContext,
+            terminalContextBasic,
             TerminalContext.TERMINAL_ID
         );
     }
 
     @Override
-    public BasicTerminalContext createContext() {
-        return BasicTerminalContext.with(
+    public TerminalContextBasic createContext() {
+        return TerminalContextBasic.with(
             TERMINAL_ID,
             OPEN_TESTER,
             INPUT,
@@ -284,7 +284,7 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
         final StorageEnvironmentContext environmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
         this.environmentContextAndCheck(
-            BasicTerminalContext.with(
+            TerminalContextBasic.with(
                 TERMINAL_ID,
                 OPEN_TESTER,
                 INPUT,
@@ -301,7 +301,12 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
     // class............................................................................................................
 
     @Override
-    public Class<BasicTerminalContext> type() {
-        return BasicTerminalContext.class;
+    public Class<TerminalContextBasic> type() {
+        return TerminalContextBasic.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
