@@ -218,6 +218,34 @@ public final class BasicTerminalContextTest implements TerminalContextTesting2<B
         );
     }
 
+    @Test
+    public void testParseEnvironmentValueNameWrappedMissingTerminalId() {
+        final StorageEnvironmentContext storageEnvironmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
+
+        final BasicTerminalContext basicTerminalContext = BasicTerminalContext.with(
+            TERMINAL_ID,
+            OPEN_TESTER,
+            INPUT,
+            OUTPUT,
+            ERROR,
+            EVALUATOR,
+            EXIT_VALUE,
+            storageEnvironmentContext
+        );
+
+        storageEnvironmentContext.removeEnvironmentValue(TerminalContext.TERMINAL_ID);
+
+        this.environmentValueAndCheck(
+            basicTerminalContext,
+            TerminalContext.TERMINAL_ID
+        );
+
+        this.parseEnvironmentValueNameAndCheck(
+            basicTerminalContext,
+            TerminalContext.TERMINAL_ID
+        );
+    }
+
     @Override
     public BasicTerminalContext createContext() {
         return BasicTerminalContext.with(

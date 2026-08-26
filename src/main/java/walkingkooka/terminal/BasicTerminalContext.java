@@ -18,6 +18,7 @@
 package walkingkooka.terminal;
 
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
 import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.storage.StorageEnvironmentContextDelegator;
@@ -148,6 +149,21 @@ final class BasicTerminalContext implements TerminalContext,
     }
 
     private final BiFunction<String, TerminalContext, Object> evaluator;
+
+    // CanParseEnvironmentValueName.....................................................................................
+
+    @Override
+    public EnvironmentValueName<?> parseEnvironmentValueName(final String name) {
+        Objects.requireNonNull(name, "name");
+
+        // required because wrapped EnvironmentContext may be missing terminalId
+        return EnvironmentValueName.CASE_SENSITIVITY.equals(
+            TERMINAL_ID.value(),
+            name
+        ) ?
+            TERMINAL_ID :
+            this.storageEnvironmentContext.parseEnvironmentValueName(name);
+    }
 
     // StorageEnvironmentContextDelegator...............................................................................
 
