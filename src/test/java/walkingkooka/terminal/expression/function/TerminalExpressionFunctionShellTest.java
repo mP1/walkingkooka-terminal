@@ -27,7 +27,7 @@ import walkingkooka.terminal.HasTerminalErrorText;
 import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
-import walkingkooka.text.HasTextWithTextContext;
+import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.TextContext;
 import walkingkooka.text.printer.Printer;
@@ -784,7 +784,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
     }
 
     @Test
-    public void testApplyHasTextWithLineBreaks() {
+    public void testApplyHasMultiLineText() {
         final int timeout = 1234;
 
         final Iterator<String> inputLines = Lists.of(
@@ -842,10 +842,10 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 Objects.requireNonNull(expression, "expression");
 
                 this.open = false; // need to also kill shell
-                return new HasTextWithTextContext() {
+                return new HasMultiLineText() {
 
                     @Override
-                    public String textWithTextContext(final TextContext context) {
+                    public String multiLineText(final TextContext context) {
                         return "World" + context.lineEnding();
                     }
                 };

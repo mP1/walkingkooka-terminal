@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.terminal.HasTerminalErrorText;
 import walkingkooka.terminal.HasTerminalOutputText;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
-import walkingkooka.text.HasTextWithTextContext;
+import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.ExpressionPurityContext;
@@ -145,9 +145,9 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                                 errorString = hasTerminalErrorText.terminalErrorText();
 
                             } else {
-                                if (value instanceof HasTextWithTextContext) {
-                                    final HasTextWithTextContext textWithTextContext = (HasTextWithTextContext) value;
-                                    outputString = textWithTextContext.textWithTextContext(context);
+                                if (value instanceof HasMultiLineText) {
+                                    final HasMultiLineText multiLineText = (HasMultiLineText) value;
+                                    outputString = multiLineText.multiLineText(context);
                                 } else {
                                     outputString = context.convertOrFail(
                                         value,
