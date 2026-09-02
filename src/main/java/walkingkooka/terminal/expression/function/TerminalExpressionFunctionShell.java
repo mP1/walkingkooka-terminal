@@ -135,7 +135,7 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                         // #NAME?
                         if (value instanceof HasTerminalOutputText) {
                             final HasTerminalOutputText hasTerminalOutputText = (HasTerminalOutputText) value;
-                            outputString = hasTerminalOutputText.terminalOutputText();
+                            outputString = hasTerminalOutputText.terminalOutputText(context);
                             errorString = null;
                         } else {
                             if (value instanceof HasTerminalErrorText) {
