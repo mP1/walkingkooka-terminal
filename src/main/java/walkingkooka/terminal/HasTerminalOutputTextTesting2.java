@@ -17,12 +17,14 @@
 
 package walkingkooka.terminal;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.TextContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface HasTerminalOutputTextTesting2<H extends HasTerminalOutputText> extends HasTerminalOutputTextTesting {
 
+    @Test
     default void testTerminalOutputTextWithNullTextContextFails() {
         assertThrows(
             NullPointerException.class,
