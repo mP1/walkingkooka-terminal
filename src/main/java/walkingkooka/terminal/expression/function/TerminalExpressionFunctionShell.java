@@ -147,7 +147,8 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                             } else {
                                 if (value instanceof HasMultiLineText) {
                                     final HasMultiLineText multiLineText = (HasMultiLineText) value;
-                                    outputString = multiLineText.multiLineText(context);
+                                    outputString = multiLineText.multiLineText(context)
+                                        .text();
                                 } else {
                                     outputString = context.convertOrFail(
                                         value,
