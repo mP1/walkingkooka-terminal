@@ -17,14 +17,26 @@
 
 package walkingkooka.terminal;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.TextContext;
-import walkingkooka.text.printer.TreePrintableTesting;
 
-public interface HasTerminalErrorTextTesting extends TreePrintableTesting {
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-    default void terminalErrorTextAndCheck(final HasTerminalErrorText has,
-                                           final TextContext context,
+public interface HasTerminalErrorTextTesting2<H extends HasTerminalErrorText> extends HasTerminalErrorTextTesting {
+
+    @Test
+    default void testTerminalErrorTextWithNullTextContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createHasTerminalErrorText()
+                .terminalErrorText(null)
+        );
+    }
+
+    default void terminalErrorTextAndCheck(final TextContext context,
                                            final String expected) {
+        final H has = this.createHasTerminalErrorText();
+
         final String actual = has.terminalErrorText(context);
 
         this.checkNotEquals(
@@ -39,4 +51,6 @@ public interface HasTerminalErrorTextTesting extends TreePrintableTesting {
             has::toString
         );
     }
+
+    H createHasTerminalErrorText();
 }

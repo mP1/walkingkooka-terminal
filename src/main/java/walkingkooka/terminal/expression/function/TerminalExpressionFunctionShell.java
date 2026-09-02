@@ -142,7 +142,7 @@ final class TerminalExpressionFunctionShell<C extends TerminalExpressionEvaluati
                                 outputString = null;
 
                                 final HasTerminalErrorText hasTerminalErrorText = (HasTerminalErrorText) value;
-                                errorString = hasTerminalErrorText.terminalErrorText();
+                                errorString = hasTerminalErrorText.terminalErrorText(context);
 
                             } else {
                                 if (value instanceof HasMultiLineText) {

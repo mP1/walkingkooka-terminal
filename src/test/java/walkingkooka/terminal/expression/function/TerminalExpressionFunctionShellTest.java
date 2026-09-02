@@ -692,10 +692,15 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 this.open = false; // need to also kill shell
                 return new HasTerminalErrorText() {
                     @Override
-                    public String terminalErrorText() {
-                        return "World";
+                    public String terminalErrorText(final TextContext context) {
+                        return "World" + context.lineEnding();
                     }
                 };
+            }
+
+            @Override
+            public LineEnding lineEnding() {
+                return TerminalExpressionFunctionShellTest.LINE_ENDING;
             }
         };
 
@@ -707,7 +712,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
         );
 
         this.checkEquals(
-            "World\n",
+            "World" + LINE_ENDING,
             printed.toString(),
             "error"
         );
@@ -769,10 +774,15 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 this.open = false; // need to also kill shell
                 return new HasTerminalErrorText() {
                     @Override
-                    public String terminalErrorText() {
-                        return "World\r";
+                    public String terminalErrorText(final TextContext context) {
+                        return "World" + context.lineEnding();
                     }
                 };
+            }
+
+            @Override
+            public LineEnding lineEnding() {
+                return TerminalExpressionFunctionShellTest.LINE_ENDING;
             }
         };
 
@@ -784,7 +794,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
         );
 
         this.checkEquals(
-            "World\r",
+            "World" + LINE_ENDING,
             printed.toString(),
             "error"
         );
