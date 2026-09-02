@@ -18,27 +18,27 @@
 package walkingkooka.terminal;
 
 import walkingkooka.text.TextContext;
-import walkingkooka.text.TextContextTesting;
-import walkingkooka.text.printer.TreePrintableTesting;
 
-public interface HasTerminalOutputTextTesting extends TextContextTesting,
-    TreePrintableTesting {
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-    default void terminalOutputTextAndCheck(final HasTerminalOutputText has,
-                                            final TextContext context,
-                                            final String expected) {
-        final String actual = has.terminalOutputText(context);
+public interface HasTerminalOutputTextTesting2<H extends HasTerminalOutputText> extends HasTerminalOutputTextTesting {
 
-        this.checkNotEquals(
-            null,
-            actual,
-            has::toString
-        );
-
-        this.checkEquals(
-            expected,
-            actual,
-            has::toString
+    default void testTerminalOutputTextWithNullTextContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createHasTerminalOutputText()
+                .terminalOutputText(null)
         );
     }
+
+    default void terminalOutputTextAndCheck(final TextContext context,
+                                            final String expected) {
+        this.terminalOutputTextAndCheck(
+            this.createHasTerminalOutputText(),
+            context,
+            expected
+        );
+    }
+
+    H createHasTerminalOutputText();
 }

@@ -30,6 +30,7 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.TextContext;
+import walkingkooka.text.TextContextTesting;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
@@ -39,7 +40,8 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class TerminalExpressionFunctionShellTest implements ExpressionFunctionTesting<TerminalExpressionFunctionShell<TerminalExpressionEvaluationContext>, Integer, TerminalExpressionEvaluationContext> {
+public final class TerminalExpressionFunctionShellTest implements ExpressionFunctionTesting<TerminalExpressionFunctionShell<TerminalExpressionEvaluationContext>, Integer, TerminalExpressionEvaluationContext>,
+    TextContextTesting {
 
     @Test
     public void testApplyReturnValueConvertToStringFails() {
@@ -531,7 +533,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 this.open = false; // need to also kill shell
                 return new HasTerminalOutputText() {
                     @Override
-                    public String terminalOutputText() {
+                    public String terminalOutputText(final TextContext context) {
                         return "World";
                     }
                 };
@@ -608,10 +610,15 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 this.open = false; // need to also kill shell
                 return new HasTerminalOutputText() {
                     @Override
-                    public String terminalOutputText() {
-                        return "World\r";
+                    public String terminalOutputText(final TextContext context) {
+                        return "World" + context.lineEnding();
                     }
                 };
+            }
+
+            @Override
+            public LineEnding lineEnding() {
+                return TerminalExpressionFunctionShellTest.LINE_ENDING;
             }
         };
 
@@ -623,7 +630,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
         );
 
         this.checkEquals(
-            "World\r",
+            "World" + LINE_ENDING,
             printed.toString(),
             "output"
         );

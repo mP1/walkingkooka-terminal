@@ -17,10 +17,12 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.text.TextContext;
+
 /**
  * Supports value providing an alternate text which can be printed by a terminal after {@link TerminalContext#evaluate(String)}.
  */
 public interface HasTerminalOutputText {
 
-    String terminalOutputText();
+    String terminalOutputText(final TextContext context);
 }
