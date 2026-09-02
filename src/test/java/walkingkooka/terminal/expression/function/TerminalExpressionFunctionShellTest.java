@@ -29,6 +29,7 @@ import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.MultiLineText;
 import walkingkooka.text.TextContext;
 import walkingkooka.text.TextContextTesting;
 import walkingkooka.text.printer.Printer;
@@ -862,8 +863,10 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
                 return new HasMultiLineText() {
 
                     @Override
-                    public String multiLineText(final TextContext context) {
-                        return "World" + context.lineEnding();
+                    public MultiLineText multiLineText(final TextContext context) {
+                        return MultiLineText.with(
+                            "World" + context.lineEnding()
+                        );
                     }
                 };
             }
