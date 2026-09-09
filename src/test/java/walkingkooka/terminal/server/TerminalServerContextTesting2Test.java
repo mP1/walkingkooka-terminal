@@ -38,6 +38,11 @@ public final class TerminalServerContextTesting2Test implements TerminalServerCo
         return Cast.to(TestTerminalServerContext.class);
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     final static class TestTerminalServerContext implements TerminalServerContext {
 
         @Override

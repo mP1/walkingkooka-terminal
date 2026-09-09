@@ -125,6 +125,11 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
         return TestTerminalExpressionEvaluationContext.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     static class TestTerminalExpressionEvaluationContext implements TerminalExpressionEvaluationContext,
         ExpressionEvaluationContextDelegator,
         TerminalContextDelegator,

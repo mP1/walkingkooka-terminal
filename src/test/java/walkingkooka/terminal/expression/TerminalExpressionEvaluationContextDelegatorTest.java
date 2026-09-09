@@ -149,6 +149,11 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
     }
 
     @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public TestTerminalExpressionEvaluationContextDelegator createContext() {
         return new TestTerminalExpressionEvaluationContextDelegator();
     }
