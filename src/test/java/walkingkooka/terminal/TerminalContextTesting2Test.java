@@ -54,6 +54,11 @@ public final class TerminalContextTesting2Test implements TerminalContextTesting
         return TestTerminalContext.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     static class TestTerminalContext implements TerminalContextDelegator {
 
         @Override

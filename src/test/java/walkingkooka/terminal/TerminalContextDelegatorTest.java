@@ -63,6 +63,11 @@ public final class TerminalContextDelegatorTest implements TerminalContextTestin
     }
 
     @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testTypeNaming() {
         throw new UnsupportedOperationException();
     }

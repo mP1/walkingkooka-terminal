@@ -37,6 +37,11 @@ public final class TerminalServerContextDelegatorTest implements TerminalServerC
         return TestTerminalServerContext.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     final static class TestTerminalServerContext implements TerminalServerContextDelegator {
 
         @Override
