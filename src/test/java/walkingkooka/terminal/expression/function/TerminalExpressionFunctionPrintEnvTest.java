@@ -65,6 +65,7 @@ public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionF
                 "indentation=  \n" +
                 "lineEnding=\\n\n" +
                 "locale=en_AU\n" +
+                "loggingLevel=NONE\n" +
                 "now=1999-12-31T12:58:59\n" +
                 "number-value=456\n" +
                 "string-value=hello\n" +
