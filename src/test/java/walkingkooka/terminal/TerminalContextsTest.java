@@ -17,7 +17,6 @@
 
 package walkingkooka.terminal;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -29,11 +28,6 @@ public final class TerminalContextsTest implements PublicStaticHelperTesting<Ter
     @Override
     public Class<TerminalContexts> type() {
         return TerminalContexts.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

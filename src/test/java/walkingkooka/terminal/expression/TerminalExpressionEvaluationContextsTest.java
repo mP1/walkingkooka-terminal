@@ -17,7 +17,6 @@
 
 package walkingkooka.terminal.expression;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -29,11 +28,6 @@ public final class TerminalExpressionEvaluationContextsTest implements PublicSta
     @Override
     public Class<TerminalExpressionEvaluationContexts> type() {
         return TerminalExpressionEvaluationContexts.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
