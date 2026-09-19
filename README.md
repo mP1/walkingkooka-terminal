@@ -17,6 +17,10 @@ state.
 - A separate project supports SSH
   connections [walkingkooka-terminal-apachesshd](https://github.com/mP1/walkingkooka-terminal-apachesshd).
 
+### [CanLog](https://github.com/mP1/walkingkooka-terminal/blob/master/src/main/java/walkingkooka/terminal/logging/TerminalCanLogs.java)
+
+- [terminalContext](https://github.com/mP1/walkingkooka-terminal/blob/master/src/main/java/walkingkooka/terminal/logging/TerminalCanLogTerminalContext.java)
+
 ### [Functions](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 
 Functions that will be useful within a terminal session
