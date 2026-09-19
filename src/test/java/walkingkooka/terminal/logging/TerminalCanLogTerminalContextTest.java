@@ -27,9 +27,19 @@ import walkingkooka.text.HasLineEndingTesting;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class TerminalCanLogTerminalContextTest implements CanLogTesting2<TerminalCanLogTerminalContext>,
     ToStringTesting<TerminalCanLogTerminalContext>,
     HasLineEndingTesting {
+
+    @Test
+    public void testWithNullTerminalContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> TerminalCanLogTerminalContext.with(null)
+        );
+    }
 
     @Test
     public void testLogError() {
