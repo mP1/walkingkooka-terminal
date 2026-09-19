@@ -17,9 +17,18 @@
 
 package walkingkooka.terminal.logging;
 
+import walkingkooka.logging.CanLog;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.terminal.TerminalContext;
 
 public final class TerminalCanLogs implements PublicStaticHelper {
+
+    /**
+     * {@link TerminalCanLogTerminalContext}
+     */
+    public static CanLog terminalContext(final TerminalContext context) {
+        return TerminalCanLogTerminalContext.with(context);
+    }
 
     /**
      * Stop creation
