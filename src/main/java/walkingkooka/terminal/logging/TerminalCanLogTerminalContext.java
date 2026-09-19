@@ -24,6 +24,9 @@ import walkingkooka.terminal.TerminalContext;
 
 import java.util.Objects;
 
+/**
+ * A {@link CanLog} that routes messages to either {@link TerminalContext#output()} or {@link TerminalContext#error()}.
+ */
 final class TerminalCanLogTerminalContext implements CanLog {
 
     static TerminalCanLogTerminalContext with(final TerminalContext context) {
