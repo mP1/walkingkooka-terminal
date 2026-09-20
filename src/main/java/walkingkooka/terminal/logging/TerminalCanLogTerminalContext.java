@@ -18,6 +18,7 @@
 package walkingkooka.terminal.logging;
 
 import walkingkooka.logging.CanLog;
+import walkingkooka.logging.CanLogDelegator;
 import walkingkooka.logging.CanLogs;
 import walkingkooka.logging.LoggingLevel;
 import walkingkooka.terminal.TerminalContext;
@@ -27,7 +28,7 @@ import java.util.Objects;
 /**
  * A {@link CanLog} that routes messages to either {@link TerminalContext#output()} or {@link TerminalContext#error()}.
  */
-final class TerminalCanLogTerminalContext implements CanLog {
+final class TerminalCanLogTerminalContext implements CanLogDelegator {
 
     static TerminalCanLogTerminalContext with(final TerminalContext context) {
         return new TerminalCanLogTerminalContext(
@@ -58,6 +59,13 @@ final class TerminalCanLogTerminalContext implements CanLog {
             message,
             throwable
         );
+    }
+
+    // CanLogDelegator..................................................................................................
+
+    @Override
+    public CanLog canLog() {
+        return this.context;
     }
 
     private final TerminalContext context;
