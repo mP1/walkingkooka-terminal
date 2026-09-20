@@ -20,12 +20,14 @@ package walkingkooka.terminal.logging;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.logging.CanLogTesting2;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.logging.LoggingLevel;
 import walkingkooka.terminal.FakeTerminalContext;
-import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.text.HasLineEndingTesting;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
+
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -116,9 +118,19 @@ public final class TerminalCanLogTerminalContextTest implements CanLogTesting2<T
     @Override
     public TerminalCanLogTerminalContext createCanLog() {
         return TerminalCanLogTerminalContext.with(
-            TerminalContexts.fake(
+            new FakeTerminalContext() {
+                @Override
+                public void logEnter(final LoggerPath logger) {
+                    Objects.requireNonNull(logger, "logger");
 
-            )
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public void logExit() {
+                    // NOP
+                }
+            }
         );
     }
 
