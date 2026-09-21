@@ -119,6 +119,13 @@ public final class TerminalCanLogTerminalContextTest implements CanLogTesting2<T
     public TerminalCanLogTerminalContext createCanLog() {
         return TerminalCanLogTerminalContext.with(
             new FakeTerminalContext() {
+
+                @Override
+                public boolean isLoggingEnabled(final LoggingLevel loggingLevel) {
+                    Objects.requireNonNull(loggingLevel, "loggingLevel");
+                    throw new UnsupportedOperationException();
+                }
+
                 @Override
                 public void logEnter(final LoggerPath logger) {
                     Objects.requireNonNull(logger, "logger");
