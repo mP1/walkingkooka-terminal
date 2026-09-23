@@ -26,9 +26,9 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContexts;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
-import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
+import walkingkooka.tree.expression.function.ExpressionFunctionTesting2;
 
-public final class TerminalExpressionFunctionPrintlnTest implements ExpressionFunctionTesting<TerminalExpressionFunctionPrintln<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
+public final class TerminalExpressionFunctionPrintlnTest implements ExpressionFunctionTesting2<TerminalExpressionFunctionPrintln<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
 
     @Test
     public void testApply() {
