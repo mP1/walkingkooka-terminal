@@ -23,9 +23,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContexts;
-import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
+import walkingkooka.tree.expression.function.ExpressionFunctionTesting2;
 
-public final class TerminalExpressionFunctionExitTest implements ExpressionFunctionTesting<TerminalExpressionFunctionExit<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
+public final class TerminalExpressionFunctionExitTest implements ExpressionFunctionTesting2<TerminalExpressionFunctionExit<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext> {
 
     @Test
     public void testApplyWithoutParameters() {

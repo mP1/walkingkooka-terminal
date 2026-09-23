@@ -31,7 +31,7 @@ import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
+import walkingkooka.tree.expression.function.ExpressionFunctionTesting2;
 
 import java.math.MathContext;
 import java.text.DecimalFormat;
@@ -41,7 +41,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionFunctionTesting<TerminalExpressionFunctionPrintEnv<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext>,
+public final class TerminalExpressionFunctionPrintEnvTest implements ExpressionFunctionTesting2<TerminalExpressionFunctionPrintEnv<TerminalExpressionEvaluationContext>, Void, TerminalExpressionEvaluationContext>,
     EnvironmentContextTesting {
 
     private final static EnvironmentValueName<Integer> NUMBER_VALUE = EnvironmentValueName.with(

@@ -34,14 +34,14 @@ import walkingkooka.text.TextContext;
 import walkingkooka.text.TextContextTesting;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
-import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
+import walkingkooka.tree.expression.function.ExpressionFunctionTesting2;
 
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class TerminalExpressionFunctionShellTest implements ExpressionFunctionTesting<TerminalExpressionFunctionShell<TerminalExpressionEvaluationContext>, Integer, TerminalExpressionEvaluationContext>,
+public final class TerminalExpressionFunctionShellTest implements ExpressionFunctionTesting2<TerminalExpressionFunctionShell<TerminalExpressionEvaluationContext>, Integer, TerminalExpressionEvaluationContext>,
     TextContextTesting {
 
     @Test

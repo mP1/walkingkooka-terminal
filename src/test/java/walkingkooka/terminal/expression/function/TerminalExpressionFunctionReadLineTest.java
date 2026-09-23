@@ -25,11 +25,11 @@ import walkingkooka.io.TextReader;
 import walkingkooka.terminal.expression.FakeTerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContext;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContexts;
-import walkingkooka.tree.expression.function.ExpressionFunctionTesting;
+import walkingkooka.tree.expression.function.ExpressionFunctionTesting2;
 
 import java.util.Optional;
 
-public final class TerminalExpressionFunctionReadLineTest implements ExpressionFunctionTesting<TerminalExpressionFunctionReadLine<TerminalExpressionEvaluationContext>, String, TerminalExpressionEvaluationContext> {
+public final class TerminalExpressionFunctionReadLineTest implements ExpressionFunctionTesting2<TerminalExpressionFunctionReadLine<TerminalExpressionEvaluationContext>, String, TerminalExpressionEvaluationContext> {
 
     @Test
     public void testApplyWithTimeout() {
