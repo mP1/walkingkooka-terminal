@@ -129,8 +129,6 @@ public final class TerminalCanLogTerminalContextTest implements CanLogTesting2<T
                 @Override
                 public void logEnter(final LoggerPath logger) {
                     Objects.requireNonNull(logger, "logger");
-
-                    throw new UnsupportedOperationException();
                 }
 
                 @Override
