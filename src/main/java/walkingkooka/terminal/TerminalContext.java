@@ -21,6 +21,7 @@ import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.CanEvaluateString;
@@ -38,6 +39,8 @@ public interface TerminalContext extends CanEvaluateString,
         "terminalId",
         TerminalId.class
     );
+
+    LoggerPath TERMINAL_LOGGER = LoggerPath.parse("terminal");
 
     /**
      * Returns the {@link TerminalId} identifying this session.
