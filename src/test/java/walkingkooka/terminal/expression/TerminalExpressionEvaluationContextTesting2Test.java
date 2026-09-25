@@ -61,6 +61,11 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
     }
 
     @Override
+    public void testSetLineEnding() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetLineEndingWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
