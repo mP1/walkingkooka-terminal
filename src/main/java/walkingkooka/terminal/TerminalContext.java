@@ -26,6 +26,8 @@ import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.CanEvaluateString;
 
+import java.util.function.Supplier;
+
 /**
  * A {@link Context} that provides some line-based interactivity, to read lines and print text.
  */
@@ -41,6 +43,16 @@ public interface TerminalContext extends CanEvaluateString,
     );
 
     LoggerPath TERMINAL_LOGGER = LoggerPath.parse("terminal");
+
+    /**
+     * Convenience method that calls {@link #logEnterAndExit(LoggerPath, Supplier)} with {@link #TERMINAL_LOGGER}.
+     */
+    default <T> T logEnterAndExitTerminal(final Supplier<T> supplier) {
+        return this.logEnterAndExit(
+            TERMINAL_LOGGER,
+            supplier
+        );
+    }
 
     /**
      * Returns the {@link TerminalId} identifying this session.
