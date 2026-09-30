@@ -30,7 +30,6 @@ import walkingkooka.io.TextReaders;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
@@ -69,16 +68,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
     }
 
     @Override
-    public void testEnvironmentValueLocaleEqualsLocale() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testEnvironmentValueUserEqualsUser() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void testEnterScopeWithNullFails() {
         throw new UnsupportedOperationException();
     }
@@ -94,27 +83,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
     }
 
     @Override
-    public void testRemoveEnvironmentValueWithNowFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void testSetEnvironmentContextWithEqualEnvironmentContext() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetEnvironmentValueWithNowFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetCurrencyWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetIndentationWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
@@ -125,26 +94,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
     @Override
     public void testSetLineEndingWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetLocaleWithDifferent() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetLocaleWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetTimeOffsetWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetUserWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
@@ -269,17 +218,6 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
         public TerminalExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
             Objects.requireNonNull(environmentContext, "environmentContext");
 
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void setLocale(final Locale locale) {
-            this.context.setLocale(locale);
-        }
-
-        @Override
-        public void setUser(final Optional<EmailAddress> user) {
-            Objects.requireNonNull(user);
             throw new UnsupportedOperationException();
         }
 
