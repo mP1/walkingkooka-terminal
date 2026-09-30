@@ -274,8 +274,7 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
 
         @Override
         public void setLocale(final Locale locale) {
-            Objects.requireNonNull(locale, "locale");
-            throw new UnsupportedOperationException();
+            this.context.setLocale(locale);
         }
 
         @Override
