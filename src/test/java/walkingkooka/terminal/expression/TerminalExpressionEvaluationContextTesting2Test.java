@@ -40,7 +40,6 @@ import walkingkooka.tree.expression.CanEvaluateString;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 
@@ -258,6 +257,7 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
                 CaseSensitivity.SENSITIVE,
                 ExpressionNumberConverterContexts.basic(
                     Converters.simple(),
+                    EXPRESSION_NUMBER_KIND,
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
@@ -269,8 +269,7 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
                         CurrencyLocaleContexts.fake(),
                         DATE_TIME_CONTEXT,
                         DECIMAL_NUMBER_CONTEXT
-                    ),
-                    ExpressionNumberKind.DEFAULT
+                    )
                 ),
                 STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LOCALE_CONTEXT
