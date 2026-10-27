@@ -17,6 +17,8 @@
 
 package walkingkooka.terminal;
 
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.io.TextReader;
@@ -34,7 +36,8 @@ import java.util.function.Function;
  * A {@link TerminalContext} that reads line from a {@link Function}, with the timeout, and prints to a {@link Printer}.
  */
 final class TerminalContextBasic implements TerminalContext,
-    StorageEnvironmentContextDelegator {
+    StorageEnvironmentContextDelegator,
+    UsesToStringBuilder {
 
     static TerminalContextBasic with(final TerminalId terminalId,
                                      final BooleanSupplier openTester,
@@ -204,6 +207,24 @@ final class TerminalContextBasic implements TerminalContext,
 
     @Override
     public String toString() {
-        return this.terminalId + ", input: " + this.input + ", output: " + this.output + ", error: " + this.error + " " + this.storageEnvironmentContext;
+        return ToStringBuilder.buildFrom(this);
+    }
+
+    // UsesToStringBuilder..............................................................................................
+
+    @Override
+    public void buildToString(final ToStringBuilder builder) {
+        builder.label("terminalId")
+            .value(this.terminalId)
+            .label("input")
+            .value(this.input)
+            .label("output")
+            .value(this.output)
+            .label("error")
+            .value(this.error)
+            .label("exitValue")
+            .value(this.exitValue)
+            .label("storageEnvironmentContext")
+            .value(this.storageEnvironmentContext);
     }
 }
