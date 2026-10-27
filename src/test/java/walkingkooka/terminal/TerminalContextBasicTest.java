@@ -20,11 +20,11 @@ package walkingkooka.terminal;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.io.FakeTextReader;
 import walkingkooka.io.TextReader;
-import walkingkooka.io.TextReaders;
 import walkingkooka.storage.StorageEnvironmentContext;
+import walkingkooka.text.printer.FakePrinter;
 import walkingkooka.text.printer.Printer;
-import walkingkooka.text.printer.Printers;
 
 import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
@@ -39,18 +39,51 @@ public final class TerminalContextBasicTest implements TerminalContextTesting2<T
 
     private final static BooleanSupplier OPEN_TESTER = () -> true;
 
-    private final static TextReader INPUT = TextReaders.fake();
-
-    private final static Printer OUTPUT = Printers.fake();
-
-    private final static Printer ERROR = Printers.fake();
-
-    private final static BiFunction<String, TerminalContext, Object> EVALUATOR = (e, c) -> {
-        throw new UnsupportedOperationException();
+    private final static TextReader INPUT = new FakeTextReader() {
+        @Override
+        public String toString() {
+            return "INPUT";
+        }
     };
 
-    private final static Consumer<Object> EXIT_VALUE = (e) -> {
-        throw new UnsupportedOperationException();
+    private final static Printer OUTPUT = new FakePrinter() {
+        @Override
+        public String toString() {
+            return "OUTPUT";
+        }
+    };
+
+    private final static Printer ERROR = new FakePrinter() {
+        @Override
+        public String toString() {
+            return "ERROR";
+        }
+    };
+
+    private final static BiFunction<String, TerminalContext, Object> EVALUATOR = new BiFunction<>() {
+
+        @Override
+        public Object apply(final String evaluate,
+                            final TerminalContext terminalContext) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public String toString() {
+            return "EVALUATOR";
+        }
+    };
+
+    private final static Consumer<Object> EXIT_VALUE = new Consumer<>() {
+        @Override
+        public void accept(final Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public String toString() {
+            return "EXIT_VALUE";
+        }
     };
 
     @Test
@@ -272,7 +305,7 @@ public final class TerminalContextBasicTest implements TerminalContextTesting2<T
 
         this.toStringAndCheck(
             this.createContext(),
-            TERMINAL_ID + ", input: " + INPUT + ", output: " + OUTPUT + ", error: " + ERROR + " " + storageEnvironmentContext
+            "terminalId=123 input=INPUT output=OUTPUT error=ERROR exitValue=EXIT_VALUE storageEnvironmentContext={charset=UTF-8, currency=AUD, currentWorkingDirectory=/current1/working2/directory3, homeDirectory=/users/user123@example.com, indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, loggingLevel=NONE, terminalId=123, timeOffset=Z, user=user123@example.com}"
         );
     }
 
