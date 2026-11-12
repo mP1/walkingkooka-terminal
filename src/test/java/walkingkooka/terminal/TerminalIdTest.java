@@ -38,7 +38,7 @@ public final class TerminalIdTest implements ClassTesting2<TerminalId>,
     JsonNodeMarshallerTesting<TerminalId>,
     ParseStringTesting<TerminalId>,
     TreePrintableTesting,
-    ToStringTesting<TerminalId>,
+    ToStringTesting,
     HasValueTesting {
 
     private final static Long VALUE = 123L;

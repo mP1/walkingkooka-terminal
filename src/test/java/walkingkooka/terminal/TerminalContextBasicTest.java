@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TerminalContextBasicTest implements TerminalContextTesting2<TerminalContextBasic>,
-    ToStringTesting<TerminalContextBasic> {
+    ToStringTesting {
 
     private final static TerminalId TERMINAL_ID = TerminalId.parse("123");
 
