@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UserFilteredTerminalServerContextTest implements TerminalServerContextTesting2<UserFilteredTerminalServerContext>,
-    ToStringTesting<UserFilteredTerminalServerContext> {
+    ToStringTesting {
 
     private final static Optional<EmailAddress> USER = Optional.of(
         EmailAddress.parse("user@example.com")
