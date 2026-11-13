@@ -864,7 +864,7 @@ public final class TerminalExpressionFunctionShellTest implements ExpressionFunc
 
                     @Override
                     public MultiLineText multiLineText(final TextContext context) {
-                        return MultiLineText.with(
+                        return MultiLineText.EMPTY.setText(
                             "World" + context.lineEnding()
                         );
                     }
