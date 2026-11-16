@@ -21,11 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.logging.LoggingContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.storage.StorageEnvironmentContext;
@@ -36,6 +38,8 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextTesting2Test.TestTerminalExpressionEvaluationContext;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.CanEvaluateString;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
@@ -44,6 +48,7 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.convert.TreeConverterContexts;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
@@ -187,11 +192,6 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
         }
 
         @Override
-        public Locale locale() {
-            return this.storageEnvironmentContext.locale();
-        }
-
-        @Override
         public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
                                             final T value) {
             this.storageEnvironmentContext.setEnvironmentValue(
@@ -206,12 +206,47 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
         }
 
         @Override
+        public Charset charset() {
+            return this.storageEnvironmentContext.charset();
+        }
+
+        @Override
+        public CurrencyCode currencyCode() {
+            return this.storageEnvironmentContext.currencyCode();
+        }
+
+        @Override
+        public Indentation indentation() {
+            return this.storageEnvironmentContext.indentation();
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return this.storageEnvironmentContext.lineEnding();
+        }
+
+        @Override
+        public Locale locale() {
+            return this.storageEnvironmentContext.locale();
+        }
+
+        @Override
+        public void setLocale(final Locale locale) {
+            this.storageEnvironmentContext.setLocale(locale);
+        }
+
+        @Override
         public LocalDateTime now() {
             return this.storageEnvironmentContext.now();
         }
 
         @Override
         public EnvironmentContext environmentContext() {
+            return this.storageEnvironmentContext;
+        }
+
+        @Override
+        public LoggingContext loggingContext() {
             return this.storageEnvironmentContext;
         }
 
@@ -271,8 +306,8 @@ public class TerminalExpressionEvaluationContextTesting2Test implements Terminal
                         DECIMAL_NUMBER_CONTEXT
                     )
                 ),
-                STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             );
         }
 

@@ -21,13 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.io.TextReaders;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.LoggingContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.storage.StorageEnvironmentContext;
@@ -37,6 +37,7 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.expression.TerminalExpressionEvaluationContextDelegatorTest.TestTerminalExpressionEvaluationContextDelegator;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.CanEvaluateString;
@@ -47,6 +48,8 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -268,6 +271,46 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
             return this.storageEnvironmentContext;
         }
 
+        @Override
+        public LoggingContext loggingContext() {
+            return this.storageEnvironmentContext;
+        }
+
+        @Override
+        public Charset charset() {
+            return this.storageEnvironmentContext.charset();
+        }
+
+        @Override
+        public CurrencyCode currencyCode() {
+            return this.storageEnvironmentContext.currencyCode();
+        }
+
+        @Override
+        public Indentation indentation() {
+            return this.storageEnvironmentContext.indentation();
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return this.storageEnvironmentContext.lineEnding();
+        }
+
+        @Override
+        public Locale locale() {
+            return this.storageEnvironmentContext.locale();
+        }
+
+        @Override
+        public void setLocale(final Locale locale) {
+            this.storageEnvironmentContext.setLocale(locale);
+        }
+
+        @Override
+        public LocalDateTime now() {
+            return this.storageEnvironmentContext.now();
+        }
+
         private final StorageEnvironmentContext storageEnvironmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
         // TerminalContextDelegator.....................................................................................
@@ -347,13 +390,8 @@ public final class TerminalExpressionEvaluationContextDelegatorTest implements T
                     DateTimeContexts.fake(),
                     DECIMAL_NUMBER_CONTEXT
                 ),
-                new FakeEnvironmentContext() {
-                    @Override
-                    public LineEnding lineEnding() {
-                        return TerminalExpressionEvaluationContextDelegatorTest.LINE_ENDING;
-                    }
-                },
-                LocaleContexts.jre(Locale.ENGLISH)
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             );
         }
     }
