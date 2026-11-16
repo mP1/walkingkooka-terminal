@@ -18,6 +18,8 @@
 package walkingkooka.terminal.expression;
 
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.environment.EnvironmentWatcher;
 import walkingkooka.io.TextReader;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.storage.StoragePath;
@@ -27,9 +29,12 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
+import java.nio.charset.Charset;
 import java.time.ZoneOffset;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvaluationContext implements TerminalExpressionEvaluationContext {
 
@@ -80,6 +85,42 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
+    public EnvironmentValueName<?> parseEnvironmentValueName(final String name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> environmentValueName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
+                                        final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void removeEnvironmentValue(final EnvironmentValueName<?> environmentValueName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCharset(final Charset charset) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Currency currency() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCurrency(final Currency currency) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<StoragePath> currentWorkingDirectory() {
         throw new UnsupportedOperationException();
     }
@@ -125,7 +166,27 @@ public class FakeTerminalExpressionEvaluationContext extends FakeExpressionEvalu
     }
 
     @Override
+    public Optional<EmailAddress> user() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void setUser(final Optional<EmailAddress> optional) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addEnvironmentWatcher(final EnvironmentWatcher environmentWatcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addEnvironmentWatcherOnce(final EnvironmentWatcher environmentWatcher) {
         throw new UnsupportedOperationException();
     }
 }

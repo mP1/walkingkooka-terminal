@@ -17,12 +17,20 @@
 
 package walkingkooka.terminal.expression;
 
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.logging.LoggingContext;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalContextDelegator;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.CanEvaluateString;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegator;
+
+import java.nio.charset.Charset;
+import java.time.LocalDateTime;
+import java.util.Locale;
 
 public interface TerminalExpressionEvaluationContextDelegator extends TerminalExpressionEvaluationContext,
     ExpressionEvaluationContextDelegator,
@@ -47,6 +55,53 @@ public interface TerminalExpressionEvaluationContextDelegator extends TerminalEx
     @Override
     default EnvironmentContext environmentContext() {
         return this.terminalExpressionEvaluationContext();
+    }
+
+    @Override
+    default LoggingContext loggingContext() {
+        return this.environmentContext();
+    }
+
+    @Override
+    default Charset charset() {
+        return this.environmentContext()
+            .charset();
+    }
+
+    @Override
+    default CurrencyCode currencyCode() {
+        return this.environmentContext()
+            .currencyCode();
+    }
+
+    @Override
+    default Indentation indentation() {
+        return this.environmentContext()
+            .indentation();
+    }
+
+    @Override
+    default LineEnding lineEnding() {
+        return this.environmentContext()
+            .lineEnding();
+    }
+
+    @Override
+    default Locale locale() {
+        return this.environmentContext()
+            .locale();
+    }
+
+    @Override
+    default void setLocale(final Locale locale) {
+        this.environmentContext()
+            .setLocale(locale);
+    }
+
+    @Override
+    default LocalDateTime now() {
+        return this.environmentContext()
+            .now();
     }
 
     // TerminalContextDelegator.........................................................................................
