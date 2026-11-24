@@ -96,16 +96,6 @@ public final class TerminalIdTest implements ClassTesting2<TerminalId>,
         return TerminalId.parse(text);
     }
 
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> type) {
-        return type;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException cause) {
-        return cause;
-    }
-
     // hashCode/equals..................................................................................................
 
     @Test
