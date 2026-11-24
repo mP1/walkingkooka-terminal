@@ -23,15 +23,14 @@ import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.HasUrlFragmentTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-public final class TerminalIdTest implements ClassTesting2<TerminalId>,
+public final class TerminalIdTest implements PublicClassTesting<TerminalId>,
     ComparableTesting2<TerminalId>,
     HasNotFoundTextTesting,
     HasUrlFragmentTesting,
@@ -186,11 +185,6 @@ public final class TerminalIdTest implements ClassTesting2<TerminalId>,
     }
 
     // type.............................................................................................................
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
 
     @Override
     public Class<TerminalId> type() {
